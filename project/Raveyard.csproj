@@ -23,7 +23,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="MonoGame.Extended" Version="6.1.1" />
+    <PackageReference Include="MonoGame.Extended.Content.Pipeline" Version="6.1.1" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.*" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.*" />
   </ItemGroup>
+  <PropertyGroup>
+    <MonoGameExtendedPipelineReferencePath>$(MSBuildThisFileDirectory)pipeline-references</MonoGameExtendedPipelineReferencePath>
+  </PropertyGroup>
 </Project>

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Hex\\Documents\\college related\\year2monogame\\Raveyard\\Raveyard\\Raveyard.csproj": {}
+    "c:\\Users\\Hex\\Documents\\college related\\year2monogame\\Raveyard\\project\\Raveyard.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Hex\\Documents\\college related\\year2monogame\\Raveyard\\Raveyard\\Raveyard.csproj": {
+    "c:\\Users\\Hex\\Documents\\college related\\year2monogame\\Raveyard\\project\\Raveyard.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Hex\\Documents\\college related\\year2monogame\\Raveyard\\Raveyard\\Raveyard.csproj",
+        "projectUniqueName": "c:\\Users\\Hex\\Documents\\college related\\year2monogame\\Raveyard\\project\\Raveyard.csproj",
         "projectName": "Raveyard",
-        "projectPath": "C:\\Users\\Hex\\Documents\\college related\\year2monogame\\Raveyard\\Raveyard\\Raveyard.csproj",
+        "projectPath": "c:\\Users\\Hex\\Documents\\college related\\year2monogame\\Raveyard\\project\\Raveyard.csproj",
         "packagesPath": "C:\\Users\\Hex\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Hex\\Documents\\college related\\year2monogame\\Raveyard\\Raveyard\\obj\\",
+        "outputPath": "c:\\Users\\Hex\\Documents\\college related\\year2monogame\\Raveyard\\project\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Hex\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -49,6 +49,14 @@
             "MonoGame.Content.Builder.Task": {
               "target": "Package",
               "version": "[3.8.*, )"
+            },
+            "MonoGame.Extended": {
+              "target": "Package",
+              "version": "[6.1.1, )"
+            },
+            "MonoGame.Extended.Content.Pipeline": {
+              "target": "Package",
+              "version": "[6.1.1, )"
             },
             "MonoGame.Framework.DesktopGL": {
               "target": "Package",
