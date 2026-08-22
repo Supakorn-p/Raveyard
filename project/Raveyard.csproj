@@ -31,4 +31,7 @@
   <PropertyGroup>
     <MonoGameExtendedPipelineReferencePath>$(MSBuildThisFileDirectory)pipeline-references</MonoGameExtendedPipelineReferencePath>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="_charts\**" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

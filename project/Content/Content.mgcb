@@ -14,3 +14,9 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../_sounds/beep.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/beep.wav;beep.wav
+

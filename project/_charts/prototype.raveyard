@@ -1,0 +1,36 @@
+// METADATA
+bpm:111
+offset:0.346
+
+// EVENTS
+// *format: eventType:time
+//  eventType - name of the event
+//  time - time of the event in beat time (1.5 = one beat and a half)
+
+start_order:3
+press:4
+press:5
+press:6
+end_order:7
+
+start_order:15
+press:16
+left:17
+right:17.5
+left:18
+end_order:19
+
+start_order:27
+press:28
+press:29
+left:30
+right:30.5
+end_order:31
+
+start_order:39
+press:40
+left:40.5
+right:41
+left:41.5
+press:42
+end_order:43
