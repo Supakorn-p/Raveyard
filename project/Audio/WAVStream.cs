@@ -9,10 +9,10 @@ namespace Raveyard;
 public class WAVStream
 {
     // try not to change this
-    // high buffer size = less stutter, more inconsistency
-    // low buffer size = more stutter, less inconsistency
-    // the balance seems to be at 100-200ms, anything lower than 50ms causes crackling
-    private const int bufferSizeMs = 100;
+    // high buffer size = less stutter, more latency
+    // low buffer size = more stutter, less latency
+    // the balance seems to be at 50-200ms, anything lower than 20ms causes crackling (at least in my pc)
+    private const int bufferSizeMs = 50;
 
     public DynamicSoundEffectInstance soundEffectInstance { get; private set; }
 
