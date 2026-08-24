@@ -33,6 +33,11 @@ public class Timeline
 
     public void subscribeToEvent(string eventName, Action<EventParams> action)
     {
+        if (!eventBus.ContainsKey(eventName))
+        {
+            Debug.WriteLine($"this file doesn't contain event {eventName}!");
+            return;
+        }
         eventBus[eventName] += action;
     }
 

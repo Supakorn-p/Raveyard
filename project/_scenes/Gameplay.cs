@@ -58,4 +58,10 @@ public class scGameplay : GameScreen
     {
         GraphicsDevice.Clear(Color.Green);
     }
+
+    public override void UnloadContent()
+    {
+        base.UnloadContent();
+        recordPlayer.Stop();
+    }
 }

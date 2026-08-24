@@ -9,7 +9,7 @@ namespace Raveyard;
 public class FileLoader
 {
     public List<TimelineEvent> eventList { get; private set; } = new List<TimelineEvent>();
-    public SoundEffect music { get; private set; }
+    public WAVStream music { get; private set; }
 
     public double musicBPM { get; private set; }
     public double musicOffset { get; private set; }
@@ -37,7 +37,9 @@ public class FileLoader
     private void loadSong(string filePath)
     {
         if (music != null) { return; }
-        music = SoundEffect.FromFile(filePath);
+        WAVStream newStream = new WAVStream();
+        newStream.loadFile(filePath);
+        music = newStream;
     }
 
     public void loadFile(string _filePath)

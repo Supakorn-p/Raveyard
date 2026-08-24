@@ -9,26 +9,34 @@ namespace Raveyard;
 
 public class RecordPlayer
 {
-    private SoundEffectInstance soundEffect;
+    private WAVStream wavStream;
+    private DynamicSoundEffectInstance soundEffect;
     private double bpm;
     private double offset;
 
     private Stopwatch playbackTimer;
     //private double bufferOffset;
 
-    public RecordPlayer(SoundEffect _soundEffect, double _bpm, double _offset)
+    public RecordPlayer(WAVStream _soundEffect, double _bpm, double _offset)
     {
-        soundEffect = _soundEffect.CreateInstance();
+        wavStream = _soundEffect;
+        //soundEffect = _soundEffect.soundEffectInstance;
         bpm = _bpm;
         offset = _offset;
     }
 
     public void Play()
     {
-        soundEffect.Play();
-        playbackTimer = new Stopwatch();
-        playbackTimer.Start();
+        wavStream.PlayMusic();
+        //soundEffect.Play();
+        //playbackTimer = new Stopwatch();
+        //playbackTimer.Start();
         //bufferOffset = resyncBeattimeWithBuffer().TotalMilliseconds / 1000.0;
+    }
+
+    public void Stop()
+    {
+        wavStream.StopMusic();
     }
 
     // private TimeSpan lastbufferTime = TimeSpan.Zero;
@@ -46,7 +54,8 @@ public class RecordPlayer
     public double getCurrentBeattime()
     {
         double crotchet = 60.0 / bpm;
-        double realTimeMs = playbackTimer.ElapsedMilliseconds;
+        //double realTimeMs = playbackTimer.ElapsedMilliseconds;
+        double realTimeMs = wavStream.getBufferPositionMs();
         double realPlaybackPos = (realTimeMs / 1000.0) - offset;
 
         // resyncBeattimeWithBuffer();
