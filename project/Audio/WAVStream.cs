@@ -87,6 +87,6 @@ public class WAVStream
         if (soundEffectInstance == null) { return 0; }
         int pendingBuffers = (int) MathF.Ceiling(soundEffectInstance.PendingBufferCount / 2.0f);
         return (bufferPos-bufferCount*pendingBuffers)/bufferCount * (double) bufferSizeMs
-        + Math.Min(msClock.ElapsedMilliseconds, bufferSizeMs);
+        + Math.Min(msClock.ElapsedMilliseconds, bufferSizeMs*pendingBuffers);
     }
 }
