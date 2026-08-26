@@ -19,7 +19,7 @@ public class FileLoader
         string prefix = line[0];
 
         EventParams eventParams = new EventParams(line[1]);
-        string[] parameters = eventParams.getParameters();
+        string[] parameters = eventParams.data_raw;
 
         if (prefix == "bpm") { musicBPM = double.Parse(parameters[0]); return; }
         if (prefix == "offset") { musicOffset = double.Parse(parameters[0]); return; }

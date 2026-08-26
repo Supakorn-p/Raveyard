@@ -10,11 +10,11 @@ namespace Raveyard;
 public class RecordPlayer
 {
     private WAVStream wavStream;
-    private DynamicSoundEffectInstance soundEffect;
+    //private DynamicSoundEffectInstance soundEffect;
     private double bpm;
     private double offset;
 
-    private Stopwatch playbackTimer;
+    //private Stopwatch playbackTimer;
     //private double bufferOffset;
 
     public RecordPlayer(WAVStream _soundEffect, double _bpm, double _offset)

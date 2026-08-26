@@ -1,16 +1,17 @@
+using System.Linq;
+
 namespace Raveyard;
 
 public class EventParams
 {
-    private string paramsString = "";
+    public string[] data_raw { get; private set; }
+    public string[] data { get; private set; }
+    public double beatTime { get; private set; }
 
-    public EventParams(string _paramsString)
+    public EventParams(string paramsString)
     {
-        paramsString = _paramsString;
-    }
-
-    public string[] getParameters()
-    {
-        return paramsString.Split(",");
+        data_raw = paramsString.Split(",");
+        beatTime = double.Parse(data_raw[0]);
+        data = data_raw.Skip(1).ToArray();
     }
 }

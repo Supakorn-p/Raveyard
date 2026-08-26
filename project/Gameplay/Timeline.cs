@@ -9,7 +9,7 @@ public class Timeline
     private List<TimelineEvent> timelineEvents = new List<TimelineEvent>();
     private Dictionary<string, Action<EventParams>> eventBus = new Dictionary<string, Action<EventParams>>();
 
-    private double beatTimeNeedle = 0; // imagine a vinyl record, that's what "needle" means
+    public double beatTimeNeedle {get; private set;} = 0; // imagine a vinyl record, that's what "needle" means
     public void forceMoveNeedle(double beatTime)
     {
         beatTimeNeedle = beatTime;
@@ -50,7 +50,7 @@ public class Timeline
             if (_event.beatTime < beatTimeNeedle) { continue; }
             if (_event.beatTime > time) { continue; }
 
-            Debug.WriteLine($"Fire! {_event.eventName} at {_event.beatTime}");
+            //Debug.WriteLine($"Fire! {_event.eventName} at {_event.beatTime}");
             eventBus[_event.eventName]?.Invoke(_event.parameters);
         }
 

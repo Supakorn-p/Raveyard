@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Input;
 
@@ -8,8 +9,8 @@ namespace Raveyard;
 public class OrderJudgement
 {
     private const double MISS_BEATTIME = 1; // how many beats before a miss is forced
-    private const double VALID_BEATTIME = 0.3; // how many beats off to count as valid (barely)
-    private const double PERFECT_BEATTIME = 0.25; // how many beats off to count as perfect
+    private const double VALID_BEATTIME = 0.5; // how many beats off to count as valid (barely)
+    private const double PERFECT_BEATTIME = 0.15; // how many beats off to count as perfect
 
     public event Action<JudgementResult> inputResult;
     private Queue<OrderJudgeMentInput> listOfInputs = new Queue<OrderJudgeMentInput>();
@@ -56,7 +57,7 @@ public class OrderJudgement
 
         listOfInputs.Dequeue();
         JudgementResult timingResult = difference >= 0 ? JudgementResult.late : JudgementResult.early;
-        JudgementResult finalResult = Math.Abs(difference) <= PERFECT_BEATTIME ? JudgementResult.good : timingResult;
+        JudgementResult finalResult = Math.Abs(difference) <= PERFECT_BEATTIME ? JudgementResult.perfect : timingResult;
         return finalResult;
     }
 
@@ -78,21 +79,22 @@ public class OrderJudgement
     {
         if (isTrackingOrder) { return; }
 
+        double trueBeatTime = beatTime - startTimeOffset;
         KeyboardStateExtended keyboardState = KeyboardExtended.GetState();
 
         if (keyboardState.WasKeyPressed(Keys.Space)) { 
-            inputResult?.Invoke(GetResultForInput(beatTime, InputType.press)); 
+            inputResult?.Invoke(GetResultForInput(trueBeatTime, InputType.press)); 
         }
 
         if (keyboardState.WasKeyPressed(Keys.Left)) { 
-            inputResult?.Invoke(GetResultForInput(beatTime, InputType.left)); 
+            inputResult?.Invoke(GetResultForInput(trueBeatTime, InputType.left)); 
         }
 
         if (keyboardState.WasKeyPressed(Keys.Right)) { 
-            inputResult?.Invoke(GetResultForInput(beatTime, InputType.right)); 
+            inputResult?.Invoke(GetResultForInput(trueBeatTime, InputType.right)); 
         }
 
-        HandleMiss(beatTime);
+        HandleMiss(trueBeatTime);
     }
 }
 
@@ -108,7 +110,7 @@ public enum JudgementResult
     none, // misinputs, usually
     miss, // failing to do what you're supposed to
     early,
-    good, // perfect!
+    perfect, // perfect!
     late,
 }
 

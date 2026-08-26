@@ -20,3 +20,51 @@
 /processorParam:Quality=Best
 /build:../_sounds/beep.wav;beep.wav
 
+#begin ../_sounds/beep.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/beep.wav;beep.wav
+
+#begin ../_sounds/beep.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/beep.wav;beep.wav
+
+#begin ../_sounds/inputbeep.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/inputbeep.wav;inputbeep.wav
+
+#begin ../_sounds/inputbeep.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/inputbeep.wav;inputbeep.wav
+
+#begin ../_sounds/inputmissed.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/inputmissed.wav;inputmissed.wav
+
+#begin ../_sounds/inputmissed.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/inputmissed.wav;inputmissed.wav
+
+#begin ../_sounds/inputsuccess.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/inputsuccess.wav;inputsuccess.wav
+
+#begin ../_sounds/inputsuccess.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/inputsuccess.wav;inputsuccess.wav
+
