@@ -13,6 +13,7 @@ public class SpriteObject
 
     public string name;
     public Vector2 position;
+    public Vector2 anchor = new Vector2(0.5f, 0.5f);
     public float rotation;
     public float scale;
 

@@ -101,8 +101,10 @@ public class scGameplay : GameScreen
     public override void Initialize()
     {
         base.Initialize();
-        ViewportAdapter viewport = new BoxingViewportAdapter(Game.Window, GraphicsDevice, 1280, 720);
+        Vector2 res = new Vector2(1280, 720);
+        ViewportAdapter viewport = new BoxingViewportAdapter(Game.Window, GraphicsDevice, (int)res.X, (int)res.Y);
         _camera = new OrthographicCamera(viewport);
+        _camera.Position = res / -2;
     }
 
     private SpriteObject susie;
@@ -146,7 +148,9 @@ public class scGameplay : GameScreen
 
         foreach (SpriteObject spriteObj in Spritekeeper.getActiveObjs())
         {
-            _spriteBatch.Draw(spriteObj.animatedSprite, spriteObj.position);
+            Vector2 finalOffset = new Vector2(spriteObj.anchor.X * spriteObj.animatedSprite.Size.X,
+            spriteObj.anchor.Y * spriteObj.animatedSprite.Size.Y);
+            _spriteBatch.Draw(spriteObj.animatedSprite, spriteObj.position - finalOffset, spriteObj.rotation);
         }
 
         _spriteBatch.End();
