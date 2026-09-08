@@ -4,7 +4,10 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
+using MonoGame.Extended.Graphics;
 using MonoGame.Extended.Screens;
+using MonoGame.Extended.ViewportAdapters;
 
 namespace Raveyard;
 
@@ -16,6 +19,9 @@ public class scGameplay : GameScreen
     {
         currentFilename = filenameToLoad;
     }
+    
+    private SpriteBatch _spriteBatch;
+    private OrthographicCamera _camera;
 
     private RecordPlayer recordPlayer;
     private Timeline timeline;
@@ -92,6 +98,13 @@ public class scGameplay : GameScreen
     SoundEffect beep_success;
     SoundEffect beep_missed;
 
+    public override void Initialize()
+    {
+        base.Initialize();
+        ViewportAdapter viewport = new BoxingViewportAdapter(Game.Window, GraphicsDevice, 1280, 720);
+        _camera = new OrthographicCamera(viewport);
+    }
+
     public override void LoadContent()
     {
         base.LoadContent();
@@ -104,6 +117,8 @@ public class scGameplay : GameScreen
         beep_success = Content.Load<SoundEffect>("inputsuccess");
         beep_missed = Content.Load<SoundEffect>("inputmissed");
         recordPlayer.Play();
+
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
     }
 
     public override void Update(GameTime gameTime)
@@ -114,6 +129,15 @@ public class scGameplay : GameScreen
     public override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.Green);
+
+        _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix());
+
+        foreach (SpriteObject spriteObj in Spritekeeper.getActiveObjs())
+        {
+            _spriteBatch.Draw(spriteObj.animatedSprite, spriteObj.position);
+        }
+
+        _spriteBatch.End();
     }
 
     public override void UnloadContent()

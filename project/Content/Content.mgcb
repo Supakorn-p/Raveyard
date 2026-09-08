@@ -20,35 +20,11 @@
 /processorParam:Quality=Best
 /build:../_sounds/beep.wav;beep.wav
 
-#begin ../_sounds/beep.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:../_sounds/beep.wav;beep.wav
-
-#begin ../_sounds/beep.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:../_sounds/beep.wav;beep.wav
-
 #begin ../_sounds/inputbeep.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:../_sounds/inputbeep.wav;inputbeep.wav
-
-#begin ../_sounds/inputbeep.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:../_sounds/inputbeep.wav;inputbeep.wav
-
-#begin ../_sounds/inputmissed.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:../_sounds/inputmissed.wav;inputmissed.wav
 
 #begin ../_sounds/inputmissed.wav
 /importer:WavImporter
@@ -62,9 +38,15 @@
 /processorParam:Quality=Best
 /build:../_sounds/inputsuccess.wav;inputsuccess.wav
 
-#begin ../_sounds/inputsuccess.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:../_sounds/inputsuccess.wav;inputsuccess.wav
+#begin ../_textures/placeholder.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../_textures/placeholder.jpg;placeholder.jpg
 
