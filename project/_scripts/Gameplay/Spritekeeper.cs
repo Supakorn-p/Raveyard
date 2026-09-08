@@ -5,7 +5,7 @@ namespace Raveyard;
 
 public static class Spritekeeper
 {
-    public static Bag<SpriteObject> spriteObjects { get; private set; }
+    public static Bag<SpriteObject> spriteObjects { get; private set; } = new Bag<SpriteObject>(4);
 
     public static SpriteObject[] getActiveObjs()
     {

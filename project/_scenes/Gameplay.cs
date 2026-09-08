@@ -105,6 +105,7 @@ public class scGameplay : GameScreen
         _camera = new OrthographicCamera(viewport);
     }
 
+    private SpriteObject susie;
     public override void LoadContent()
     {
         base.LoadContent();
@@ -119,12 +120,23 @@ public class scGameplay : GameScreen
         recordPlayer.Play();
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+        susie = new SpriteObject("susie", 
+        Content.Load<Texture2D>("placeholder"), new Rectangle(0, 0, 640, 640),
+        Vector2.Zero);
+
+        susie.active = true;
     }
 
     public override void Update(GameTime gameTime)
     {
         timeline.Update(recordPlayer.getCurrentBeattime());
         judgementSystem.Update(timeline.beatTimeNeedle);
+
+        foreach (SpriteObject spriteObj in Spritekeeper.getActiveObjs())
+        {
+            spriteObj.animatedSprite.Update(gameTime);
+        }
     }
     public override void Draw(GameTime gameTime)
     {
