@@ -108,6 +108,8 @@ public class scGameplay : GameScreen
     }
 
     private SpriteObject susie;
+    private SpriteObject background;
+    private SpriteObject bar_counter;
     public override void LoadContent()
     {
         base.LoadContent();
@@ -127,7 +129,14 @@ public class scGameplay : GameScreen
         Content.Load<Texture2D>("placeholder"), new Rectangle(0, 0, 640, 640),
         Vector2.Zero);
 
+        background = new SpriteObject("background",
+        Content.Load<Texture2D>("BG"), new Rectangle(0, 0, 1280, 720), Vector2.Zero);
+
+        bar_counter = new SpriteObject("bar_counter", Content.Load<Texture2D>("Bar-counter"), new Rectangle(0, 0, 1280, 720), Vector2.Zero);
+
         susie.active = true;
+        background.active = true;
+        bar_counter.active = true;
     }
 
     public override void Update(GameTime gameTime)

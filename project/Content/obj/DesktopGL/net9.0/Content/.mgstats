@@ -3,4 +3,6 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/Work/Raveyard/Raveyard/project/Content/../_sounds/inputbeep.wav","D:/Work/Raveyard/Raveyard/project/Content/bin/DesktopGL/Content/inputbeep.xnb","SoundEffectProcessor","SoundEffectContent",20498,20457,1.5098537
 "D:/Work/Raveyard/Raveyard/project/Content/../_sounds/inputmissed.wav","D:/Work/Raveyard/Raveyard/project/Content/bin/DesktopGL/Content/inputmissed.xnb","SoundEffectProcessor","SoundEffectContent",56156,56077,0.1303482
 "D:/Work/Raveyard/Raveyard/project/Content/../_sounds/inputsuccess.wav","D:/Work/Raveyard/Raveyard/project/Content/bin/DesktopGL/Content/inputsuccess.xnb","SoundEffectProcessor","SoundEffectContent",20498,20457,0.1912797
+"D:/Work/Raveyard/Raveyard/project/Content/../_textures/Bar-counter.PNG","D:/Work/Raveyard/Raveyard/project/Content/bin/DesktopGL/Content/Bar-counter.xnb","TextureProcessor","Texture2DContent",587013,3686485,0.2358609
+"D:/Work/Raveyard/Raveyard/project/Content/../_textures/BG.PNG","D:/Work/Raveyard/Raveyard/project/Content/bin/DesktopGL/Content/BG.xnb","TextureProcessor","Texture2DContent",1721118,3686485,0.134008
 "D:/Work/Raveyard/Raveyard/project/Content/../_textures/placeholder.jpg","D:/Work/Raveyard/Raveyard/project/Content/bin/DesktopGL/Content/placeholder.xnb","TextureProcessor","Texture2DContent",13712,1638485,1.4069715

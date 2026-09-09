@@ -42,7 +42,7 @@ public class SpriteObject
         animatedSprite = new AnimatedSprite(spriteSheet, "default");
     }
 
-    public void LoadAnim(string animName, int numberOfFrames, TimeSpan duration, bool looping = false)
+    public void LoadAnim(string animName, int numberOfFrames, TimeSpan duration, Vector2 frameStartEnd = default, bool looping = false)
     {
         spriteSheet.DefineAnimation(animName, builder =>
         {
@@ -50,7 +50,10 @@ public class SpriteObject
 
             for (int i = 0; i < numberOfFrames; i++)
             {
-                builder.AddFrame(i, duration);
+                if (i >= frameStartEnd.X && i <= frameStartEnd.Y)
+                {
+                    builder.AddFrame(i, duration);
+                }
             }
         });
     }
