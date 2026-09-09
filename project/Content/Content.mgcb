@@ -38,6 +38,30 @@
 /processorParam:Quality=Best
 /build:../_sounds/inputsuccess.wav;inputsuccess.wav
 
+#begin ../_textures/Bar-counter.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../_textures/Bar-counter.PNG;Bar-counter.PNG
+
+#begin ../_textures/BG.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../_textures/BG.PNG;BG.PNG
+
 #begin ../_textures/placeholder.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
