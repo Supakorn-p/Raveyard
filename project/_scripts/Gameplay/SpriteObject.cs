@@ -1,8 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Graphics;
+using MonoGame.Extended.Tweening;
+using System;
+using System.Collections.Generic;
 
 namespace Raveyard;
 
@@ -15,9 +16,11 @@ public class SpriteObject
     public Vector2 position;
     public Vector2 anchor = new Vector2(0.5f, 0.5f);
     public float rotation;
-    public float scale;
+    public Vector2 scale = new Vector2(1,1);
 
     public bool active = false;
+
+    public readonly Tweener tweener = new Tweener();
 
     public SpriteObject(string _name, Texture2D texture2D, Rectangle region, Vector2 _position)
     {
