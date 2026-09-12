@@ -13,9 +13,19 @@ namespace Raveyard._scripts.Characters
         public SpriteObject bartender;
         public Vector2 position;
 
+        private enum States
+        {
+            takingOrder,
+            makingOrder,
+            success,
+            fail
+        }
+
+        private States State = States.takingOrder;
+
         public Bartender()
         {
-            position = new Vector2(125,-78);
+            position = new Vector2(125, -78);
         }
 
         public void BartenderInitialize()
@@ -26,15 +36,6 @@ namespace Raveyard._scripts.Characters
             TakingOrder();
         }
 
-        private enum States
-        {
-            takingOrder,
-            makingOrder,
-            success,
-            fail
-        }
-
-        private States State = States.takingOrder;
 
         private void TakingOrder() // Basically Idle
         {
