@@ -21,6 +21,8 @@ namespace Raveyard._scripts.Visuals
         private Vector2 start_pos = new Vector2(300, 300);
         private Vector2 end_pos = new Vector2(300, 1000);
 
+        private int instructionsLeft = 0; // TODO: replace this with a queue that keeps track of each instruction
+
         public OrderBox()
         {
             position = resting_pos;
@@ -45,6 +47,8 @@ namespace Raveyard._scripts.Visuals
                .Easing(EasingFunctions.CubicIn)
                .OnEnd(tween => order_box.tweener.TweenTo(target: order_box, expression: player => player.scale, toValue: new Vector2(0.8f, 0.8f), duration: 0.15f)
                .Easing(EasingFunctions.CubicOut));
+
+            instructionsLeft += 1; // TODO: replace this, see variable itself
         }
 
 
@@ -58,6 +62,15 @@ namespace Raveyard._scripts.Visuals
         public void WaitForOrder()
         {
             order_box.position = resting_pos; 
+        }
+
+        public void RemoveInstruction()
+        {
+            instructionsLeft -= 1; // TODO: replace this, see variable itself
+            if (instructionsLeft == 0)
+            {
+                EndOrder();
+            }
         }
     }
 }

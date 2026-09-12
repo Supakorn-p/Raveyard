@@ -95,14 +95,16 @@ public class scGameplay : GameScreen
             judgementSystem.StopOrderAndListen(eventParams.beatTime);
             Debug.WriteLine("\n!!");
 
-            order_box.EndOrder();
+            //order_box.EndOrder();
         });
 
         judgementSystem.inputResult += (JudgementResult result) =>
         {
-            if (result == JudgementResult.miss) { beep_missed.Play(); return; }
             beep_player.Play();
-            Debug.WriteLine(result);
+            if (result == JudgementResult.none) { return; } // misinputs, usually
+
+            order_box.RemoveInstruction();
+            if (result == JudgementResult.miss) { beep_missed.Play(); return; }
 
             if (result == JudgementResult.perfect)
             {
@@ -151,28 +153,30 @@ public class scGameplay : GameScreen
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         susie = new SpriteObject("susie", 
-        Content.Load<Texture2D>("placeholder"), new Rectangle(0, 0, 640, 640),
+        Content.Load<Texture2D>("placeholder"), new Vector2(640, 640),
         Vector2.Zero);
 
         background = new SpriteObject("background",
-        Content.Load<Texture2D>("BG"), new Rectangle(0, 0, 1280, 720), Vector2.Zero);
+        Content.Load<Texture2D>("BG"), new Vector2(1280, 720), Vector2.Zero);
 
-        bar_counter = new SpriteObject("bar_counter", Content.Load<Texture2D>("Bar-counter"), new Rectangle(0, 0, 1280, 720), Vector2.Zero);
+        bar_counter = new SpriteObject("bar_counter", Content.Load<Texture2D>("Bar-counter"), 
+        new Vector2(1280, 720), Vector2.Zero);
 
 
         // Load Characters
 
-        bartender.bartender = new SpriteObject("bartender", Content.Load<Texture2D>("bartender_sprsheet_1"), new Rectangle(0, 0, 430, 486), bartender.position); //.bartender is the SpriteObject in that class
+        bartender.bartender = new SpriteObject("bartender", Content.Load<Texture2D>("bartender_sprsheet_1"), 
+        new Vector2(430, 486), bartender.position); //.bartender is the SpriteObject in that class
         bartender.bartender.active = true;
         bartender.BartenderInitialize();
 
 
         // Load Gameplay Objects
 
-        order_box.order_box = new SpriteObject("order_box", Content.Load<Texture2D>("Dialogue-Box"), new Rectangle(0, 0, 1000, 1000), order_box.position);
+        order_box.order_box = new SpriteObject("order_box", Content.Load<Texture2D>("Dialogue-Box"), 
+        new Vector2(1000, 1000), order_box.position);
         order_box.order_box.active = true;
         order_box.InitializeOrderBox();
-
 
 
         susie.active = true;

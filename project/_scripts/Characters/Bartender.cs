@@ -31,7 +31,7 @@ namespace Raveyard._scripts.Characters
         public void BartenderInitialize()
         {
             // Load Animations
-            bartender.LoadAnim("bar_idle", 6, TimeSpan.FromTicks(1), new Vector2(0, 1), true); // Idle
+            bartender.LoadAnim("bar_idle", [0, 0, 1], TimeSpan.FromMilliseconds(240), true); // Idle
 
             TakingOrder();
         }
@@ -39,8 +39,7 @@ namespace Raveyard._scripts.Characters
 
         private void TakingOrder() // Basically Idle
         {
-            //bartender.animatedSprite.SetAnimation("bar_idle");
-            Debug.Write("Wuh oh!! Evil scary Error");
+            bartender.animatedSprite.SetAnimation("bar_idle");
         }
 
         private void MakingOrder()
