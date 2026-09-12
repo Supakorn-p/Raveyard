@@ -6,3 +6,4 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/Work/Raveyard/Raveyard/project/Content/../_textures/Bar-counter.PNG","D:/Work/Raveyard/Raveyard/project/Content/bin/DesktopGL/Content/Bar-counter.xnb","TextureProcessor","Texture2DContent",587013,3686485,0.2358609
 "D:/Work/Raveyard/Raveyard/project/Content/../_textures/BG.PNG","D:/Work/Raveyard/Raveyard/project/Content/bin/DesktopGL/Content/BG.xnb","TextureProcessor","Texture2DContent",1721118,3686485,0.134008
 "D:/Work/Raveyard/Raveyard/project/Content/../_textures/placeholder.jpg","D:/Work/Raveyard/Raveyard/project/Content/bin/DesktopGL/Content/placeholder.xnb","TextureProcessor","Texture2DContent",13712,1638485,1.4069715
+"D:/Work/Raveyard/Raveyard/project/Content/../../assets/bartender_sprsheet_1.png","D:/Work/Raveyard/Raveyard/project/Content/bin/DesktopGL/Content/bartender_sprsheet_1.xnb","TextureProcessor","Texture2DContent",941590,7523365,0.3027258

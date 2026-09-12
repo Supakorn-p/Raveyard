@@ -74,3 +74,15 @@
 /processorParam:TextureFormat=Color
 /build:../_textures/placeholder.jpg;placeholder.jpg
 
+#begin ../../assets/bartender_sprsheet_1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../assets/bartender_sprsheet_1.png;bartender_sprsheet_1.png
+

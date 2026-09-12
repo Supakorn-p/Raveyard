@@ -8,6 +8,7 @@ using MonoGame.Extended;
 using MonoGame.Extended.Graphics;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.ViewportAdapters;
+using Raveyard._scripts.Characters;
 
 namespace Raveyard;
 
@@ -26,6 +27,8 @@ public class scGameplay : GameScreen
     private RecordPlayer recordPlayer;
     private Timeline timeline;
     private OrderJudgement judgementSystem;
+
+    private Bartender bartender;
 
     private void loadChart(string _fileName)
     {
@@ -105,11 +108,17 @@ public class scGameplay : GameScreen
         ViewportAdapter viewport = new BoxingViewportAdapter(Game.Window, GraphicsDevice, (int)res.X, (int)res.Y);
         _camera = new OrthographicCamera(viewport);
         _camera.Position = res / -2;
+
+        bartender = new Bartender();
     }
 
+    // Backgrounds
     private SpriteObject susie;
     private SpriteObject background;
     private SpriteObject bar_counter;
+
+    // Characters
+    private SpriteObject bartender_spr;
     public override void LoadContent()
     {
         base.LoadContent();
@@ -133,6 +142,13 @@ public class scGameplay : GameScreen
         Content.Load<Texture2D>("BG"), new Rectangle(0, 0, 1280, 720), Vector2.Zero);
 
         bar_counter = new SpriteObject("bar_counter", Content.Load<Texture2D>("Bar-counter"), new Rectangle(0, 0, 1280, 720), Vector2.Zero);
+
+        // Load Characters
+
+        bartender.bartender = new SpriteObject("bartender_spr", Content.Load<Texture2D>("bartender_sprsheet_1"), new Rectangle(0, 0, 430, 486), bartender.position); //.bartender is the SpriteObject in that class
+        bartender.bartender.active = true;
+        bartender.BartenderInitialize();
+
 
         susie.active = true;
         background.active = true;
