@@ -18,10 +18,16 @@ namespace Raveyard._scripts.Visuals
 
         public readonly Tweener tweener = new Tweener();
         private Vector2 resting_pos = new Vector2(1300, 300);
-        private Vector2 start_pos = new Vector2(300, 300);
+        public Vector2 start_pos = new Vector2(300, 300);
         private Vector2 end_pos = new Vector2(300, 1000);
 
         private int instructionsLeft = 0; // TODO: replace this with a queue that keeps track of each instruction
+
+        private Queue<InputType> instructionsQueue = new Queue<InputType>();
+        public float ins_position_add;
+
+        public float distanceMultiplier = 1;
+        public float scaleMultiplier = 1;
 
         public OrderBox()
         {
@@ -36,19 +42,20 @@ namespace Raveyard._scripts.Visuals
         public void StartOrder()
         {
             order_box.position = resting_pos;
-            order_box.tweener.TweenTo(target: order_box, expression: player => player.position, toValue: start_pos, duration: 1)
+            order_box.tweener.TweenTo(target: order_box, expression: player => player.position, toValue: start_pos, duration: 0.5f)
                 .Easing(EasingFunctions.CubicInOut);
         }
 
 
-        public void InstructionAdded()
+        public void InstructionAdded(InputType input)
         {
             order_box.tweener.TweenTo(target: order_box, expression: player => player.scale, toValue: new Vector2(0.82f, 0.82f), duration: 0.15f)
                .Easing(EasingFunctions.CubicIn)
                .OnEnd(tween => order_box.tweener.TweenTo(target: order_box, expression: player => player.scale, toValue: new Vector2(0.8f, 0.8f), duration: 0.15f)
                .Easing(EasingFunctions.CubicOut));
 
-            instructionsLeft += 1; // TODO: replace this, see variable itself
+           // instructionsLeft += 1; // TODO: replace this, see variable itself
+            instructionsQueue.Enqueue(input);
         }
 
 
@@ -66,8 +73,9 @@ namespace Raveyard._scripts.Visuals
 
         public void RemoveInstruction()
         {
-            instructionsLeft -= 1; // TODO: replace this, see variable itself
-            if (instructionsLeft == 0)
+            //instructionsLeft -= 1; // TODO: replace this, see variable itself
+            instructionsQueue.Dequeue();
+            if (instructionsQueue.Count == 0)
             {
                 EndOrder();
             }
