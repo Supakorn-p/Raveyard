@@ -16,13 +16,15 @@ public class OrderJudgement
     private Queue<OrderJudgeMentInput> listOfInputs = new Queue<OrderJudgeMentInput>();
 
     private bool isTrackingOrder = false;
-    private double startTimeOffset = 0;
+
+    private double temp_startTimeOffset = 0;
+    private Queue<OrderJudgeMentInput> temp_listOfInputs = new Queue<OrderJudgeMentInput>();
 
     public void StartOrder(double beatTime)
     {
         if (isTrackingOrder) { return; }
         isTrackingOrder = true;
-        startTimeOffset = beatTime;
+        temp_startTimeOffset = beatTime;
     }
 
     public void AddInputToOrder(double inputBeatTime, InputType _inputType)
@@ -30,16 +32,24 @@ public class OrderJudgement
         if (!isTrackingOrder) { return; }
         OrderJudgeMentInput addedInput = new OrderJudgeMentInput
         {
-            beatTime = inputBeatTime - startTimeOffset,
+            beatTime = inputBeatTime - temp_startTimeOffset,
             inputType = _inputType
         };
         
-        listOfInputs.Enqueue(addedInput);
+        temp_listOfInputs.Enqueue(addedInput);
     }
 
-    public void StopOrderAndListen(double beatTime)
+    public void StopOrderAndListen(double beatTime) // TODO: this isnt true anymore
     {
-        startTimeOffset = beatTime;
+        while (temp_listOfInputs.Count > 0)
+        {
+            OrderJudgeMentInput temp_input = temp_listOfInputs.Dequeue();
+            listOfInputs.Enqueue(new OrderJudgeMentInput
+            {
+                beatTime = temp_input.beatTime + beatTime,
+                inputType = temp_input.inputType
+            });
+        }
         isTrackingOrder = false;
     }
 
@@ -77,24 +87,21 @@ public class OrderJudgement
 
     public void Update(double beatTime)
     {
-        if (isTrackingOrder) { return; }
-
-        double trueBeatTime = beatTime - startTimeOffset;
         KeyboardStateExtended keyboardState = KeyboardExtended.GetState();
 
         if (keyboardState.WasKeyPressed(Keys.Space)) { 
-            inputResult?.Invoke(GetResultForInput(trueBeatTime, InputType.press)); 
+            inputResult?.Invoke(GetResultForInput(beatTime, InputType.press)); 
         }
 
         if (keyboardState.WasKeyPressed(Keys.Left)) { 
-            inputResult?.Invoke(GetResultForInput(trueBeatTime, InputType.left)); 
+            inputResult?.Invoke(GetResultForInput(beatTime, InputType.left)); 
         }
 
         if (keyboardState.WasKeyPressed(Keys.Right)) { 
-            inputResult?.Invoke(GetResultForInput(trueBeatTime, InputType.right)); 
+            inputResult?.Invoke(GetResultForInput(beatTime, InputType.right)); 
         }
 
-        HandleMiss(trueBeatTime);
+        HandleMiss(beatTime);
     }
 }
 
