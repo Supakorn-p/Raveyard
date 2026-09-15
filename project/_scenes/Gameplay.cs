@@ -36,8 +36,7 @@ public class scGameplay : GameScreen
     private Bartender bartender;
     private OrderBox order_box;
 
-    private InstructionKey instruction;
-    private List<InstructionKey> keyList = new List<InstructionKey>();
+    //private InstructionKey instruction;
 
     private void loadChart(string _fileName)
     {
@@ -58,19 +57,21 @@ public class scGameplay : GameScreen
     // GAME CONTENT GOES HERE VVV
 
 
-    private void SetDistanceAndScale(InstructionKey inst_to_add)
-    {
-        keyList.Add(inst_to_add);
-        order_box.distanceMultiplier /= keyList.Count;
+   // private void SetDistanceAndScale(InstructionKey inst_to_add)
+   // {
+        //keyList.Add(inst_to_add);
+       // order_box.distanceMultiplier /= keyList.Count;
         
-        foreach (InstructionKey key in keyList)
-        {
-           key.instruction_key.position.X = 600 * order_box.distanceMultiplier;
-           key.instruction_key.position.Y = 600;
-        }
-    }
+       // foreach (InstructionKey key in keyList)
+       // {
+       //    key.instruction_key.position.X = 600 * order_box.distanceMultiplier;
+      //     key.instruction_key.position.Y = 600;
+       // }
+    //}
 
-
+    SpriteObject space;
+    SpriteObject left;
+    SpriteObject right;
     private void subscribeToEvents()
     {
 
@@ -89,13 +90,6 @@ public class scGameplay : GameScreen
             Debug.Write("[_] ");
 
             order_box.InstructionAdded(InputType.press);
-
-            instruction = new InstructionKey();
-            instruction.instruction_key = new SpriteObject("space", Content.Load<Texture2D>("Sapcebar-Icon"),
-            new Vector2(1000, 1000), instruction.position);
-
-            instruction.InitializeKey();
-            SetDistanceAndScale(instruction);
         });
 
         timeline.subscribeToEvent("left", (EventParams eventParams) => 
@@ -154,6 +148,7 @@ public class scGameplay : GameScreen
 
         bartender = new Bartender();
         order_box = new OrderBox();
+        order_box.main_game = this;
     }
 
     // Backgrounds
@@ -178,6 +173,8 @@ public class scGameplay : GameScreen
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+
+        // SECRET SUSIE ADDITION NO ONE WILL EVER KNOW
         susie = new SpriteObject("susie", 
         Content.Load<Texture2D>("placeholder"), new Vector2(640, 640),
         Vector2.Zero);
@@ -203,18 +200,6 @@ public class scGameplay : GameScreen
         new Vector2(1000, 1000), order_box.position);
         order_box.order_box.active = true;
         order_box.InitializeOrderBox();
-
-
-       // space = new SpriteObject("space", Content.Load<Texture2D>("Sapcebar-Icon"),
-       // new Vector2(1000,1000), Vector2.Zero);
-
-       // left = new SpriteObject("left", Content.Load<Texture2D>("Left-Icon"),
-        //new Vector2(550, 525), Vector2.Zero);
-
-        //right = new SpriteObject("right", Content.Load<Texture2D>("Right-Icon"),
-        //new Vector2(550, 525), Vector2.Zero);
-
-
 
         susie.active = true;
         background.active = true;
