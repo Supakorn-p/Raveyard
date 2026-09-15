@@ -1,8 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Graphics;
+using MonoGame.Extended.Tweening;
+using System;
+using System.Collections.Generic;
 
 namespace Raveyard;
 
@@ -15,18 +16,19 @@ public class SpriteObject
     public Vector2 position;
     public Vector2 anchor = new Vector2(0.5f, 0.5f);
     public float rotation;
-    public float scale;
+    public Vector2 scale = new Vector2(1,1);
 
     public bool active = false;
 
-    public SpriteObject(string _name, Texture2D texture2D, Rectangle region, Vector2 _position)
+    public readonly Tweener tweener = new Tweener();
+
+    public SpriteObject(string _name, Texture2D texture2D, Vector2 region, Vector2 _position)
     {
         //texture = texture2D;
         position = _position;
         name = _name;
 
-        Texture2DAtlas texture2Datlas = new Texture2DAtlas(texture2D);
-        texture2Datlas.CreateRegion(region, $"atl/{name}");
+        Texture2DAtlas texture2Datlas = Texture2DAtlas.Create($"atl/{name}", texture2D, (int) region.X, (int) region.Y);
         createAnimatedSprite(texture2Datlas);
         Spritekeeper.AddToBag(this);
     }
@@ -42,15 +44,15 @@ public class SpriteObject
         animatedSprite = new AnimatedSprite(spriteSheet, "default");
     }
 
-    public void LoadAnim(string animName, int numberOfFrames, TimeSpan duration, bool looping = false)
+    public void LoadAnim(string animName, int[] frames, TimeSpan duration, bool looping = false)
     {
         spriteSheet.DefineAnimation(animName, builder =>
         {
             builder.IsLooping(looping);
 
-            for (int i = 0; i < numberOfFrames; i++)
+            for (int i = 0; i < frames.Length; i++)
             {
-                builder.AddFrame(i, duration);
+                builder.AddFrame(frames[i], duration);
             }
         });
     }
