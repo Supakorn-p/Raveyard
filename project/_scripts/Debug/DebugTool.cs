@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Input;
 
@@ -13,7 +14,8 @@ public static class DebugTool
     {
         if (keyboardState.WasKeyPressed(Keys.D0))
         {
-            debugOption_autoplay = !debugOption_autoplay;
+            debugOption_autoplay = !debugOption_autoplay && isDebugOn;
+            Debug.WriteLine($"autoplay: {debugOption_autoplay}");
         }
     }
 }

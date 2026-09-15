@@ -13,12 +13,12 @@ public class OrderJudgement
     private const double PERFECT_BEATTIME = 0.15; // how many beats off to count as perfect
 
     public event Action<JudgementResult> inputResult;
-    private Queue<OrderJudgeMentInput> listOfInputs = new Queue<OrderJudgeMentInput>();
+    private Queue<OrderJudgementInput> listOfInputs = new Queue<OrderJudgementInput>();
 
     private bool isTrackingOrder = false;
 
     private double temp_startTimeOffset = 0;
-    private Queue<OrderJudgeMentInput> temp_listOfInputs = new Queue<OrderJudgeMentInput>();
+    private Queue<OrderJudgementInput> temp_listOfInputs = new Queue<OrderJudgementInput>();
 
     public void StartOrder(double beatTime)
     {
@@ -30,7 +30,7 @@ public class OrderJudgement
     public void AddInputToOrder(double inputBeatTime, InputType _inputType)
     {
         if (!isTrackingOrder) { return; }
-        OrderJudgeMentInput addedInput = new OrderJudgeMentInput
+        OrderJudgementInput addedInput = new OrderJudgementInput
         {
             beatTime = inputBeatTime - temp_startTimeOffset,
             inputType = _inputType
@@ -43,8 +43,8 @@ public class OrderJudgement
     {
         while (temp_listOfInputs.Count > 0)
         {
-            OrderJudgeMentInput temp_input = temp_listOfInputs.Dequeue();
-            listOfInputs.Enqueue(new OrderJudgeMentInput
+            OrderJudgementInput temp_input = temp_listOfInputs.Dequeue();
+            listOfInputs.Enqueue(new OrderJudgementInput
             {
                 beatTime = temp_input.beatTime + beatTime,
                 inputType = temp_input.inputType
@@ -57,7 +57,7 @@ public class OrderJudgement
     {
         if (listOfInputs.Count == 0) { return JudgementResult.none; }
 
-        OrderJudgeMentInput input = listOfInputs.Peek();
+        OrderJudgementInput input = listOfInputs.Peek();
         double difference = beatTime - input.beatTime;
 
         if (Math.Abs(difference) > VALID_BEATTIME || input.inputType != inputType) 
@@ -75,7 +75,7 @@ public class OrderJudgement
     {
         if (listOfInputs.Count == 0) { return; }
 
-        OrderJudgeMentInput input = listOfInputs.Peek();
+        OrderJudgementInput input = listOfInputs.Peek();
         double difference = beatTime - input.beatTime;
 
         if (difference > MISS_BEATTIME)
@@ -101,7 +101,21 @@ public class OrderJudgement
             inputResult?.Invoke(GetResultForInput(beatTime, InputType.right)); 
         }
 
+        debug_Update(beatTime);
         HandleMiss(beatTime);
+    }
+    
+    private void debug_Update(double beatTime)
+    {
+        if (!DebugTool.debugOption_autoplay) { return; }
+        if (!(listOfInputs.Count > 0)) { return; }
+        OrderJudgementInput currentNextInput = listOfInputs.Peek();
+
+        double difference = beatTime - currentNextInput.beatTime;
+        if (difference >= 0)
+        {
+            inputResult?.Invoke(GetResultForInput(beatTime, currentNextInput.inputType));
+        }
     }
 }
 
@@ -121,7 +135,7 @@ public enum JudgementResult
     late,
 }
 
-struct OrderJudgeMentInput
+struct OrderJudgementInput
 {
     public double beatTime;
     public InputType inputType;

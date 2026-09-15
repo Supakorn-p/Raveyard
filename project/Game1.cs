@@ -53,6 +53,7 @@ public class Game1 : Game
 
         // poll input
         KeyboardExtended.Update();
+        DebugTool.OnKeyPressed(KeyboardExtended.GetState());
 
         base.Update(gameTime);
     }
