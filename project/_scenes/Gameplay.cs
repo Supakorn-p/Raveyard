@@ -10,8 +10,10 @@ using MonoGame.Extended.ViewportAdapters;
 using Raveyard._scripts.Characters;
 using Raveyard._scripts.Visuals;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace Raveyard;
 
@@ -34,6 +36,8 @@ public class scGameplay : GameScreen
     private Bartender bartender;
     private OrderBox order_box;
 
+    //private InstructionKey instruction;
+
     private void loadChart(string _fileName)
     {
         string fileName = Path.Combine(Directory.GetCurrentDirectory(), @"_charts\", _fileName);
@@ -52,6 +56,22 @@ public class scGameplay : GameScreen
 
     // GAME CONTENT GOES HERE VVV
 
+
+   // private void SetDistanceAndScale(InstructionKey inst_to_add)
+   // {
+        //keyList.Add(inst_to_add);
+       // order_box.distanceMultiplier /= keyList.Count;
+        
+       // foreach (InstructionKey key in keyList)
+       // {
+       //    key.instruction_key.position.X = 600 * order_box.distanceMultiplier;
+      //     key.instruction_key.position.Y = 600;
+       // }
+    //}
+
+    SpriteObject space;
+    SpriteObject left;
+    SpriteObject right;
     private void subscribeToEvents()
     {
 
@@ -69,7 +89,7 @@ public class scGameplay : GameScreen
             beep.Play(); 
             Debug.Write("[_] ");
 
-            order_box.InstructionAdded();
+            order_box.InstructionAdded(InputType.press);
         });
 
         timeline.subscribeToEvent("left", (EventParams eventParams) => 
@@ -78,7 +98,7 @@ public class scGameplay : GameScreen
             beep.Play(); 
             Debug.Write("<- ");
 
-            order_box.InstructionAdded();
+            order_box.InstructionAdded(InputType.left);
         });
 
         timeline.subscribeToEvent("right", (EventParams eventParams) => 
@@ -87,7 +107,7 @@ public class scGameplay : GameScreen
             beep.Play(); 
             Debug.Write("-> ");
 
-            order_box.InstructionAdded(); 
+            order_box.InstructionAdded(InputType.right); 
         });
 
         timeline.subscribeToEvent("end_order", (EventParams eventParams) => 
@@ -128,6 +148,7 @@ public class scGameplay : GameScreen
 
         bartender = new Bartender();
         order_box = new OrderBox();
+        order_box.main_game = this;
     }
 
     // Backgrounds
@@ -153,6 +174,12 @@ public class scGameplay : GameScreen
         recordPlayer.Play();
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+
+        // SECRET SUSIE ADDITION NO ONE WILL EVER KNOW
+        susie = new SpriteObject("susie", 
+        Content.Load<Texture2D>("placeholder"), new Vector2(640, 640),
+        Vector2.Zero);
 
         background = new SpriteObject("background",
         Content.Load<Texture2D>("BG"), new Vector2(1280, 720), Vector2.Zero);
