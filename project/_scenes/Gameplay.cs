@@ -132,6 +132,8 @@ public class scGameplay : GameScreen
 
     // Backgrounds
     private SpriteObject susie;
+    private SpriteObject susie1;
+    private SpriteObject susie2;
     private SpriteObject background;
     private SpriteObject bar_counter;
 
@@ -152,16 +154,15 @@ public class scGameplay : GameScreen
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        susie = new SpriteObject("susie", 
-        Content.Load<Texture2D>("placeholder"), new Vector2(640, 640),
-        Vector2.Zero);
-
         background = new SpriteObject("background",
         Content.Load<Texture2D>("BG"), new Vector2(1280, 720), Vector2.Zero);
 
         bar_counter = new SpriteObject("bar_counter", Content.Load<Texture2D>("Bar-counter"), 
         new Vector2(1280, 720), Vector2.Zero);
 
+        susie = new SpriteObject("susie", 
+        Content.Load<Texture2D>("placeholder"), new Vector2(640, 640),
+        Vector2.Zero);
 
         // Load Characters
 
@@ -177,7 +178,6 @@ public class scGameplay : GameScreen
         new Vector2(1000, 1000), order_box.position);
         order_box.order_box.active = true;
         order_box.InitializeOrderBox();
-
 
         susie.active = true;
         background.active = true;
@@ -203,8 +203,9 @@ public class scGameplay : GameScreen
 
         foreach (SpriteObject spriteObj in Spritekeeper.getActiveObjs())
         {
-            Vector2 finalOffset = new Vector2(spriteObj.anchor.X * spriteObj.animatedSprite.Size.X,
-            spriteObj.anchor.Y * spriteObj.animatedSprite.Size.Y);
+            Vector2 trueScale = new Vector2(spriteObj.animatedSprite.Size.X, spriteObj.animatedSprite.Size.Y) * spriteObj.scale;
+            Vector2 finalOffset = new Vector2(spriteObj.anchor.X * trueScale.X,
+            spriteObj.anchor.Y * trueScale.Y);
             _spriteBatch.Draw(spriteObj.animatedSprite, spriteObj.position - finalOffset, spriteObj.rotation, spriteObj.scale);
         }
 
