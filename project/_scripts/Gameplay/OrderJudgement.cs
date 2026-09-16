@@ -10,7 +10,7 @@ public class OrderJudgement
 {
     private const double MISS_BEATTIME = 1; // how many beats before a miss is forced
     private const double VALID_BEATTIME = 0.5; // how many beats off to count as valid (barely)
-    private const double PERFECT_BEATTIME = 0.15; // how many beats off to count as perfect
+    private const double PERFECT_BEATTIME = 0.2; // how many beats off to count as perfect
 
     public event Action<JudgementResult> inputResult;
     private Queue<OrderJudgementInput> listOfInputs = new Queue<OrderJudgementInput>();
@@ -55,17 +55,22 @@ public class OrderJudgement
 
     private JudgementResult GetResultForInput(double beatTime, InputType inputType)
     {
-        if (listOfInputs.Count == 0) { return JudgementResult.none; }
+        if (listOfInputs.Count == 0) { Debug.WriteLine("you have nothing!"); return JudgementResult.none; }
 
         OrderJudgementInput input = listOfInputs.Peek();
         double difference = beatTime - input.beatTime;
 
-        if (Math.Abs(difference) > VALID_BEATTIME || input.inputType != inputType) 
+        if (Math.Abs(difference) > VALID_BEATTIME) //|| input.inputType != inputType) 
         { 
+            Debug.WriteLine($"didn't hit {input.beatTime} at {beatTime}");
             return JudgementResult.none; 
         }
 
+
         listOfInputs.Dequeue();
+        if (input.inputType != inputType) { return JudgementResult.miss; } // wrong input button will count as a miss
+
+        Debug.WriteLine($"hit {input.beatTime} at {beatTime}");
         JudgementResult timingResult = difference >= 0 ? JudgementResult.late : JudgementResult.early;
         JudgementResult finalResult = Math.Abs(difference) <= PERFECT_BEATTIME ? JudgementResult.perfect : timingResult;
         return finalResult;
