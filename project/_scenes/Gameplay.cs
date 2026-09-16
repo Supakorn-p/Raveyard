@@ -187,10 +187,6 @@ public class scGameplay : GameScreen
         bar_counter = new SpriteObject("bar_counter", Content.Load<Texture2D>("Bar-counter"), 
         new Vector2(1280, 720), Vector2.Zero);
 
-        susie = new SpriteObject("susie", 
-        Content.Load<Texture2D>("placeholder"), new Vector2(640, 640),
-        Vector2.Zero);
-
         // Load Characters
 
         bartender.bartender = new SpriteObject("bartender", Content.Load<Texture2D>("bartender_sprsheet_1"), 

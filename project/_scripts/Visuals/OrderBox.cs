@@ -21,8 +21,8 @@ namespace Raveyard._scripts.Visuals
         public Vector2 position;
 
         public readonly Tweener tweener = new Tweener();
-        private Vector2 resting_pos = new Vector2(1300, 300);
-        public Vector2 start_pos = new Vector2(300, 300);
+        private Vector2 resting_pos = new Vector2(1300, 200);
+        public Vector2 start_pos = new Vector2(300, 200);
         private Vector2 end_pos = new Vector2(300, 1000);
 
         private int instructionsLeft = 0; // TODO: replace this with a queue that keeps track of each instruction
