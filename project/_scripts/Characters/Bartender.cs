@@ -5,6 +5,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using MonoGame.Extended.Tweening;
 
 namespace Raveyard._scripts.Characters
 {
@@ -25,12 +26,12 @@ namespace Raveyard._scripts.Characters
 
         public Bartender()
         {
-            position = new Vector2(125, -78);
+            position = new Vector2(125, 170);
         }
 
         public void BartenderInitialize()
         {
-            // Load Animations
+            bartender.anchor = new Vector2(0.5f, 1f);
             bartender.LoadAnim("bar_idle", [0, 0, 1], TimeSpan.FromMilliseconds(240), true); // Idle
 
             TakingOrder();
@@ -40,6 +41,14 @@ namespace Raveyard._scripts.Characters
         private void TakingOrder() // Basically Idle
         {
             bartender.animatedSprite.SetAnimation("bar_idle");
+        }
+
+        public void OnInput()
+        {
+            bartender.tweener.CancelAll();
+            bartender.scale = new Vector2(1.0f, 0.9f);
+            bartender.tweener.TweenTo(bartender, player => player.scale, new Vector2(1f, 1f), 0.2f)
+            .Easing(EasingFunctions.CubicOut);
         }
 
         private void MakingOrder()

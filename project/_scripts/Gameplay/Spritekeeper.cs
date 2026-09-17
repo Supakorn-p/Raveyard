@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Linq;
 using MonoGame.Extended.Collections;
 
@@ -5,7 +6,7 @@ namespace Raveyard;
 
 public static class Spritekeeper
 {
-    public static Bag<SpriteObject> spriteObjects { get; private set; } = new Bag<SpriteObject>(4);
+    public static Bag<SpriteObject> spriteObjects { get; private set; } = new Bag<SpriteObject>(16);
 
     public static SpriteObject[] getActiveObjs()
     {

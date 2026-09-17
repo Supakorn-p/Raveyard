@@ -33,6 +33,8 @@ public class Game1 : Game
 
         _screenManager = new ScreenManager();
         Components.Add(_screenManager);
+
+        IsFixedTimeStep = false;
     }
 
     protected override void Initialize()

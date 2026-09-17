@@ -1,35 +1,36 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended;
-using MonoGame.Extended.Collisions.Layers;
+using MonoGame.Extended.Collections;
 using MonoGame.Extended.Tweening;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Raveyard._scripts.Visuals
 {
     public class OrderBox
     {
-        public scGameplay main_game;
+        /* 
+        feedback: rather than having a dictionary of *names*, and having to load the textures,
+        it's better to have Gameplay preload the textures for you, then pass Texture2Ds to the same dictionary instead
+        */
+        //public scGameplay main_game;
 
         public SpriteObject order_box;
         public Vector2 position;
 
-        public readonly Tweener tweener = new Tweener();
         private Vector2 resting_pos = new Vector2(1300, 200);
         public Vector2 start_pos = new Vector2(300, 200);
         private Vector2 end_pos = new Vector2(300, 1000);
 
-        private int instructionsLeft = 0; // TODO: replace this with a queue that keeps track of each instruction
+        private Rectangle instructionsBoxRect = new Rectangle(
+            150, 150, 
+            330, 120);
+        private int buttonsPerRow = 5;
 
-        private Queue<InputType> instructionsQueue = new Queue<InputType>();
-
-        public List<InstructionKey> keyList = new List<InstructionKey>();
+        private Queue<InstructionKey> instructionsQueue = new Queue<InstructionKey>(10);
+        private Bag<InstructionKey> instructionkeyList = new Bag<InstructionKey>(5);
+        private Dictionary<InputType, Texture2D> instructionsTexture2D = new Dictionary<InputType, Texture2D>(3);
 
         public OrderBox()
         {
@@ -41,6 +42,11 @@ namespace Raveyard._scripts.Visuals
             order_box.scale = new Vector2(0.8f, 0.8f);
         }
 
+        public void LoadInstructionsTexture(InputType inputType, Texture2D texture)
+        {
+            instructionsTexture2D.Add(inputType, texture);
+        }
+
         public void StartOrder()
         {
             order_box.position = resting_pos;
@@ -49,16 +55,25 @@ namespace Raveyard._scripts.Visuals
         }
 
 
-        private Dictionary<InputType, String> inputTypes = new Dictionary<InputType, String> { {InputType.press, "Sapcebar-Icon" }, {InputType.left, "Left-Icon"}, {InputType.right, "Right-Icon" } };
+        //private Dictionary<InputType, String> inputTypes = new Dictionary<InputType, String> { {InputType.press, "Sapcebar-Icon" }, {InputType.left, "Left-Icon"}, {InputType.right, "Right-Icon" } };
         public void InstructionAdded(InputType input)
         {
             order_box.tweener.TweenTo(target: order_box, expression: player => player.scale, toValue: new Vector2(0.82f, 0.82f), duration: 0.15f)
                .Easing(EasingFunctions.CubicIn)
                .OnEnd(tween => order_box.tweener.TweenTo(target: order_box, expression: player => player.scale, toValue: new Vector2(0.8f, 0.8f), duration: 0.15f)
                .Easing(EasingFunctions.CubicOut));
+            
+            InstructionKey instruction = new InstructionKey();
+            instruction.instruction_key = new SpriteObject("instruction", instructionsTexture2D[input],
+            new Vector2(256, 256), Vector2.Zero);
 
+            instruction.InitializeKey(instructionsQueue.Count);
+            instructionsQueue.Enqueue(instruction);
+            
+            instructionkeyList.Add(instruction);
+            foreach (InstructionKey key in instructionkeyList) { key.UpdatePosition(instructionsBoxRect, buttonsPerRow); }
 
-            // makes a new instruction key (see the class in the folder Visuals)
+            /* makes a new instruction key (see the class in the folder Visuals)
             InstructionKey instruction = new InstructionKey();
             instruction.box_owner = this;
 
@@ -66,10 +81,7 @@ namespace Raveyard._scripts.Visuals
             new Vector2(1000, 1000), instruction.position);
 
             instruction.InitializeKey();
-            instruction.SetDistanceAndScale(instruction);
-
-            // instructionsLeft += 1; // TODO: replace this, see variable itself
-            instructionsQueue.Enqueue(input);
+            instruction.SetDistanceAndScale(instruction); */
         }
 
 
@@ -87,16 +99,17 @@ namespace Raveyard._scripts.Visuals
 
         public void RemoveInstruction()
         {
-            //instructionsLeft -= 1; // TODO: replace this, see variable itself
-            instructionsQueue.Dequeue();
+            if (instructionsQueue.Count <= 0) { return; }
+            InstructionKey removedKeySprite = instructionsQueue.Dequeue();
+            removedKeySprite.instruction_key.scale *= new Vector2(0.5f, 0.5f);
             if (instructionsQueue.Count == 0)
             {
-                foreach (InstructionKey key in keyList)
+                foreach (InstructionKey key in instructionkeyList)
                 {
                     key.instruction_key.active = false;
                     key.instruction_key.Free();
                 }
-                keyList.Clear();
+                instructionkeyList.Clear();
                 EndOrder();
             }
         }

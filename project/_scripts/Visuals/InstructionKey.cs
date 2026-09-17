@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,14 +11,16 @@ namespace Raveyard._scripts.Visuals
 {
     public class InstructionKey
     {
+        /* 
+        feedback: reading from box_owner directly isn't necessary, the instructions sprite can infer its position
+        from the position it was created at
+        */
         public SpriteObject instruction_key;
-        public OrderBox box_owner;
+        //public OrderBox box_owner;
+        public Vector2 scale = new Vector2(0.3f, 0.3f);
+        public int indexNumber = 0;
 
-        public Vector2 position;
-        public Vector2 scale = new Vector2(0.25f, 0.25f);
-
-
-        public void SetDistanceAndScale(InstructionKey inst_to_add)
+        /*public void SetDistanceAndScale(InstructionKey inst_to_add)
         {
             int add_pos = 0;
             float sub_scale = 0;
@@ -40,7 +42,7 @@ namespace Raveyard._scripts.Visuals
                 scaleMultiplier.X += 0.01f;
                 scaleMultiplier.Y += 0.01f;
 
-                Debug.WriteLine((distanceMultiplier.X / box_owner.keyList.Count));
+                //Debug.WriteLine((distanceMultiplier.X / box_owner.keyList.Count));
                 key.instruction_key.position.X = (distanceMultiplier.X / box_owner.keyList.Count) - add_pos;
                 key.instruction_key.position.Y = 220; //+ (box_owner.keyList.Count * 10);
 
@@ -50,12 +52,21 @@ namespace Raveyard._scripts.Visuals
                 //key.instruction_key.scale.X = 0.5f / box_owner.keyList.Count;
                 //key.instruction_key.scale.Y = 0.5f / box_owner.keyList.Count;
             }
+        }*/
+        public void UpdatePosition(Rectangle boundaries, int _instPerRow)
+        {
+            int instPerRow = _instPerRow - 1;
+            float yCenter = boundaries.Y + boundaries.Height/2f;
+            float xCenter = boundaries.X + boundaries.Width/2f;
+
+            float xOffset = (indexNumber - instPerRow/2f)/(instPerRow/2f);
+            instruction_key.position = new Vector2(xCenter + xOffset * boundaries.Width/2f, yCenter);
         }
 
-        public void InitializeKey()
+        public void InitializeKey(int n)
         {
+            indexNumber = n;
             instruction_key.scale = scale;
-
             instruction_key.active = true;
         }
     }
