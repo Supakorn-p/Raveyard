@@ -12,13 +12,15 @@ public class OrderJudgement
     private const double VALID_BEATTIME = 0.5; // how many beats off to count as valid (barely)
     private const double PERFECT_BEATTIME = 0.2; // how many beats off to count as perfect
 
+    private const int QUEUE_SIZE = 10; // preallocate memory for the inputs
+
     public event Action<JudgementResult> inputResult;
-    private Queue<OrderJudgementInput> listOfInputs = new Queue<OrderJudgementInput>();
+    private Queue<OrderJudgementInput> listOfInputs = new Queue<OrderJudgementInput>(QUEUE_SIZE);
 
     private bool isTrackingOrder = false;
 
     private double temp_startTimeOffset = 0;
-    private Queue<OrderJudgementInput> temp_listOfInputs = new Queue<OrderJudgementInput>();
+    private Queue<OrderJudgementInput> temp_listOfInputs = new Queue<OrderJudgementInput>(QUEUE_SIZE);
 
     public void StartOrder(double beatTime)
     {
@@ -55,11 +57,12 @@ public class OrderJudgement
 
     private JudgementResult GetResultForInput(double beatTime, InputType inputType)
     {
-        if (listOfInputs.Count == 0) { Debug.WriteLine("you have nothing!"); return JudgementResult.none; }
+        if (listOfInputs.Count == 0) { return JudgementResult.none; }
 
         OrderJudgementInput input = listOfInputs.Peek();
         double difference = beatTime - input.beatTime;
 
+        if (difference > VALID_BEATTIME) { return JudgementResult.miss; } // too late = counts as miss
         if (Math.Abs(difference) > VALID_BEATTIME) //|| input.inputType != inputType) 
         { 
             Debug.WriteLine($"didn't hit {input.beatTime} at {beatTime}");

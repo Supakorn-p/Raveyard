@@ -34,11 +34,6 @@ public class scGameplay : GameScreen
     private Timeline timeline;
     private OrderJudgement judgementSystem;
 
-    private Bartender bartender;
-    private OrderBox order_box;
-
-    //private InstructionKey instruction;
-
     private void loadChart(string _fileName)
     {
         string fileName = Path.Combine(Directory.GetCurrentDirectory(), @"_charts\", _fileName);
@@ -57,29 +52,13 @@ public class scGameplay : GameScreen
 
     // GAME CONTENT GOES HERE VVV
 
-
-   // private void SetDistanceAndScale(InstructionKey inst_to_add)
-   // {
-        //keyList.Add(inst_to_add);
-       // order_box.distanceMultiplier /= keyList.Count;
-        
-       // foreach (InstructionKey key in keyList)
-       // {
-       //    key.instruction_key.position.X = 600 * order_box.distanceMultiplier;
-      //     key.instruction_key.position.Y = 600;
-       // }
-    //}
-
-    SpriteObject space;
-    SpriteObject left;
-    SpriteObject right;
     private void subscribeToEvents()
     {
 
         timeline.subscribeToEvent("start_order", (EventParams eventParams) => 
         { 
             judgementSystem.StartOrder(eventParams.beatTime);
-            Debug.Write("\nOrder: ");
+            //Debug.Write("\nOrder: ");
 
             order_box.StartOrder();
         });
@@ -88,7 +67,7 @@ public class scGameplay : GameScreen
         { 
             judgementSystem.AddInputToOrder(eventParams.beatTime, InputType.press);
             beep.Play(); 
-            Debug.Write("[_] ");
+            //Debug.Write("[_] ");
 
             order_box.InstructionAdded(InputType.press);
         });
@@ -97,7 +76,7 @@ public class scGameplay : GameScreen
         { 
             judgementSystem.AddInputToOrder(eventParams.beatTime, InputType.left);
             beep.Play(); 
-            Debug.Write("<- ");
+            //Debug.Write("<- ");
 
             order_box.InstructionAdded(InputType.left);
         });
@@ -106,7 +85,7 @@ public class scGameplay : GameScreen
         { 
             judgementSystem.AddInputToOrder(eventParams.beatTime, InputType.right);
             beep.Play(); 
-            Debug.Write("-> ");
+            //Debug.Write("-> ");
 
             order_box.InstructionAdded(InputType.right); 
         });
@@ -122,6 +101,7 @@ public class scGameplay : GameScreen
         judgementSystem.inputResult += (JudgementResult result) =>
         {
             beep_player.Play();
+            bartender.OnInput();
             if (result == JudgementResult.none) { return; } // misinputs, usually
 
             order_box.RemoveInstruction();
@@ -146,26 +126,25 @@ public class scGameplay : GameScreen
         ViewportAdapter viewport = new BoxingViewportAdapter(Game.Window, GraphicsDevice, (int)res.X, (int)res.Y);
         _camera = new OrthographicCamera(viewport);
         _camera.Position = res / -2;
-
-        bartender = new Bartender();
-        order_box = new OrderBox();
-        order_box.main_game = this;
     }
 
     // Backgrounds
     private SpriteObject susie;
-    private SpriteObject susie1;
-    private SpriteObject susie2;
     private SpriteObject background;
     private SpriteObject bar_counter;
 
-    // Characters
-    private SpriteObject bartender_spr;
+    // Game Objects
+    private Bartender bartender;
+    private OrderBox order_box;
+
     public override void LoadContent()
     {
         base.LoadContent();
         loadChart(currentFilename);
         judgementSystem = new OrderJudgement();
+
+        bartender = new Bartender();
+        order_box = new OrderBox();
         subscribeToEvents();
 
         beep = Content.Load<SoundEffect>("beep");
@@ -199,9 +178,12 @@ public class scGameplay : GameScreen
         // Load Gameplay Objects
 
         order_box.order_box = new SpriteObject("order_box", Content.Load<Texture2D>("Dialogue-Box"), 
-        new Vector2(1000, 1000), order_box.position);
+        new Vector2(800, 400), order_box.position);
         order_box.order_box.active = true;
         order_box.InitializeOrderBox();
+        order_box.LoadInstructionsTexture(InputType.left, Content.Load<Texture2D>("Left-Icon"));
+        order_box.LoadInstructionsTexture(InputType.right, Content.Load<Texture2D>("Right-Icon"));
+        order_box.LoadInstructionsTexture(InputType.press, Content.Load<Texture2D>("Spacebar-Icon"));
 
         susie.active = true;
         background.active = true;
@@ -210,8 +192,8 @@ public class scGameplay : GameScreen
 
     public override void Update(GameTime gameTime)
     {
-        timeline.Update(recordPlayer.getCurrentBeattime());
         judgementSystem.Update(timeline.beatTimeNeedle);
+        timeline.Update(recordPlayer.getCurrentBeattime());
 
         foreach (SpriteObject spriteObj in Spritekeeper.getActiveObjs())
         {
