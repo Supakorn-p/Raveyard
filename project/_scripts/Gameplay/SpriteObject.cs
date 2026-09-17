@@ -22,24 +22,24 @@ public class SpriteObject
 
     public readonly Tweener tweener = new Tweener();
 
-    public SpriteObject(string _name, Texture2D texture2D, Vector2 region, Vector2 _position)
+    public SpriteObject(string _name, Texture2D texture2D, Vector2 region, Vector2 _position, int startingFrame = 0)
     {
         //texture = texture2D;
         position = _position;
         name = _name;
 
         Texture2DAtlas texture2Datlas = Texture2DAtlas.Create($"atl/{name}", texture2D, (int) region.X, (int) region.Y);
-        createAnimatedSprite(texture2Datlas);
+        createAnimatedSprite(texture2Datlas, startingFrame);
         Spritekeeper.AddToBag(this);
     }
 
-    private void createAnimatedSprite(Texture2DAtlas atlas)
+    private void createAnimatedSprite(Texture2DAtlas atlas, int startingFrame)
     {
         spriteSheet = new SpriteSheet($"spritesheet/{name}", atlas);
         spriteSheet.DefineAnimation("default", builder =>
         {
            builder.IsLooping(true);
-           builder.AddFrame(0, TimeSpan.FromTicks(1)); 
+           builder.AddFrame(startingFrame, TimeSpan.FromDays(1)); 
         });
         animatedSprite = new AnimatedSprite(spriteSheet, "default");
     }

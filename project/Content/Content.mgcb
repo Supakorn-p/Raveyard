@@ -74,6 +74,18 @@
 /processorParam:TextureFormat=Color
 /build:../_textures/Dialogue-Box.PNG;Dialogue-Box.PNG
 
+#begin ../_textures/instkeys_sprsheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../_textures/instkeys_sprsheet.png;instkeys_sprsheet.png
+
 #begin ../_textures/Left-Icon.PNG
 /importer:TextureImporter
 /processor:TextureProcessor

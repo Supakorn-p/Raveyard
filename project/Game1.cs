@@ -57,6 +57,8 @@ public class Game1 : Game
         KeyboardExtended.Update();
         DebugTool.OnKeyPressed(KeyboardExtended.GetState());
 
+        Window.Title = $"Raveyard ({(int)(1.0/gameTime.ElapsedGameTime.TotalSeconds)})";
+
         base.Update(gameTime);
     }
 

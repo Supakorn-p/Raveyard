@@ -30,22 +30,24 @@ namespace Raveyard._scripts.Visuals
 
         private Queue<InstructionKey> instructionsQueue = new Queue<InstructionKey>(10);
         private Bag<InstructionKey> instructionkeyList = new Bag<InstructionKey>(5);
-        private Dictionary<InputType, Texture2D> instructionsTexture2D = new Dictionary<InputType, Texture2D>(3);
+        private Texture2D instructionsTexture;
+        //private Dictionary<InputType, Texture2D> instructionsTexture2D = new Dictionary<InputType, Texture2D>(3);
 
         public OrderBox()
         {
             position = resting_pos;
         }
 
-        public void InitializeOrderBox()
+        public void InitializeOrderBox(Texture2D _instructionsTexture)
         {
+            instructionsTexture = _instructionsTexture;
             order_box.scale = new Vector2(0.8f, 0.8f);
         }
 
-        public void LoadInstructionsTexture(InputType inputType, Texture2D texture)
+        /*public void LoadInstructionsTexture(InputType inputType, Texture2D texture)
         {
             instructionsTexture2D.Add(inputType, texture);
-        }
+        }*/
 
         public void StartOrder()
         {
@@ -56,6 +58,12 @@ namespace Raveyard._scripts.Visuals
 
 
         //private Dictionary<InputType, String> inputTypes = new Dictionary<InputType, String> { {InputType.press, "Sapcebar-Icon" }, {InputType.left, "Left-Icon"}, {InputType.right, "Right-Icon" } };
+        private Dictionary<InputType, int> inputTypeToSprFrame = new Dictionary<InputType, int>
+        {
+          {InputType.left, 0},
+          {InputType.right, 1},
+          {InputType.press, 2},
+        };
         public void InstructionAdded(InputType input)
         {
             order_box.tweener.TweenTo(target: order_box, expression: player => player.scale, toValue: new Vector2(0.82f, 0.82f), duration: 0.15f)
@@ -64,24 +72,14 @@ namespace Raveyard._scripts.Visuals
                .Easing(EasingFunctions.CubicOut));
             
             InstructionKey instruction = new InstructionKey();
-            instruction.instruction_key = new SpriteObject("instruction", instructionsTexture2D[input],
-            new Vector2(256, 256), Vector2.Zero);
+            instruction.instruction_key = new SpriteObject("instruction", instructionsTexture,
+            new Vector2(256, 256), Vector2.Zero, inputTypeToSprFrame[input]);
 
             instruction.InitializeKey(instructionsQueue.Count);
             instructionsQueue.Enqueue(instruction);
             
             instructionkeyList.Add(instruction);
             foreach (InstructionKey key in instructionkeyList) { key.UpdatePosition(instructionsBoxRect, buttonsPerRow); }
-
-            /* makes a new instruction key (see the class in the folder Visuals)
-            InstructionKey instruction = new InstructionKey();
-            instruction.box_owner = this;
-
-            instruction.instruction_key = new SpriteObject("instruction", main_game.Content.Load<Texture2D>(inputTypes[input]),
-            new Vector2(1000, 1000), instruction.position);
-
-            instruction.InitializeKey();
-            instruction.SetDistanceAndScale(instruction); */
         }
 
 

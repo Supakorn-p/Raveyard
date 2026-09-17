@@ -45,12 +45,9 @@ public class OrderJudgement
     {
         while (temp_listOfInputs.Count > 0)
         {
-            OrderJudgementInput temp_input = temp_listOfInputs.Dequeue();
-            listOfInputs.Enqueue(new OrderJudgementInput
-            {
-                beatTime = temp_input.beatTime + beatTime,
-                inputType = temp_input.inputType
-            });
+            OrderJudgementInput input = temp_listOfInputs.Dequeue();
+            input.beatTime += beatTime;
+            listOfInputs.Enqueue(input);
         }
         isTrackingOrder = false;
     }

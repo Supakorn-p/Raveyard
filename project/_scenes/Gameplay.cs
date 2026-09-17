@@ -180,10 +180,7 @@ public class scGameplay : GameScreen
         order_box.order_box = new SpriteObject("order_box", Content.Load<Texture2D>("Dialogue-Box"), 
         new Vector2(800, 400), order_box.position);
         order_box.order_box.active = true;
-        order_box.InitializeOrderBox();
-        order_box.LoadInstructionsTexture(InputType.left, Content.Load<Texture2D>("Left-Icon"));
-        order_box.LoadInstructionsTexture(InputType.right, Content.Load<Texture2D>("Right-Icon"));
-        order_box.LoadInstructionsTexture(InputType.press, Content.Load<Texture2D>("Spacebar-Icon"));
+        order_box.InitializeOrderBox(Content.Load<Texture2D>("instkeys_sprsheet"));
 
         susie.active = true;
         background.active = true;
