@@ -40,7 +40,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         base.Initialize();
-        _screenManager.ShowScreen(new scGameplay(this, "prototype"));
+        _screenManager.ShowScreen(new scGameplay(this, "peakuniku"));
     }
 
     protected override void LoadContent()

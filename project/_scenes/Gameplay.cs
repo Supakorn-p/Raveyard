@@ -33,6 +33,7 @@ public class scGameplay : GameScreen
     private RecordPlayer recordPlayer;
     private Timeline timeline;
     private OrderJudgement judgementSystem;
+    private GameplaySoundLibrary sfxlib;
 
     private void loadChart(string _fileName)
     {
@@ -58,16 +59,16 @@ public class scGameplay : GameScreen
         timeline.subscribeToEvent("start_order", (EventParams eventParams) => 
         { 
             judgementSystem.StartOrder(eventParams.beatTime);
-            //Debug.Write("\nOrder: ");
+            GameplaySoundLibrary.PlaySound("snd_cue_start");
 
             order_box.StartOrder();
+            bartender.SetAnimation("bar_idle");  
         });
 
         timeline.subscribeToEvent("press", (EventParams eventParams) => 
         { 
             judgementSystem.AddInputToOrder(eventParams.beatTime, InputType.press);
-            beep.Play(); 
-            //Debug.Write("[_] ");
+            GameplaySoundLibrary.PlaySound("snd_cue_placeholder_press"); // TODO: replace by calling the customer class
 
             order_box.InstructionAdded(InputType.press);
         });
@@ -75,8 +76,7 @@ public class scGameplay : GameScreen
         timeline.subscribeToEvent("left", (EventParams eventParams) => 
         { 
             judgementSystem.AddInputToOrder(eventParams.beatTime, InputType.left);
-            beep.Play(); 
-            //Debug.Write("<- ");
+            GameplaySoundLibrary.PlaySound("snd_cue_placeholder_left"); // TODO: replace by calling the customer class
 
             order_box.InstructionAdded(InputType.left);
         });
@@ -84,8 +84,7 @@ public class scGameplay : GameScreen
         timeline.subscribeToEvent("right", (EventParams eventParams) => 
         { 
             judgementSystem.AddInputToOrder(eventParams.beatTime, InputType.right);
-            beep.Play(); 
-            //Debug.Write("-> ");
+            GameplaySoundLibrary.PlaySound("snd_cue_placeholder_right"); // TODO: replace by calling the customer class
 
             order_box.InstructionAdded(InputType.right); 
         });
@@ -93,31 +92,29 @@ public class scGameplay : GameScreen
         timeline.subscribeToEvent("end_order", (EventParams eventParams) => 
         { 
             judgementSystem.StopOrderAndListen(eventParams.beatTime);
-            Debug.WriteLine("\n!!");
+            GameplaySoundLibrary.PlaySound("snd_cue_end");
 
             //order_box.EndOrder();
         });
 
-        judgementSystem.inputResult += (JudgementResult result) =>
+        judgementSystem.inputResult += ((JudgementResult result, InputType input) tuple) =>
         {
-            beep_player.Play();
-            bartender.OnInput();
-            if (result == JudgementResult.none) { return; } // misinputs, usually
+            bartender.OnInputResult(tuple.result, tuple.input);
 
-            order_box.RemoveInstruction();
-            if (result == JudgementResult.miss) { beep_missed.Play(); return; }
+            if (tuple.result == JudgementResult.none) { return; } // misinputs, usually
+            order_box.RemoveInstruction(tuple.result);
+        };
 
-            if (result == JudgementResult.perfect)
+        // game object events
+
+        order_box.inputsExhausted += (bool perfect) =>
+        {
+            if (perfect)
             {
-                beep_success.Play();
+                bartender.SetAnimation("bar_finish");
             }
         };
     }
-
-    SoundEffect beep;
-    SoundEffect beep_player;
-    SoundEffect beep_success;
-    SoundEffect beep_missed;
 
     public override void Initialize()
     {
@@ -147,14 +144,28 @@ public class scGameplay : GameScreen
         order_box = new OrderBox();
         subscribeToEvents();
 
-        beep = Content.Load<SoundEffect>("beep");
-        beep_player = Content.Load<SoundEffect>("inputbeep");
-        beep_success = Content.Load<SoundEffect>("inputsuccess");
-        beep_missed = Content.Load<SoundEffect>("inputmissed");
         recordPlayer.Play();
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+        // SFX
+        sfxlib = new GameplaySoundLibrary(Content);
+
+        //sfxlib.LoadSound("beep");
+        sfxlib.LoadSound("inputbeep");
+        sfxlib.LoadSound("inputmissed");
+        sfxlib.LoadSound("snd_input_glassclink");
+        sfxlib.LoadSound("snd_input_shakeleft");
+        sfxlib.LoadSound("snd_input_shakeright");
+
+        sfxlib.LoadSound("snd_cue_start");
+        sfxlib.LoadSound("snd_cue_placeholder_press");
+        sfxlib.LoadSound("snd_cue_placeholder_left");
+        sfxlib.LoadSound("snd_cue_placeholder_right");
+        sfxlib.LoadSound("snd_cue_end");
+        
+        sfxlib.LoadSound("snd_result_cashregister");
+        
 
         // SECRET SUSIE ADDITION NO ONE WILL EVER KNOW
         susie = new SpriteObject("susie", 
@@ -209,7 +220,9 @@ public class scGameplay : GameScreen
             Vector2 trueScale = new Vector2(spriteObj.animatedSprite.Size.X, spriteObj.animatedSprite.Size.Y) * spriteObj.scale;
             Vector2 finalOffset = new Vector2(spriteObj.anchor.X * trueScale.X,
             spriteObj.anchor.Y * trueScale.Y);
-            _spriteBatch.Draw(spriteObj.animatedSprite, spriteObj.position - finalOffset, spriteObj.rotation, spriteObj.scale);
+
+
+            _spriteBatch.Draw(spriteObj.animatedSprite, spriteObj.position - finalOffset, spriteObj.rotation/180f * MathF.PI, spriteObj.scale);
         }
 
         _spriteBatch.End();

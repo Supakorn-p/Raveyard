@@ -5,7 +5,6 @@ using MonoGame.Extended.Tweening;
 using System;
 using System.Collections.Generic;
 
-
 namespace Raveyard._scripts.Visuals
 {
     public class OrderBox
@@ -15,6 +14,7 @@ namespace Raveyard._scripts.Visuals
         it's better to have Gameplay preload the textures for you, then pass Texture2Ds to the same dictionary instead
         */
         //public scGameplay main_game;
+        public Action<bool> inputsExhausted;
 
         public SpriteObject order_box;
         public Vector2 position;
@@ -49,8 +49,13 @@ namespace Raveyard._scripts.Visuals
             instructionsTexture2D.Add(inputType, texture);
         }*/
 
+        private bool isPerfect = false;
+
         public void StartOrder()
         {
+            isPerfect = true;
+
+            order_box.tweener.CancelAll();
             order_box.position = resting_pos;
             order_box.tweener.TweenTo(target: order_box, expression: player => player.position, toValue: start_pos, duration: 0.5f)
                 .Easing(EasingFunctions.CubicInOut);
@@ -85,9 +90,13 @@ namespace Raveyard._scripts.Visuals
 
         public void EndOrder()
         {
+            order_box.tweener.CancelAll();
             order_box.tweener.TweenTo(target: order_box, expression: player => player.position, toValue: end_pos, duration: 1)
-                .Easing(EasingFunctions.CubicInOut)
-                .OnEnd(tween => WaitForOrder());
+            .Easing(EasingFunctions.CubicInOut)
+            .OnEnd(tween => WaitForOrder());
+
+            inputsExhausted?.Invoke(isPerfect);
+            if (isPerfect) {GameplaySoundLibrary.PlaySound("snd_result_cashregister");}
         }
 
         public void WaitForOrder()
@@ -95,11 +104,29 @@ namespace Raveyard._scripts.Visuals
             order_box.position = resting_pos; 
         }
 
-        public void RemoveInstruction()
+        public void RemoveInstruction(JudgementResult result)
         {
             if (instructionsQueue.Count <= 0) { return; }
             InstructionKey removedKeySprite = instructionsQueue.Dequeue();
-            removedKeySprite.instruction_key.scale *= new Vector2(0.5f, 0.5f);
+
+            removedKeySprite.instruction_key.scale *= new Vector2(0.75f, 0.75f);
+            removedKeySprite.instruction_key.animatedSprite.Alpha = 0.75f;
+
+
+            // skew when early/late
+            if (result == JudgementResult.early || result == JudgementResult.late)
+            {
+                removedKeySprite.instruction_key.rotation = 10f;
+            }
+
+            // miss
+            if (result == JudgementResult.miss)
+            {
+                isPerfect = false;
+                removedKeySprite.instruction_key.rotation = 15f;
+                removedKeySprite.instruction_key.animatedSprite.Color = Color.Green;
+            }
+
             if (instructionsQueue.Count == 0)
             {
                 foreach (InstructionKey key in instructionkeyList)

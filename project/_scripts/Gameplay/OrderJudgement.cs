@@ -14,7 +14,7 @@ public class OrderJudgement
 
     private const int QUEUE_SIZE = 10; // preallocate memory for the inputs
 
-    public event Action<JudgementResult> inputResult;
+    public event Action<(JudgementResult, InputType)> inputResult;
     private Queue<OrderJudgementInput> listOfInputs = new Queue<OrderJudgementInput>(QUEUE_SIZE);
 
     private bool isTrackingOrder = false;
@@ -52,14 +52,13 @@ public class OrderJudgement
         isTrackingOrder = false;
     }
 
-    private JudgementResult GetResultForInput(double beatTime, InputType inputType)
+    private JudgementResult GetResult(double beatTime, InputType inputType)
     {
         if (listOfInputs.Count == 0) { return JudgementResult.none; }
 
         OrderJudgementInput input = listOfInputs.Peek();
         double difference = beatTime - input.beatTime;
 
-        if (difference > VALID_BEATTIME) { return JudgementResult.miss; } // too late = counts as miss
         if (Math.Abs(difference) > VALID_BEATTIME) //|| input.inputType != inputType) 
         { 
             Debug.WriteLine($"didn't hit {input.beatTime} at {beatTime}");
@@ -76,6 +75,11 @@ public class OrderJudgement
         return finalResult;
     }
 
+    private (JudgementResult, InputType) GetResultForInput(double beatTime, InputType input)
+    {
+        return (GetResult(beatTime, input), input);
+    }
+
     private void HandleMiss(double beatTime)
     {
         if (listOfInputs.Count == 0) { return; }
@@ -86,7 +90,7 @@ public class OrderJudgement
         if (difference > MISS_BEATTIME)
         {
             listOfInputs.Dequeue();
-            inputResult?.Invoke(JudgementResult.miss);
+            inputResult?.Invoke((JudgementResult.miss, InputType.press));
         }
     }
 

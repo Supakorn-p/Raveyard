@@ -38,6 +38,60 @@
 /processorParam:Quality=Best
 /build:../_sounds/inputsuccess.wav;inputsuccess.wav
 
+#begin ../_sounds/snd_cue_end.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/snd_cue_end.wav;snd_cue_end.wav
+
+#begin ../_sounds/snd_cue_placeholder_left.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/snd_cue_placeholder_left.wav;snd_cue_placeholder_left.wav
+
+#begin ../_sounds/snd_cue_placeholder_press.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/snd_cue_placeholder_press.wav;snd_cue_placeholder_press.wav
+
+#begin ../_sounds/snd_cue_placeholder_right.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/snd_cue_placeholder_right.wav;snd_cue_placeholder_right.wav
+
+#begin ../_sounds/snd_cue_start.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/snd_cue_start.wav;snd_cue_start.wav
+
+#begin ../_sounds/snd_input_glassclink.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/snd_input_glassclink.wav;snd_input_glassclink.wav
+
+#begin ../_sounds/snd_input_shakeleft.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/snd_input_shakeleft.wav;snd_input_shakeleft.wav
+
+#begin ../_sounds/snd_input_shakeright.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/snd_input_shakeright.wav;snd_input_shakeright.wav
+
+#begin ../_sounds/snd_result_cashregister.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/snd_result_cashregister.wav;snd_result_cashregister.wav
+
 #begin ../_textures/Bar-counter.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
