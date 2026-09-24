@@ -1,11 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
+using MonoGame.Extended.Tweening;
+
 
 namespace Raveyard._scripts.Visuals
 {
@@ -61,6 +56,16 @@ namespace Raveyard._scripts.Visuals
 
             float xOffset = (indexNumber - instPerRow/2f)/(instPerRow/2f);
             instruction_key.position = new Vector2(xCenter + xOffset * boundaries.Width/2f, yCenter);
+        }
+
+        public void TweenDown()
+        {
+            instruction_key.tweener.TweenTo(target: instruction_key, player => player.position, 
+            toValue: instruction_key.position + new Vector2(0, 800), duration: 1)
+            .Easing(EasingFunctions.CubicInOut).OnEnd((Tween t) =>
+            {
+                instruction_key.Free();
+            });
         }
 
         public void InitializeKey(int n)

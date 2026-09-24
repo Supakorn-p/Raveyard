@@ -6,6 +6,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using MonoGame.Extended.Tweening;
+using Raveyard._scripts.Visuals;
 
 namespace Raveyard._scripts.Characters
 {
@@ -38,12 +39,19 @@ namespace Raveyard._scripts.Characters
             bartender.LoadAnim("bar_fuckup", [6], TimeSpan.FromMilliseconds(240), true); 
 
             TakingOrder();
+            OrderBox.inputsExhausted += PerfectOrder;
         }
 
 
         private void TakingOrder() // Basically Idle
         {
             SetAnimation("bar_idle");
+        }
+
+        private void PerfectOrder(bool isPerfect)
+        {
+            if (!isPerfect) { return; }
+            SetAnimation("bar_finish");
         }
 
         public void OnInputResult(JudgementResult result, InputType input)

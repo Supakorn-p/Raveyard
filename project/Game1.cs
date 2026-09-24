@@ -35,6 +35,7 @@ public class Game1 : Game
         Components.Add(_screenManager);
 
         IsFixedTimeStep = false;
+        Window.AllowUserResizing = true;
     }
 
     protected override void Initialize()

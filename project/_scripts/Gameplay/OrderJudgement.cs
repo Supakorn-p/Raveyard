@@ -102,11 +102,11 @@ public class OrderJudgement
             inputResult?.Invoke(GetResultForInput(beatTime, InputType.press)); 
         }
 
-        if (keyboardState.WasKeyPressed(Keys.Left)) { 
+        if (keyboardState.WasKeyPressed(Keys.Left) || keyboardState.WasKeyPressed(Keys.A)) { 
             inputResult?.Invoke(GetResultForInput(beatTime, InputType.left)); 
         }
 
-        if (keyboardState.WasKeyPressed(Keys.Right)) { 
+        if (keyboardState.WasKeyPressed(Keys.Right) || keyboardState.WasKeyPressed(Keys.D)) { 
             inputResult?.Invoke(GetResultForInput(beatTime, InputType.right)); 
         }
 

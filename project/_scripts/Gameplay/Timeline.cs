@@ -45,12 +45,11 @@ public class Timeline
     {
         if (time < beatTimeNeedle) { return; }
 
-        foreach (TimelineEvent _event in timelineEvents)
+        foreach (TimelineEvent _event in timelineEvents.ToArray())
         {
-            if (_event.beatTime < beatTimeNeedle) { continue; }
+            if (_event.beatTime <= beatTimeNeedle) { continue; }
             if (_event.beatTime > time) { continue; }
 
-            //Debug.WriteLine($"Fire! {_event.eventName} at {_event.beatTime}");
             eventBus[_event.eventName]?.Invoke(_event.parameters);
         }
 

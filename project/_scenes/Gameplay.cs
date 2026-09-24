@@ -1,18 +1,12 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
-using MonoGame.Extended.Collisions.Layers;
 using MonoGame.Extended.Graphics;
-using MonoGame.Extended.Input;
 using MonoGame.Extended.Screens;
-using MonoGame.Extended.Tweening;
 using MonoGame.Extended.ViewportAdapters;
 using Raveyard._scripts.Characters;
 using Raveyard._scripts.Visuals;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -33,7 +27,9 @@ public class scGameplay : GameScreen
     private RecordPlayer recordPlayer;
     private Timeline timeline;
     private OrderJudgement judgementSystem;
+
     private GameplaySoundLibrary sfxlib;
+    private TextureCollection customerTextures;
 
     private void loadChart(string _fileName)
     {
@@ -61,7 +57,9 @@ public class scGameplay : GameScreen
             judgementSystem.StartOrder(eventParams.beatTime);
             GameplaySoundLibrary.PlaySound("snd_cue_start");
 
-            order_box.StartOrder();
+            //order_box.StartOrder();
+            Customer currentCustomer = customerQueue.AddCustomerToLine(0);
+            currentCustomer.StartOrder();
             bartender.SetAnimation("bar_idle");  
         });
 
@@ -70,7 +68,9 @@ public class scGameplay : GameScreen
             judgementSystem.AddInputToOrder(eventParams.beatTime, InputType.press);
             GameplaySoundLibrary.PlaySound("snd_cue_placeholder_press"); // TODO: replace by calling the customer class
 
-            order_box.InstructionAdded(InputType.press);
+            //order_box.InstructionAdded(InputType.press);
+            Customer currentCustomer = customerQueue.getLastCustomer();
+            currentCustomer.AddToOrder(InputType.press);
         });
 
         timeline.subscribeToEvent("left", (EventParams eventParams) => 
@@ -78,7 +78,9 @@ public class scGameplay : GameScreen
             judgementSystem.AddInputToOrder(eventParams.beatTime, InputType.left);
             GameplaySoundLibrary.PlaySound("snd_cue_placeholder_left"); // TODO: replace by calling the customer class
 
-            order_box.InstructionAdded(InputType.left);
+            //order_box.InstructionAdded(InputType.left);
+            Customer currentCustomer = customerQueue.getLastCustomer();
+            currentCustomer.AddToOrder(InputType.left);
         });
 
         timeline.subscribeToEvent("right", (EventParams eventParams) => 
@@ -86,15 +88,15 @@ public class scGameplay : GameScreen
             judgementSystem.AddInputToOrder(eventParams.beatTime, InputType.right);
             GameplaySoundLibrary.PlaySound("snd_cue_placeholder_right"); // TODO: replace by calling the customer class
 
-            order_box.InstructionAdded(InputType.right); 
+            //order_box.InstructionAdded(InputType.right); 
+            Customer currentCustomer = customerQueue.getLastCustomer();
+            currentCustomer.AddToOrder(InputType.right);
         });
 
         timeline.subscribeToEvent("end_order", (EventParams eventParams) => 
         { 
             judgementSystem.StopOrderAndListen(eventParams.beatTime);
             GameplaySoundLibrary.PlaySound("snd_cue_end");
-
-            //order_box.EndOrder();
         });
 
         judgementSystem.inputResult += ((JudgementResult result, InputType input) tuple) =>
@@ -102,17 +104,10 @@ public class scGameplay : GameScreen
             bartender.OnInputResult(tuple.result, tuple.input);
 
             if (tuple.result == JudgementResult.none) { return; } // misinputs, usually
-            order_box.RemoveInstruction(tuple.result);
-        };
 
-        // game object events
-
-        order_box.inputsExhausted += (bool perfect) =>
-        {
-            if (perfect)
-            {
-                bartender.SetAnimation("bar_finish");
-            }
+            //order_box.RemoveInstruction(tuple.result);
+            Customer currentCustomer = customerQueue.getFirstCustomer();
+            currentCustomer?.ProcessOrder(tuple.result);
         };
     }
 
@@ -132,7 +127,9 @@ public class scGameplay : GameScreen
 
     // Game Objects
     private Bartender bartender;
-    private OrderBox order_box;
+
+    // Game Object Managers
+    private CustomerQueue customerQueue;
 
     public override void LoadContent()
     {
@@ -141,7 +138,11 @@ public class scGameplay : GameScreen
         judgementSystem = new OrderJudgement();
 
         bartender = new Bartender();
-        order_box = new OrderBox();
+
+        customerTextures = new TextureCollection(Content);
+        customerQueue = new CustomerQueue(customerTextures);
+        customerQueue.InitializeTexture("customer_halloween1_sprsheet", new Vector2(444, 483));
+
         subscribeToEvents();
 
         recordPlayer.Play();
@@ -188,10 +189,7 @@ public class scGameplay : GameScreen
 
         // Load Gameplay Objects
 
-        order_box.order_box = new SpriteObject("order_box", Content.Load<Texture2D>("Dialogue-Box"), 
-        new Vector2(800, 400), order_box.position);
-        order_box.order_box.active = true;
-        order_box.InitializeOrderBox(Content.Load<Texture2D>("instkeys_sprsheet"));
+        OrderBox.InitializeOrderBox(Content.Load<Texture2D>("Dialogue-Box"), Content.Load<Texture2D>("instkeys_sprsheet"));
 
         susie.active = true;
         background.active = true;
@@ -200,10 +198,10 @@ public class scGameplay : GameScreen
 
     public override void Update(GameTime gameTime)
     {
-        judgementSystem.Update(timeline.beatTimeNeedle);
         timeline.Update(recordPlayer.getCurrentBeattime());
+        judgementSystem.Update(timeline.beatTimeNeedle);
 
-        foreach (SpriteObject spriteObj in Spritekeeper.getActiveObjs())
+        foreach (SpriteObject spriteObj in Spritekeeper.spriteObjects.ToArray())
         {
             spriteObj.animatedSprite.Update(gameTime);
             spriteObj.tweener.Update(gameTime.GetElapsedSeconds());
@@ -213,16 +211,18 @@ public class scGameplay : GameScreen
     {
         GraphicsDevice.Clear(Color.Green);
 
-        _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix(), samplerState: SamplerState.PointClamp);
+        _spriteBatch.Begin(
+            transformMatrix: _camera.GetViewMatrix(), 
+            samplerState: SamplerState.PointClamp, 
+            sortMode: SpriteSortMode.BackToFront);
 
         foreach (SpriteObject spriteObj in Spritekeeper.getActiveObjs())
         {
-            Vector2 trueScale = new Vector2(spriteObj.animatedSprite.Size.X, spriteObj.animatedSprite.Size.Y) * spriteObj.scale;
-            Vector2 finalOffset = new Vector2(spriteObj.anchor.X * trueScale.X,
-            spriteObj.anchor.Y * trueScale.Y);
+            float _rotation = spriteObj.rotation/180f * MathF.PI;
 
+            spriteObj.SetSpriteValues();
 
-            _spriteBatch.Draw(spriteObj.animatedSprite, spriteObj.position - finalOffset, spriteObj.rotation/180f * MathF.PI, spriteObj.scale);
+            _spriteBatch.Draw(spriteObj.animatedSprite, spriteObj.position, _rotation, spriteObj.scale);
         }
 
         _spriteBatch.End();
