@@ -14,6 +14,13 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../_fonts/anton_sc.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Color
+/build:../_fonts/anton_sc.spritefont;anton_sc.spritefont
+
 #begin ../_sounds/beep.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

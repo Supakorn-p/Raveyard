@@ -7,8 +7,10 @@ using MonoGame.Extended.ViewportAdapters;
 using Raveyard._scripts.Characters;
 using Raveyard._scripts.Visuals;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Raveyard;
 
@@ -27,6 +29,7 @@ public class scGameplay : GameScreen
     private RecordPlayer recordPlayer;
     private Timeline timeline;
     private OrderJudgement judgementSystem;
+    private ScoreTracker scoreTracker;
 
     private GameplaySoundLibrary sfxlib;
     private TextureCollection customerTextures;
@@ -108,6 +111,8 @@ public class scGameplay : GameScreen
             //order_box.RemoveInstruction(tuple.result);
             Customer currentCustomer = customerQueue.getFirstCustomer();
             currentCustomer?.ProcessOrder(tuple.result);
+            scoreTracker.AddJudgement(tuple.result);
+            Debug.WriteLine(Math.Floor(scoreTracker.GetFinalPercentage()));
         };
     }
 
@@ -131,11 +136,19 @@ public class scGameplay : GameScreen
     // Game Object Managers
     private CustomerQueue customerQueue;
 
+    // text
+    private SpriteFont font_antonSc;
+
+    private TextObject temp_scorelabeltop;
+    private TextObject temp_scorelabel;
+    private TextObject temp_restarttext;
+
     public override void LoadContent()
     {
         base.LoadContent();
         loadChart(currentFilename);
         judgementSystem = new OrderJudgement();
+        scoreTracker = new ScoreTracker();
 
         bartender = new Bartender();
 
@@ -166,18 +179,23 @@ public class scGameplay : GameScreen
         sfxlib.LoadSound("snd_cue_end");
         
         sfxlib.LoadSound("snd_result_cashregister");
+
+        font_antonSc = Content.Load<SpriteFont>("anton_sc");
         
 
         // SECRET SUSIE ADDITION NO ONE WILL EVER KNOW
         susie = new SpriteObject("susie", 
         Content.Load<Texture2D>("placeholder"), new Vector2(640, 640),
         Vector2.Zero);
+        susie.layer = -99;
 
         background = new SpriteObject("background",
         Content.Load<Texture2D>("BG"), new Vector2(1280, 720), Vector2.Zero);
+        background.layer = -2;
 
         bar_counter = new SpriteObject("bar_counter", Content.Load<Texture2D>("Bar-counter"), 
         new Vector2(1280, 720), Vector2.Zero);
+        bar_counter.layer = -1;
 
         // Load Characters
 
@@ -223,6 +241,14 @@ public class scGameplay : GameScreen
             spriteObj.SetSpriteValues();
 
             _spriteBatch.Draw(spriteObj.animatedSprite, spriteObj.position, _rotation, spriteObj.scale);
+        }
+
+        foreach (TextObject textObj in Textkeeper.getActiveObjs())
+        {
+            float _rotation = textObj.rotation/180f * MathF.PI;
+            _spriteBatch.DrawString(textObj.font, textObj.text, textObj.position, 
+            new Color(1f, 1f, 1f, textObj.alpha), _rotation, textObj.GetRawOrigin(), textObj.scale,
+            SpriteEffects.None, textObj.layer);
         }
 
         _spriteBatch.End();
