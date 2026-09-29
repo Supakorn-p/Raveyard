@@ -23,4 +23,9 @@ public static class Textkeeper
     {
         textObjects.Remove(obj);
     }
+
+    public static void FreeAll()
+    {
+        foreach (TextObject obj in textObjects.ToArray()) { obj.Free(); }
+    }
 }

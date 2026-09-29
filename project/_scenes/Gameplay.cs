@@ -1,7 +1,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using MonoGame.Extended.Graphics;
+using MonoGame.Extended.Input;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.ViewportAdapters;
 using Raveyard._scripts.Characters;
@@ -114,6 +116,11 @@ public class scGameplay : GameScreen
             scoreTracker.AddJudgement(tuple.result);
             Debug.WriteLine(Math.Floor(scoreTracker.GetFinalPercentage()));
         };
+
+        timeline.subscribeToEvent("ENDCHART", (EventParams eventParams) => 
+        { 
+            resultsBubble.DisplayScore((int) Math.Floor(scoreTracker.GetFinalPercentage()));
+        });
     }
 
     public override void Initialize()
@@ -132,16 +139,13 @@ public class scGameplay : GameScreen
 
     // Game Objects
     private Bartender bartender;
+    private placeholder_ResultsBubble resultsBubble;
 
     // Game Object Managers
     private CustomerQueue customerQueue;
 
     // text
     private SpriteFont font_antonSc;
-
-    private TextObject temp_scorelabeltop;
-    private TextObject temp_scorelabel;
-    private TextObject temp_restarttext;
 
     public override void LoadContent()
     {
@@ -151,6 +155,7 @@ public class scGameplay : GameScreen
         scoreTracker = new ScoreTracker();
 
         bartender = new Bartender();
+        resultsBubble = new placeholder_ResultsBubble();
 
         customerTextures = new TextureCollection(Content);
         customerQueue = new CustomerQueue(customerTextures);
@@ -207,6 +212,7 @@ public class scGameplay : GameScreen
 
         // Load Gameplay Objects
 
+        resultsBubble.Init(Content.Load<Texture2D>("Dialogue-Box"), font_antonSc);
         OrderBox.InitializeOrderBox(Content.Load<Texture2D>("Dialogue-Box"), Content.Load<Texture2D>("instkeys_sprsheet"));
 
         susie.active = true;
@@ -223,6 +229,13 @@ public class scGameplay : GameScreen
         {
             spriteObj.animatedSprite.Update(gameTime);
             spriteObj.tweener.Update(gameTime.GetElapsedSeconds());
+        }
+
+        // bleh
+        resultsBubble.Update(gameTime);
+        if (KeyboardExtended.GetState().WasKeyPressed(Keys.R))
+        {
+            ScreenManager.ReplaceScreen(new scGameplay(Game, "peakuniku"));
         }
     }
     public override void Draw(GameTime gameTime)
@@ -247,8 +260,8 @@ public class scGameplay : GameScreen
         {
             float _rotation = textObj.rotation/180f * MathF.PI;
             _spriteBatch.DrawString(textObj.font, textObj.text, textObj.position, 
-            new Color(1f, 1f, 1f, textObj.alpha), _rotation, textObj.GetRawOrigin(), textObj.scale,
-            SpriteEffects.None, textObj.layer);
+            new Color(textObj.color, textObj.alpha), _rotation, textObj.GetRawOrigin(), textObj.scale,
+            SpriteEffects.None, textObj.LayerToDepth());
         }
 
         _spriteBatch.End();
@@ -258,5 +271,9 @@ public class scGameplay : GameScreen
     {
         base.UnloadContent();
         recordPlayer.Stop();
+        customerTextures.UnloadAll();
+        sfxlib.UnloadAll();
+        Spritekeeper.FreeAll();
+        Textkeeper.FreeAll();
     }
 }

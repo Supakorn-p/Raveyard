@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,6 +14,7 @@ public class TextObject
     public float rotation;
     public Vector2 scale = new Vector2(1,1);
     public int layer = 0;
+    public Color color = Color.White;
     public float alpha = 1.0f;
     public Vector2 anchor = new Vector2(0.5f, 0.5f);
 
@@ -33,5 +35,12 @@ public class TextObject
     public Vector2 GetRawOrigin()
     {
         return anchor * font.MeasureString(text);
+    }
+
+    private const int maxLayers = 20; // this goes both ways (6 = -3 to 3)
+    public float LayerToDepth()
+    {
+        float trueLayer = (layer + maxLayers/2f) / maxLayers;
+        return Math.Clamp(1.0f - trueLayer, 0.0f, 1.0f);
     }
 }

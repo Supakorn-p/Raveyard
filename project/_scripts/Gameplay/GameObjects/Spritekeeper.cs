@@ -24,6 +24,11 @@ public static class Spritekeeper
         spriteObjects.Remove(obj);
     }
 
+    public static void FreeAll()
+    {
+        foreach (SpriteObject obj in spriteObjects.ToArray()) { obj.Free(); }
+    }
+
     private static void debug_PrintAll()
     {
         Debug.WriteLine("===");

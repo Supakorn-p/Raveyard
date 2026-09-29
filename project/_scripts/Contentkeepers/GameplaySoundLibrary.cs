@@ -25,4 +25,10 @@ public class GameplaySoundLibrary
         if (!sfxs.ContainsKey(asset_name)) { throw new System.Exception($"[SNDLIB] {asset_name} isn't loaded!"); }
         sfxs[asset_name].Play(volume, pitch, pan);
     }
+
+    public void UnloadAll()
+    {
+        foreach (string asset_name in sfxs.Keys) { content.UnloadAsset(asset_name); }
+        sfxs.Clear();
+    }
 }
