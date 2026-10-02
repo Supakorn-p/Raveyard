@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
+using MonoGame.Extended.Collections;
 using MonoGame.Extended.Graphics;
 using MonoGame.Extended.Input;
 using MonoGame.Extended.Screens;
@@ -53,6 +54,29 @@ public class scGameplay : GameScreen
     }
 
     // GAME CONTENT GOES HERE VVV
+
+    private Bag<EventObject> loadedEventObjects = new Bag<EventObject>(16);
+
+    private void insertEventObjects()
+    {
+        loadedEventObjects.Add(new DialogTextBubble()); // dialog_bubble
+
+        ResultsBubble resultsBubble = new ResultsBubble(); // display_score
+        resultsBubble.SetScoreTracker(scoreTracker);
+        loadedEventObjects.Add(resultsBubble);
+    }
+
+    private void initializeEventObjects()
+    {
+        foreach (EventObject eventObject in loadedEventObjects) 
+        { 
+            eventObject.Init(Content); 
+            timeline.subscribeToEvent(eventObject.eventName, (EventParams eventParams) =>
+            {
+                eventObject.OnEvent(eventParams.data);
+            });
+        }
+    }
 
     private void subscribeToEvents()
     {
@@ -116,11 +140,6 @@ public class scGameplay : GameScreen
             scoreTracker.AddJudgement(tuple.result);
             Debug.WriteLine(Math.Floor(scoreTracker.GetFinalPercentage()));
         };
-
-        timeline.subscribeToEvent("ENDCHART", (EventParams eventParams) => 
-        { 
-            resultsBubble.DisplayScore((int) Math.Floor(scoreTracker.GetFinalPercentage()));
-        });
     }
 
     public override void Initialize()
@@ -139,7 +158,6 @@ public class scGameplay : GameScreen
 
     // Game Objects
     private Bartender bartender;
-    private placeholder_ResultsBubble resultsBubble;
 
     // Game Object Managers
     private CustomerQueue customerQueue;
@@ -155,12 +173,13 @@ public class scGameplay : GameScreen
         scoreTracker = new ScoreTracker();
 
         bartender = new Bartender();
-        resultsBubble = new placeholder_ResultsBubble();
 
         customerTextures = new TextureCollection(Content);
         customerQueue = new CustomerQueue(customerTextures);
         customerQueue.InitializeTexture("customer_halloween1_sprsheet", new Vector2(444, 483));
 
+        insertEventObjects();
+        initializeEventObjects();
         subscribeToEvents();
 
         recordPlayer.Play();
@@ -211,8 +230,6 @@ public class scGameplay : GameScreen
 
 
         // Load Gameplay Objects
-
-        resultsBubble.Init(Content.Load<Texture2D>("Dialogue-Box"), font_antonSc);
         OrderBox.InitializeOrderBox(Content.Load<Texture2D>("Dialogue-Box"), Content.Load<Texture2D>("instkeys_sprsheet"));
 
         susie.active = true;
@@ -231,8 +248,9 @@ public class scGameplay : GameScreen
             spriteObj.tweener.Update(gameTime.GetElapsedSeconds());
         }
 
+        foreach (EventObject eventObject in loadedEventObjects) { eventObject.Update(gameTime); }
+
         // bleh
-        resultsBubble.Update(gameTime);
         if (KeyboardExtended.GetState().WasKeyPressed(Keys.R))
         {
             ScreenManager.ReplaceScreen(new scGameplay(Game, "peakuniku"));

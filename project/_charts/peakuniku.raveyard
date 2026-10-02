@@ -7,6 +7,14 @@ offset:0.334
 //  eventType - name of the event
 //  time - time of the event in beat time (1.5 = one beat and a half)
 
+dialog_bubble:0|one
+dialog_bubble:1|two
+dialog_bubble:2|three
+dialog_bubble:3|four
+dialog_bubble:4|
+
+display_score:133|
+
 start_order:3
 press:4
 press:6
@@ -73,5 +81,3 @@ right:124.5
 left:125
 press:126
 end_order:127
-
-ENDCHART:133

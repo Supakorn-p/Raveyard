@@ -9,7 +9,7 @@ public class Timeline
     private List<TimelineEvent> timelineEvents = new List<TimelineEvent>();
     private Dictionary<string, Action<EventParams>> eventBus = new Dictionary<string, Action<EventParams>>();
 
-    public double beatTimeNeedle {get; private set;} = 0; // imagine a vinyl record, that's what "needle" means
+    public double beatTimeNeedle {get; private set;} = -1; // imagine a vinyl record, that's what "needle" means
     public void forceMoveNeedle(double beatTime)
     {
         beatTimeNeedle = beatTime;

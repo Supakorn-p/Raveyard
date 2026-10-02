@@ -10,7 +10,7 @@ public class EventParams
 
     public EventParams(string paramsString)
     {
-        data_raw = paramsString.Split(",");
+        data_raw = paramsString.Split("|");
         beatTime = double.Parse(data_raw[0]);
         data = data_raw.Skip(1).ToArray();
     }
