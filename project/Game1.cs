@@ -43,7 +43,8 @@ public class Game1 : Game
     protected override void Initialize()
     {
         base.Initialize();
-        _screenManager.ShowScreen(new scGameplay(this, "peakuniku"));
+        //_screenManager.ShowScreen(new scGameplay(this, "peakuniku"));
+        _screenManager.ShowScreen(new scMenu(this));
     }
 
     protected override void LoadContent()
@@ -53,8 +54,8 @@ public class Game1 : Game
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
+        //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+        //    Exit();
 
         // poll input
         KeyboardExtended.Update();
