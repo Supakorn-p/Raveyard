@@ -29,38 +29,48 @@ public class scMenu : GameScreen
         keyboardListener = new KeyboardListener();
 
         menuCenter mainMenu = new menuCenter();
-
         menuOptions optionsMenu = new menuOptions();
+        menuCredits creditsMenu = new menuCredits();
+        menuLvlSelect levelSelectMenu = new menuLvlSelect(ScreenManager, Game);
 
         contextMenus = [
             mainMenu,
             optionsMenu,
+            creditsMenu,
+            levelSelectMenu
         ];
 
         // menu linking (so they know who to switch their focus to when called)
 
-        mainMenu.optionsMenu = optionsMenu;
+        mainMenu.SetMenus(optionsMenu, creditsMenu, levelSelectMenu);
         optionsMenu.switchOnExit = mainMenu;
+        creditsMenu.switchOnExit = mainMenu;
+        levelSelectMenu.switchOnExit = mainMenu;
 
         // menu initialization
 
         foreach (ContextMenu contextMenu in contextMenus)
         {
             contextMenu.Init(Content);
-            keyboardListener.KeyPressed += (_, args) =>
-            {
-                if (currentSelectedMenu == contextMenu) { contextMenu.OnInputPressed(args.Key); }
-            };
+            // keyboardListener.KeyPressed += (_, args) =>
+            // {
+            //     if (currentSelectedMenu == contextMenu) { contextMenu.OnInputPressed(args.Key); }
+            // };
         }
 
         // 
-
         SwitchMenu(mainMenu);
+        keyboardListener.KeyPressed += screenKeypressFunc;
     }
 
     private void OnMenuExit()
     {
         SwitchMenu(currentSelectedMenu.switchOnExit);
+    }
+
+    private void screenKeypressFunc(object _, KeyboardEventArgs args)
+    {
+        currentSelectedMenu.OnInputPressed(args.Key);
     }
 
     private void SwitchMenu(ContextMenu menu)
@@ -85,12 +95,13 @@ public class scMenu : GameScreen
 
         _camera.Position = Vector2.Lerp(
         _camera.Position, 
-        currentSelectedMenu.cameraPosition - viewportResolution / 2, 0.25f);
+        currentSelectedMenu.cameraPosition - viewportResolution / 2, 0.1f);
         currentSelectedMenu.FocusedUpdate(gameTime);
     }
 
     private void MenuUninit()
     {
+        keyboardListener.KeyPressed -= screenKeypressFunc;
         foreach (ContextMenu contextMenu in contextMenus)
         {
             contextMenu.Dispose();
@@ -106,6 +117,7 @@ public class scMenu : GameScreen
         ViewportAdapter viewport = new BoxingViewportAdapter(Game.Window, GraphicsDevice, 
         (int)viewportResolution.X, (int)viewportResolution.Y);
         _camera = new OrthographicCamera(viewport);
+        _camera.Position = -viewportResolution / 2;
 
         MenuInit();
     }

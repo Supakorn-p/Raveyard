@@ -8,7 +8,16 @@ namespace Raveyard;
 
 public class menuCenter : ContextMenu
 {
-    public ContextMenu optionsMenu;
+    private ContextMenu rightMenu;
+    private ContextMenu leftMenu;
+    private ContextMenu downMenu;
+
+    public void SetMenus(ContextMenu right, ContextMenu left, ContextMenu down)
+    {
+        rightMenu = right; 
+        leftMenu = left;
+        downMenu = down;
+    }
 
     SpriteObject susie;
     public override void Init(ContentManager Content)
@@ -16,29 +25,33 @@ public class menuCenter : ContextMenu
         base.Init(Content);
         cameraPosition = new Vector2(0, 0);
 
-        susie = new SpriteObject("susie", 
-        Content.Load<Texture2D>("placeholder"), new Vector2(640, 640),
-        Vector2.Zero);
+        susie = new SpriteObject("menubg", 
+        Content.Load<Texture2D>("menu_bgmain"), new Vector2(1280, 720),
+        new Vector2(0, 0));
         susie.active = true;
     }
 
     public override void FocusedUpdate(GameTime gameTime)
     {
         base.FocusedUpdate(gameTime);
-        
-        if (Keyboard.GetState().IsKeyDown(Keys.Q)) { susie.rotation += -0.5f; }
-        if (Keyboard.GetState().IsKeyDown(Keys.E)) { susie.rotation += 0.5f; }
     }
 
     public override void OnInputPressed(Keys key)
     {
         if (key == Keys.Right) 
         { 
-            switchOnExit = optionsMenu;
+            switchOnExit = rightMenu;
+            Exit(); 
+        }
+        if (key == Keys.Left) 
+        { 
+            switchOnExit = leftMenu;
+            Exit(); 
+        }
+        if (key == Keys.Space) 
+        { 
+            switchOnExit = downMenu;
             Exit(); 
         }
     }
-
-    public override void OnFocusEnter() { susie.alpha = 1f; }
-    public override void OnFocusExit() { susie.alpha = 0.5f; }
 }

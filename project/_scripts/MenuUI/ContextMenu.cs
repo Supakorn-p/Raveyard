@@ -19,10 +19,6 @@ public abstract class ContextMenu : IDisposable
     public virtual void Dispose() {}
 
     public ContextMenu () {}
-    public ContextMenu(ContextMenu menuToExitTo)
-    {
-        switchOnExit = menuToExitTo;
-    }
 
     // when a menu is "focused", all inputs are directed to it
 

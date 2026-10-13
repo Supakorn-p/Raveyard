@@ -11,28 +11,21 @@ public class menuOptions : ContextMenu
     public override void Init(ContentManager Content)
     {
         base.Init(Content);
-        cameraPosition = new Vector2(500, 0);
+        cameraPosition = new Vector2(1280, 0);
 
-        susie = new SpriteObject("susie", 
-        Content.Load<Texture2D>("placeholder"), new Vector2(640, 640),
-        new Vector2(500, 0));
-        susie.scale = new Vector2(0.5f, 0.5f);
+        susie = new SpriteObject("menubg_opt", 
+        Content.Load<Texture2D>("menu_bgopushon"), new Vector2(1280, 720),
+        new Vector2(1280, 0));
         susie.active = true;
     }
 
     public override void FocusedUpdate(GameTime gameTime)
     {
         base.FocusedUpdate(gameTime);
-        
-        if (Keyboard.GetState().IsKeyDown(Keys.Q)) { susie.rotation += -0.5f; }
-        if (Keyboard.GetState().IsKeyDown(Keys.E)) { susie.rotation += 0.5f; }
     }
 
     public override void OnInputPressed(Keys key)
     {
         if (key == SETTINGS.keybind_back) { Exit(); }
     }
-
-    public override void OnFocusEnter() { susie.alpha = 1f; }
-    public override void OnFocusExit() { susie.alpha = 0.5f; }
 }
