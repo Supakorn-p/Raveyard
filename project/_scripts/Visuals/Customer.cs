@@ -1,4 +1,4 @@
-using System;
+ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Tweening;
@@ -17,7 +17,7 @@ public class Customer
     private static Vector2 presentPos = new Vector2(-200, 720/2 + 30);
     private static Vector2 endPos = new Vector2(1000, 720/2 + 30);
 
-    private OrderBox orderbox = new OrderBox();
+    private OrderBox orderbox = new OrderBox(false);
 
     public Customer(Texture2D _texture2D, Vector2 region)
     {

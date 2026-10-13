@@ -9,6 +9,7 @@ using MonoGame.Extended.Screens;
 using MonoGame.Extended.ViewportAdapters;
 using Raveyard._scripts.Characters;
 using Raveyard._scripts.Visuals;
+using Raveyard._scripts.Visuals.EventObjects.Distractions;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -64,6 +65,9 @@ public class scGameplay : GameScreen
         ResultsBubble resultsBubble = new ResultsBubble(); // display_score
         resultsBubble.SetScoreTracker(scoreTracker);
         loadedEventObjects.Add(resultsBubble);
+
+        PasserBy passerBy = new PasserBy();
+        loadedEventObjects.Add(passerBy);
     }
 
     private void initializeEventObjects()
