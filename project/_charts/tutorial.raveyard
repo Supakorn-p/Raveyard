@@ -1,0 +1,141 @@
+// METADATA
+bpm:84
+offset:0.001
+
+// EVENTS
+// *format: eventType:time
+//  eventType - name of the event
+//  time - time of the event in beat time (1.5 = one beat and a half)
+
+dialog_bubble:1|Welcome to your Rhythm Training Session!
+
+dialog_bubble:7|
+dialog_bubble:8|All you have to is press SPACEBAR..
+dialog_bubble:12|..in response to your customer's order.
+
+dialog_bubble:14|
+demo_toggle:16|true
+dialog_bubble:16|Observe carefully..
+dialog_bubble:22|
+
+dialog_bubble:30|Now you try!
+demo_toggle:31|false
+dialog_bubble:32|Listen closely..
+dialog_bubble:39|NOW!
+dialog_bubble:40|
+
+dialog_bubble:48|Gotten the hang of it?
+dialog_bubble:52|Well, you better be.
+dialog_bubble:56|The next few orders will use LEFT and RIGHT keys!
+
+
+dialog_bubble:62|
+dialog_bubble:63|Listen..
+dialog_bubble:67|NOW!
+dialog_bubble:68|
+
+dialog_bubble:71|Listen..
+dialog_bubble:75|NOW!
+dialog_bubble:76|
+
+dialog_bubble:96|That should cover everything you need to know.
+dialog_bubble:103|
+dialog_bubble:104|Now, try to get to the end by yourself.
+
+dialog_bubble:110|Good luck!
+dialog_bubble:112|
+
+dialog_bubble:176|Terrific!
+dialog_bubble:178|
+display_score:178|
+
+start_order:15
+press:16
+press:18
+press:20
+press:22
+end_order:23
+
+start_order:31
+press:32
+press:34
+press:36
+press:38
+end_order:39
+
+//
+
+
+start_order:63
+left:64
+left:66
+end_order:67
+
+start_order:71
+left:72
+left:74
+end_order:75
+
+//
+
+start_order:79
+left:80
+right:82
+end_order:83
+
+start_order:87
+right:88
+left:90
+end_order:91
+
+//
+
+start_order:111
+press:112
+press:113
+press:114
+end_order:115
+
+start_order:119
+press:120
+press:121
+press:122
+end_order:123
+
+start_order:127
+press:128
+press:129
+press:129.75
+end_order:131
+
+start_order:135
+press:136
+press:137
+press:137.75
+end_order:139
+
+start_order:144
+press:145
+press:146
+press:147
+end_order:148
+
+start_order:151
+press:152
+press:153
+left:153.75
+end_order:155
+
+start_order:159
+press:160
+left:160.5
+press:161
+press:161.75
+end_order:163
+
+start_order:167
+press:168
+right:168.5
+press:169
+press:169.75
+end_order:171

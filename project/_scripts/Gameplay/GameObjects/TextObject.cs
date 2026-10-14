@@ -1,7 +1,9 @@
 using System;
+using System.Diagnostics;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended.Tweening;
 
 namespace Raveyard;
 
@@ -15,10 +17,12 @@ public class TextObject
     public Vector2 scale = new Vector2(1,1);
     public int layer = 0;
     public Color color = Color.White;
-    public float alpha = 1.0f;
+    public float alpha = 1f;
     public Vector2 anchor = new Vector2(0.5f, 0.5f);
 
     public bool active = false;
+
+    public readonly Tweener tweener = new Tweener();
 
     public TextObject(SpriteFont _font, StringBuilder _string)
     {

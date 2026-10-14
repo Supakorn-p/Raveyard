@@ -18,4 +18,6 @@ public static class DebugTool
             Debug.WriteLine($"autoplay: {debugOption_autoplay}");
         }
     }
+
+    public static void ForceSet(bool autoplayOn) { debugOption_autoplay = autoplayOn; Debug.WriteLine($"autoplay: {debugOption_autoplay}"); }
 }

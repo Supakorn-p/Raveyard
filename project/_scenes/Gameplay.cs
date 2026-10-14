@@ -66,8 +66,11 @@ public class scGameplay : GameScreen
         resultsBubble.SetScoreTracker(scoreTracker);
         loadedEventObjects.Add(resultsBubble);
 
-        PasserBy passerBy = new PasserBy();
+        PasserBy passerBy = new PasserBy(); // dst_passerby
         loadedEventObjects.Add(passerBy);
+
+        DemoPlayer demoPlayer = new DemoPlayer(); // demo_player
+        loadedEventObjects.Add(demoPlayer);
     }
 
     private void initializeEventObjects()
@@ -271,6 +274,11 @@ public class scGameplay : GameScreen
             spriteObj.tweener.Update(gameTime.GetElapsedSeconds());
         }
 
+        foreach (TextObject textObj in Textkeeper.textObjects.ToArray())
+        {
+            textObj.tweener.Update(gameTime.GetElapsedSeconds());
+        }
+
         foreach (EventObject eventObject in loadedEventObjects) { eventObject.Update(gameTime); }
 
         // bleh
@@ -286,7 +294,8 @@ public class scGameplay : GameScreen
         _spriteBatch.Begin(
             transformMatrix: _camera.GetViewMatrix(), 
             samplerState: SamplerState.PointClamp, 
-            sortMode: SpriteSortMode.BackToFront);
+            sortMode: SpriteSortMode.BackToFront,
+            blendState: BlendState.NonPremultiplied);
 
         foreach (SpriteObject spriteObj in Spritekeeper.getActiveObjs())
         {
@@ -301,7 +310,8 @@ public class scGameplay : GameScreen
         {
             float _rotation = textObj.rotation/180f * MathF.PI;
             _spriteBatch.DrawString(textObj.font, textObj.text, textObj.position, 
-            new Color(textObj.color, textObj.alpha), _rotation, textObj.GetRawOrigin(), textObj.scale,
+            new Color(textObj.color.R, textObj.color.G, textObj.color.B, textObj.alpha), 
+            _rotation, textObj.GetRawOrigin(), textObj.scale,
             SpriteEffects.None, textObj.LayerToDepth());
         }
 
