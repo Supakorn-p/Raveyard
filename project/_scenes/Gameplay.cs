@@ -275,9 +275,9 @@ public class scGameplay : GameScreen
         foreach (EventObject eventObject in loadedEventObjects) { eventObject.Update(gameTime); }
 
         // bleh
-        if (KeyboardExtended.GetState().WasKeyPressed(Keys.R))
+        if (KeyboardExtended.GetState().WasKeyPressed(SETTINGS.keybind_back))
         {
-            ScreenManager.ReplaceScreen(new scGameplay(Game, "peakuniku"));
+            ScreenManager.ReplaceScreen(new scMenu(Game));
         }
     }
     public override void Draw(GameTime gameTime)
