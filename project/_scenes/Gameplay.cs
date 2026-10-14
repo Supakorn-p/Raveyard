@@ -40,7 +40,7 @@ public class scGameplay : GameScreen
 
     private void loadChart(string _fileName)
     {
-        string fileName = Path.Combine(Directory.GetCurrentDirectory(), @"_charts\", _fileName);
+        string fileName = LEVELS.GetLevelPathByName(_fileName);
 
         FileLoader file = new FileLoader();
         file.loadFile(fileName);
