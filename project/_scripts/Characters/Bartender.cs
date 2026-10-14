@@ -40,7 +40,7 @@ namespace Raveyard._scripts.Characters
             bartender.LoadAnim("bar_shake", [3, 3, 4, 4], TimeSpan.FromMilliseconds(240), true);
             bartender.LoadAnim("bar_finish", [5, 5, 6, 6], TimeSpan.FromMilliseconds(240), true);
             bartender.LoadAnim("bar_offbeat", [7, 8], TimeSpan.FromMilliseconds(240), true);
-            bartender.LoadAnim("bar_fuckup", [9, 10], TimeSpan.FromMilliseconds(240), true); 
+            bartender.LoadAnim("bar_fuckup", [9, 10], TimeSpan.FromMilliseconds(50), true); 
 
             eyes.LoadAnim("eye_idle", [1, 1, 1, 2], TimeSpan.FromMilliseconds(240), true);
             eyes.LoadAnim("eye_shake", [2], TimeSpan.FromMilliseconds(240), true);
@@ -66,16 +66,23 @@ namespace Raveyard._scripts.Characters
 
         private void PerfectOrder(bool isPerfect)
         {
-            if (!isPerfect) { return; }
+            if (!isPerfect)
+            {
+                SetAnimation("bar_fuckup");
+                eyes.active = false;
+                return; 
+            }
             SetAnimation("bar_finish");
             SetEyeAnimation("eye_perfect");
         }
+
 
         public void OnInputResult(JudgementResult result, InputType input)
         {
             // bounce regardless of input result
             SetAnimation("bar_idle");
             SetEyeAnimation("eye_idle");
+            eyes.active = true;
             bartender.tweener.CancelAll();
             eyes.tweener.CancelAll();
 
@@ -92,7 +99,7 @@ namespace Raveyard._scripts.Characters
             if (result == JudgementResult.none) { GameplaySoundLibrary.PlaySound("inputbeep"); return; }
             if (result == JudgementResult.miss) { 
                 SetAnimation("bar_offbeat");
-                SetEyeAnimation("eye_shake");
+                SetEyeAnimation("eye_idle");
                 GameplaySoundLibrary.PlaySound("inputmissed"); 
                 return;
             }

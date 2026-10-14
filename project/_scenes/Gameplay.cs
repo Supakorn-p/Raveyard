@@ -94,6 +94,7 @@ public class scGameplay : GameScreen
             //order_box.StartOrder();
             Customer currentCustomer = customerQueue.AddCustomerToLine(0);
             currentCustomer.StartOrder();
+            bartender.eyes.active = true;
             bartender.SetAnimation("bar_takingorder");
             bartender.SetEyeAnimation("eye_takingorder");
 
