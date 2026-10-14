@@ -31,7 +31,7 @@ namespace Raveyard._scripts.Visuals
 
         public void CreateDrinkSprite()
         {
-            orderedDrink = new SpriteObject("order_box", drinkTexture, new Vector2(370, 370), new Vector2(-550, -250));
+            orderedDrink = new SpriteObject("order_box", drinkTexture, new Vector2(370, 370), new Vector2(-550, -250), 1);
             orderedDrink.scale = scale;
             orderedDrink.rotation = rotation;
             orderedDrink.active = true;
