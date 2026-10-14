@@ -42,6 +42,8 @@ namespace Raveyard._scripts.Visuals
 
         private static Texture2D orderBoxTexture;
 
+        public DrinkWanted orderedDrink;
+
         public OrderBox(bool _secondBox)
         {
             isSecondBox = _secondBox;
@@ -139,6 +141,7 @@ namespace Raveyard._scripts.Visuals
             .Easing(EasingFunctions.CubicInOut)
             .OnEnd(tween => DestroyBox());
 
+
             inputsExhausted?.Invoke(isPerfect);
             if (isPerfect) {GameplaySoundLibrary.PlaySound("snd_result_cashregister");}
         }
@@ -181,6 +184,7 @@ namespace Raveyard._scripts.Visuals
                 }
                 instructionkeyList.Clear();
                 EndOrder();
+                orderedDrink.EndOrder();
                 return true;
             }
 

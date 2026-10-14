@@ -1,4 +1,5 @@
  using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Tweening;
@@ -17,12 +18,14 @@ public class Customer
     private static Vector2 presentPos = new Vector2(-200, 720/2 + 30);
     private static Vector2 endPos = new Vector2(1000, 720/2 + 30);
 
-    private OrderBox orderbox = new OrderBox(false);
+    public OrderBox orderbox = new OrderBox(false);
+    //private DrinkWanted drinkWanted = new DrinkWanted(); 
 
     public Customer(Texture2D _texture2D, Vector2 region)
     {
         spriteObj = new SpriteObject("customer", _texture2D, region, startPos);
         spriteObj.anchor = new Vector2(0.5f, 1f);
+        //drinkWanted.CreateDrinkSprite();
         orderbox.CreateOrderBoxSprite();
 
         spriteObj.LoadAnim("cus_talk", [1, 0], TimeSpan.FromMilliseconds(100), false);
@@ -38,6 +41,7 @@ public class Customer
         .Easing(EasingFunctions.CubicInOut);
 
         orderbox.StartOrder();
+       // drinkWanted.StartOrder();
     }
 
     public void AddToOrder(InputType input)
@@ -50,12 +54,16 @@ public class Customer
     {
         bool isEmpty = orderbox.RemoveInstruction(result);
         if (isEmpty) { EndOrder(); }
+
+       // drinkWanted.SuccessInput();
     }
 
     private void EndOrder()
     {
         orderFulfilled?.Invoke();
         orderFulfilled = null;
+
+       // drinkWanted.EndOrder();
 
         spriteObj.tweener.TweenTo(spriteObj, player => player.position, endPos, 1f)
         .Easing(EasingFunctions.CubicInOut).OnEnd(_ => spriteObj.Free());

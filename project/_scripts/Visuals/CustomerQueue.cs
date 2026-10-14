@@ -34,12 +34,14 @@ public class CustomerQueue
         customerVariants.Add(new CustomerVariantData{asset_name = asset_name, texture_region = region});
     }
 
+    public Customer customer;
     public Customer AddCustomerToLine(int variant)
     {
         CustomerVariantData customerVariant = customerVariants[variant];
-        Customer customer = new Customer(
+        customer = new Customer(
             customerTextures.GetTexture(customerVariant.asset_name), 
             customerVariant.texture_region
+
         );
         customerQueue.AddToBack(customer);
 

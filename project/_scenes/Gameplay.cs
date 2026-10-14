@@ -82,6 +82,7 @@ public class scGameplay : GameScreen
         }
     }
 
+    private DrinkWanted drinkWanted;
     private void subscribeToEvents()
     {
 
@@ -93,7 +94,14 @@ public class scGameplay : GameScreen
             //order_box.StartOrder();
             Customer currentCustomer = customerQueue.AddCustomerToLine(0);
             currentCustomer.StartOrder();
-            bartender.SetAnimation("bar_idle");  
+            bartender.SetAnimation("bar_takingorder");
+            bartender.SetEyeAnimation("eye_takingorder");
+
+
+            drinkWanted = new DrinkWanted();
+            drinkWanted.CreateDrinkSprite();
+
+            customerQueue.customer.orderbox.orderedDrink = drinkWanted;
         });
 
         timeline.subscribeToEvent("press", (EventParams eventParams) => 
@@ -130,6 +138,8 @@ public class scGameplay : GameScreen
         { 
             judgementSystem.StopOrderAndListen(eventParams.beatTime);
             GameplaySoundLibrary.PlaySound("snd_cue_end");
+
+            drinkWanted.StartOrder();
         });
 
         judgementSystem.inputResult += ((JudgementResult result, InputType input) tuple) =>
@@ -143,6 +153,8 @@ public class scGameplay : GameScreen
             currentCustomer?.ProcessOrder(tuple.result);
             scoreTracker.AddJudgement(tuple.result);
             Debug.WriteLine(Math.Floor(scoreTracker.GetFinalPercentage()));
+
+            drinkWanted.SuccessInput();
         };
     }
 
@@ -181,6 +193,7 @@ public class scGameplay : GameScreen
         customerTextures = new TextureCollection(Content);
         customerQueue = new CustomerQueue(customerTextures);
         customerQueue.InitializeTexture("customer_sprsheet", new Vector2(551, 581));
+
 
         insertEventObjects();
         initializeEventObjects();
@@ -230,11 +243,17 @@ public class scGameplay : GameScreen
         bartender.bartender = new SpriteObject("bartender", Content.Load<Texture2D>("bartender_sprsheet_2"), 
         new Vector2(430, 486), bartender.position); //.bartender is the SpriteObject in that class
         bartender.bartender.active = true;
+
+        bartender.eyes = new SpriteObject("bartender_eyes", Content.Load<Texture2D>("bartender_eyes_sprsheet"),
+        new Vector2(430, 486), bartender.position);
+        bartender.eyes.active = true;
+
         bartender.BartenderInitialize();
 
 
         // Load Gameplay Objects
         OrderBox.InitializeOrderBox(Content.Load<Texture2D>("box_halloween"), Content.Load<Texture2D>("inskeys_sprsheet"));
+        DrinkWanted.InitializeWantedDrink(Content.Load<Texture2D>("drinks_sprsheet"));
 
         susie.active = true;
         background.active = true;
