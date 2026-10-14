@@ -255,7 +255,7 @@
 /processorParam:TextureFormat=Color
 /build:../../assets/bg_halloween .png;bg_halloween .png
 
-#begin ../../assets/counter_halloween.png
+#begin ../../assets/box_halloween.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -265,7 +265,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:../../assets/counter_halloween.png;counter_halloween.png
+/build:../../assets/box_halloween.png;box_halloween.png
 
 #begin ../../assets/counter_halloween.png
 /importer:TextureImporter

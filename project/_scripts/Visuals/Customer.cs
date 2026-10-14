@@ -26,6 +26,7 @@ public class Customer
         orderbox.CreateOrderBoxSprite();
 
         spriteObj.LoadAnim("cus_talk", [1, 0], TimeSpan.FromMilliseconds(100), false);
+        spriteObj.LoadAnim("cus_satisfied", [2], TimeSpan.FromMilliseconds(100), false);
     }
 
     public void StartOrder()
@@ -55,9 +56,11 @@ public class Customer
     {
         orderFulfilled?.Invoke();
         orderFulfilled = null;
-        
+
         spriteObj.tweener.TweenTo(spriteObj, player => player.position, endPos, 1f)
         .Easing(EasingFunctions.CubicInOut).OnEnd(_ => spriteObj.Free());
+
+        spriteObj.animatedSprite.SetAnimation("cus_satisfied");
     }
 
     public void visual_offsetBoxLayer(int n)

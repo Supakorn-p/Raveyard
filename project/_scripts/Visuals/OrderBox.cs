@@ -66,7 +66,7 @@ namespace Raveyard._scripts.Visuals
         {
             if (orderBoxTexture == null) { throw new Exception("initialize the order box's textures first!");}
 
-            order_box = new SpriteObject("order_box", orderBoxTexture, new Vector2(800, 400), resting_pos);
+            order_box = new SpriteObject("order_box", orderBoxTexture, new Vector2(1000, 476), resting_pos);
             order_box.scale = new Vector2(0.7f, 0.7f);
             order_box.layer += 1;
             order_box.active = true;
@@ -109,9 +109,9 @@ namespace Raveyard._scripts.Visuals
         //private Dictionary<InputType, String> inputTypes = new Dictionary<InputType, String> { {InputType.press, "Sapcebar-Icon" }, {InputType.left, "Left-Icon"}, {InputType.right, "Right-Icon" } };
         private Dictionary<InputType, int> inputTypeToSprFrame = new Dictionary<InputType, int>
         {
-          {InputType.left, 0},
+          {InputType.left, 2},
           {InputType.right, 1},
-          {InputType.press, 2},
+          {InputType.press, 0},
         };
         public void InstructionAdded(InputType input)
         {
@@ -122,7 +122,7 @@ namespace Raveyard._scripts.Visuals
             
             InstructionKey instruction = new InstructionKey();
             instruction.instruction_key = new SpriteObject("instruction", instructionsTexture,
-            new Vector2(256, 256), Vector2.Zero, inputTypeToSprFrame[input]);
+            new Vector2(913, 537), Vector2.Zero, inputTypeToSprFrame[input]);
             instruction.instruction_key.layer = order_box.layer + 1;
 
             instruction.InitializeKey(instructionsQueue.Count);

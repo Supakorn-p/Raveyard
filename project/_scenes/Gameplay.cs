@@ -180,7 +180,7 @@ public class scGameplay : GameScreen
 
         customerTextures = new TextureCollection(Content);
         customerQueue = new CustomerQueue(customerTextures);
-        customerQueue.InitializeTexture("customer_halloween1_sprsheet", new Vector2(444, 483));
+        customerQueue.InitializeTexture("customer_sprsheet", new Vector2(551, 581));
 
         insertEventObjects();
         initializeEventObjects();
@@ -218,23 +218,23 @@ public class scGameplay : GameScreen
         susie.layer = -99;
 
         background = new SpriteObject("background",
-        Content.Load<Texture2D>("BG"), new Vector2(1280, 720), Vector2.Zero);
+        Content.Load<Texture2D>("bg_halloween "), new Vector2(1280, 720), Vector2.Zero);
         background.layer = -2;
 
-        bar_counter = new SpriteObject("bar_counter", Content.Load<Texture2D>("Bar-counter"), 
+        bar_counter = new SpriteObject("bar_counter", Content.Load<Texture2D>("counter_halloween"), 
         new Vector2(1280, 720), Vector2.Zero);
         bar_counter.layer = -1;
 
         // Load Characters
 
-        bartender.bartender = new SpriteObject("bartender", Content.Load<Texture2D>("bartender_sprsheet_1"), 
+        bartender.bartender = new SpriteObject("bartender", Content.Load<Texture2D>("bartender_sprsheet_2"), 
         new Vector2(430, 486), bartender.position); //.bartender is the SpriteObject in that class
         bartender.bartender.active = true;
         bartender.BartenderInitialize();
 
 
         // Load Gameplay Objects
-        OrderBox.InitializeOrderBox(Content.Load<Texture2D>("Dialogue-Box"), Content.Load<Texture2D>("instkeys_sprsheet"));
+        OrderBox.InitializeOrderBox(Content.Load<Texture2D>("box_halloween"), Content.Load<Texture2D>("inskeys_sprsheet"));
 
         susie.active = true;
         background.active = true;

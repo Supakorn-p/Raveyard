@@ -12,7 +12,7 @@ namespace Raveyard._scripts.Visuals
         */
         public SpriteObject instruction_key;
         //public OrderBox box_owner;
-        public Vector2 scale = new Vector2(0.3f, 0.3f);
+        public Vector2 scale = new Vector2(0.1f, 0.1f);
         public int indexNumber = 0;
 
         /*public void SetDistanceAndScale(InstructionKey inst_to_add)
