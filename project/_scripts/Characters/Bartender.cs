@@ -40,7 +40,7 @@ namespace Raveyard._scripts.Characters
             bartender.LoadAnim("bar_shake", [3, 3, 4, 4], TimeSpan.FromMilliseconds(240), true);
             bartender.LoadAnim("bar_finish", [5, 5, 6, 6], TimeSpan.FromMilliseconds(240), true);
             bartender.LoadAnim("bar_offbeat", [7, 8], TimeSpan.FromMilliseconds(240), true);
-            bartender.LoadAnim("bar_fuckup", [9, 10], TimeSpan.FromMilliseconds(50), true); 
+            bartender.LoadAnim("bar_fuckup", [9, 10], TimeSpan.FromMilliseconds(100), true); 
 
             eyes.LoadAnim("eye_idle", [1, 1, 1, 2], TimeSpan.FromMilliseconds(240), true);
             eyes.LoadAnim("eye_shake", [2], TimeSpan.FromMilliseconds(240), true);
