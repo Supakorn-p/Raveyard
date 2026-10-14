@@ -58,7 +58,7 @@ namespace Raveyard._scripts.Characters
             SetEyeAnimation("eye_idle");
         }
 
-        private void ActuallyTakingOrder()
+        public void ActuallyTakingOrder()
         {
             SetAnimation("bar_takingorder");
             SetEyeAnimation("eye_takingorder");
@@ -69,7 +69,7 @@ namespace Raveyard._scripts.Characters
             if (!isPerfect)
             {
                 SetAnimation("bar_fuckup");
-                eyes.active = false;
+                SetEyeAnimation("eye_fuckup");
                 return; 
             }
             SetAnimation("bar_finish");
@@ -82,7 +82,6 @@ namespace Raveyard._scripts.Characters
             // bounce regardless of input result
             SetAnimation("bar_idle");
             SetEyeAnimation("eye_idle");
-            eyes.active = true;
             bartender.tweener.CancelAll();
             eyes.tweener.CancelAll();
 
@@ -130,6 +129,8 @@ namespace Raveyard._scripts.Characters
 
         public void SetEyeAnimation(string animName)
         {
+            if (animName == "eye_fuckup") { eyes.active = false; return; }
+            eyes.active = true;
             eyes.animatedSprite.SetAnimation(animName);
         }
     }

@@ -94,9 +94,7 @@ public class scGameplay : GameScreen
             //order_box.StartOrder();
             Customer currentCustomer = customerQueue.AddCustomerToLine(0);
             currentCustomer.StartOrder();
-            bartender.eyes.active = true;
-            bartender.SetAnimation("bar_takingorder");
-            bartender.SetEyeAnimation("eye_takingorder");
+            bartender.ActuallyTakingOrder();
 
 
             drinkWanted = new DrinkWanted();
@@ -247,6 +245,7 @@ public class scGameplay : GameScreen
 
         bartender.eyes = new SpriteObject("bartender_eyes", Content.Load<Texture2D>("bartender_eyes_sprsheet"),
         new Vector2(430, 486), bartender.position);
+        bartender.eyes.layer = bartender.bartender.layer + 1;
         bartender.eyes.active = true;
 
         bartender.BartenderInitialize();
