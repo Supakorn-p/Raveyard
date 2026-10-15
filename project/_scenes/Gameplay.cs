@@ -322,6 +322,7 @@ public class scGameplay : GameScreen
     {
         base.UnloadContent();
         recordPlayer.Stop();
+        recordPlayer.Dispose();
         customerTextures.UnloadAll();
         sfxlib.UnloadAll();
         Spritekeeper.FreeAll();

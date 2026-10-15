@@ -7,7 +7,7 @@ namespace Raveyard;
 
 // monogame's gameTime is cool but its also unreliable so this is a compromise
 
-public class RecordPlayer
+public class RecordPlayer : IDisposable
 {
     private WAVStream wavStream;
     //private DynamicSoundEffectInstance soundEffect;
@@ -60,5 +60,10 @@ public class RecordPlayer
 
         // resyncBeattimeWithBuffer();
         return realPlaybackPos / crotchet;
+    }
+
+    public void Dispose()
+    {
+        wavStream.Dispose();
     }
 }

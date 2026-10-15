@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Audio;
 namespace Raveyard;
 
 // copied from monogame's documentation
-public class WAVStream
+public class WAVStream: IDisposable
 {
     // try not to change this
     // high buffer size = less stutter, more latency
@@ -78,6 +78,7 @@ public class WAVStream
 
     public void StopMusic()
     {
+        bufferPos = 0;
         soundEffectInstance.Stop();
         msClock.Reset();
     }
@@ -88,5 +89,11 @@ public class WAVStream
         int pendingBuffers = (int) MathF.Ceiling(soundEffectInstance.PendingBufferCount / 2.0f);
         return (bufferPos-bufferCount*pendingBuffers)/bufferCount * (double) bufferSizeMs
         + Math.Min(msClock.ElapsedMilliseconds, bufferSizeMs*pendingBuffers);
+    }
+
+    public void Dispose()
+    {
+        StopMusic();
+        soundEffectInstance.Dispose();
     }
 }
