@@ -106,13 +106,13 @@ end_order:123
 start_order:127
 press:128
 press:129
-press:129.733
+press:129.8
 end_order:131
 
 start_order:135
 press:136
 press:137
-press:137.733
+press:137.8
 end_order:139
 
 start_order:144
@@ -124,19 +124,19 @@ end_order:148
 start_order:151
 press:152
 press:153
-left:153.733
+left:153.8
 end_order:155
 
 start_order:159
 press:160
 left:160.5
 press:161
-press:161.733
+press:161.8
 end_order:163
 
 start_order:167
 press:168
 right:168.5
 press:169
-press:169.733
+press:169.8
 end_order:171

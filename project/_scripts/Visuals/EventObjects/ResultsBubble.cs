@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Tweening;
@@ -45,11 +46,11 @@ public class ResultsBubble : EventObject
         scoreLabel.position = new Vector2(0, -200);
         scoreLabel.layer = 11;
 
-        // restartLabel = new TextObject(font, new StringBuilder("PRESS [R] TO RESTART"));
-        // restartLabel.color = Color.Black;
-        // restartLabel.scale = new Vector2(0.5f, 0.5f);
-        // restartLabel.position = new Vector2(0, 300);
-        // restartLabel.layer = 11;
+        restartLabel = new TextObject(font, new StringBuilder("PRESS [Esc] TO RETURN"));
+        restartLabel.color = Color.Black;
+        restartLabel.scale = new Vector2(0.5f, 0.5f);
+        restartLabel.position = new Vector2(0, 300);
+        restartLabel.layer = 11;
     }
 
 
@@ -73,7 +74,7 @@ public class ResultsBubble : EventObject
         bubble.active = true;
         score.active = true;
         scoreLabel.active = true;
-        //restartLabel.active = true;
+        restartLabel.active = true;
 
         bubble.scale = new Vector2(1.1f, 3.5f);
         bubble.tweener.TweenTo(target: bubble, expression: player => player.scale, toValue: new Vector2(1f, 3.5f), duration: 2f)
@@ -90,11 +91,19 @@ public class ResultsBubble : EventObject
 
     private double currentScoreNum = 0;
     private double targetScoreNum = 0;
+
+    private int _p_currentScoreNum = 0;
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
 
         currentScoreNum = MathHelper.Lerp((float) currentScoreNum, (float) targetScoreNum, 0.02f);
         score.text = new StringBuilder($"{Math.Round(currentScoreNum)}/100");
+
+        if (_p_currentScoreNum != Math.Round(currentScoreNum))
+        { 
+            GameplaySoundLibrary.PlaySound("inputbeep", 1f, 0, (float) (currentScoreNum/targetScoreNum)); 
+        }
+        _p_currentScoreNum = (int) Math.Round(currentScoreNum);
     }
 }
