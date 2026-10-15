@@ -130,7 +130,7 @@ public class scMenu : GameScreen
 
     public override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.Blue);
+        //GraphicsDevice.Clear(Color.Blue);
 
         _spriteBatch.Begin(
             transformMatrix: _camera.GetViewMatrix(), 

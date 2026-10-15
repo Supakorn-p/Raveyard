@@ -289,7 +289,7 @@ public class scGameplay : GameScreen
     }
     public override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.Green);
+        //GraphicsDevice.Clear(Color.Green);
 
         _spriteBatch.Begin(
             transformMatrix: _camera.GetViewMatrix(), 
