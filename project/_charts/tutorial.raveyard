@@ -21,6 +21,7 @@ dialog_bubble:22|
 dialog_bubble:30|Now you try!
 demo_toggle:31|false
 dialog_bubble:32|Listen closely..
+dialog_bubble:35|
 dialog_bubble:39|NOW!
 dialog_bubble:40|
 
@@ -45,7 +46,7 @@ dialog_bubble:104|Now, try to get to the end by yourself.
 dialog_bubble:110|Good luck!
 dialog_bubble:112|
 
-dialog_bubble:176|Terrific!
+dialog_bubble:176|Great job!
 dialog_bubble:178|
 display_score:178|
 
@@ -105,13 +106,13 @@ end_order:123
 start_order:127
 press:128
 press:129
-press:129.75
+press:129.733
 end_order:131
 
 start_order:135
 press:136
 press:137
-press:137.75
+press:137.733
 end_order:139
 
 start_order:144
@@ -123,19 +124,19 @@ end_order:148
 start_order:151
 press:152
 press:153
-left:153.75
+left:153.733
 end_order:155
 
 start_order:159
 press:160
 left:160.5
 press:161
-press:161.75
+press:161.733
 end_order:163
 
 start_order:167
 press:168
 right:168.5
 press:169
-press:169.75
+press:169.733
 end_order:171
