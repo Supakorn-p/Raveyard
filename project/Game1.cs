@@ -35,6 +35,7 @@ public class Game1 : Game
         Components.Add(_screenManager);
 
         IsFixedTimeStep = false;
+        _graphics.SynchronizeWithVerticalRetrace = false;
         _graphics.PreferredBackBufferWidth = 1280;
         _graphics.PreferredBackBufferHeight = 720;
         Window.AllowUserResizing = true;

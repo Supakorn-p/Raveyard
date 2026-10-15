@@ -87,6 +87,7 @@ public class scMenu : GameScreen
     public override void Update(GameTime gameTime)
     {
         keyboardListener.Update(gameTime);
+        float deltaTime = (float) gameTime.ElapsedGameTime.TotalSeconds;
 
         foreach (ContextMenu contextMenu in contextMenus)
         {
@@ -95,7 +96,7 @@ public class scMenu : GameScreen
 
         _camera.Position = Vector2.Lerp(
         _camera.Position, 
-        currentSelectedMenu.cameraPosition - viewportResolution / 2, 0.1f);
+        currentSelectedMenu.cameraPosition - viewportResolution / 2, deltaTime * 5f);
         currentSelectedMenu.FocusedUpdate(gameTime);
     }
 
