@@ -88,7 +88,7 @@ public class menuLvlSelect : ContextMenu
         string audioPath = Path.ChangeExtension(LEVELS.GetLevelPathByName(selectedLevel.fileName), "wav");
         if (!Path.Exists(audioPath)) { return; }
 
-        _screenManager.ReplaceScreen(new scGameplay(_game, selectedLevel.fileName));
+        _screenManager.ReplaceScreen(new scGameplay(_game, selectedLevel.fileName, selectedLevel.levelParameters));
     }
 
     SpriteObject susie;

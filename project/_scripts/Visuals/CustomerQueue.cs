@@ -4,7 +4,7 @@ using MonoGame.Extended.Collections;
 
 namespace Raveyard;
 
-struct CustomerVariantData
+public struct CustomerVariantData
 {
     public string asset_name;
     public Vector2 texture_region;
@@ -28,6 +28,13 @@ public class CustomerQueue
         customerTextures = customerTex;
     }
 
+    public void InitializeTexture(CustomerVariantData customer)
+    {
+        customerTextures.LoadTexture(customer.asset_name);
+        customerVariants.Add(customer);
+    }
+
+    // TODO: replace below function
     public void InitializeTexture(string asset_name, Vector2 region)
     {
         customerTextures.LoadTexture(asset_name);
