@@ -19,7 +19,6 @@ public class SpriteObject : DrawableObject
     public Vector2 anchor = new Vector2(0.5f, 0.5f);
     public float rotation;
     public Vector2 scale = new Vector2(1,1);
-    public int layer = 0;
     public float alpha = 1.0f;
 
     public readonly Tweener tweener = new Tweener();
@@ -57,13 +56,6 @@ public class SpriteObject : DrawableObject
                 builder.AddFrame(frames[i], duration);
             }
         });
-    }
-
-    private const int maxLayers = 20; // this goes both ways (6 = -3 to 3)
-    private float LayerToDepth()
-    {
-        float trueLayer = (layer + maxLayers/2f) / maxLayers;
-        return Math.Clamp(1.0f - trueLayer, 0.0f, 1.0f);
     }
 
     public void SetSpriteValues()
