@@ -9,9 +9,6 @@ namespace Raveyard._scripts.Visuals
 {
     public class DrinkWanted
     {
-        /* For context, I wanted to add this directly to the customer class. But alas, I fear it was a lil too complex for me 
-           to tinker around both Customer & CustomerQueue but I guess this is kind of more organized anyway lol. */
-
         public SpriteObject orderedDrink;
         public Vector2 position = new Vector2(-450, -225);
         public Vector2 scale = Vector2.Zero;

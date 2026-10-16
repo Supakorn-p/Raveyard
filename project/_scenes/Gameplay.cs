@@ -87,7 +87,7 @@ public class scGameplay : GameScreen
         }
     }
 
-    private DrinkWanted drinkWanted;
+    //private DrinkWanted drinkWanted;
     private void subscribeToEvents()
     {
 
@@ -102,10 +102,10 @@ public class scGameplay : GameScreen
             bartender.ActuallyTakingOrder();
 
 
-            drinkWanted = new DrinkWanted();
-            drinkWanted.CreateDrinkSprite();
+            //drinkWanted = new DrinkWanted();
+            //drinkWanted.CreateDrinkSprite();
 
-            customerQueue.customer.orderbox.orderedDrink = drinkWanted;
+            //customerQueue.customer.orderbox.orderedDrink = drinkWanted;
         });
 
         timeline.subscribeToEvent("press", (EventParams eventParams) => 
@@ -143,7 +143,8 @@ public class scGameplay : GameScreen
             judgementSystem.StopOrderAndListen(eventParams.beatTime);
             GameplaySoundLibrary.PlaySound("snd_cue_end");
 
-            drinkWanted.StartOrder();
+            Customer currentCustomer = customerQueue.getLastCustomer();
+            currentCustomer.WaitForOrder();
         });
 
         judgementSystem.inputResult += ((JudgementResult result, InputType input) tuple) =>
@@ -158,7 +159,7 @@ public class scGameplay : GameScreen
             scoreTracker.AddJudgement(tuple.result);
             Debug.WriteLine(Math.Floor(scoreTracker.GetFinalPercentage()));
 
-            drinkWanted.SuccessInput();
+            //drinkWanted.SuccessInput();
         };
     }
 
