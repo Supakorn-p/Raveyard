@@ -75,6 +75,6 @@ public class SpriteObject : DrawableObject
     {
         float _rotation = rotation/180f * MathF.PI;
         SetSpriteValues();
-        spriteBatch.Draw(animatedSprite, position, _rotation, scale);
+        spriteBatch.Draw(animatedSprite, position + position_offset, _rotation, scale);
     }
 }
