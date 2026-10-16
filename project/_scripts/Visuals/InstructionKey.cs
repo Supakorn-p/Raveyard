@@ -68,11 +68,24 @@ namespace Raveyard._scripts.Visuals
             });
         }
 
+
+        public void KeyRemoved()
+        {
+            instruction_key.tweener.TweenTo(target: instruction_key, player => player.scale,
+           toValue: instruction_key.scale * new Vector2(0.75f, 0.75f), duration: 0.05f)
+           .Easing(EasingFunctions.CubicIn);
+
+        }
+
         public void InitializeKey(int n)
         {
             indexNumber = n;
-            instruction_key.scale = scale;
+            instruction_key.scale = new Vector2(0.135f, 0.135f);
             instruction_key.active = true;
+
+            instruction_key.tweener.TweenTo(target: instruction_key, player => player.scale,
+            toValue: scale, duration: 0.15f)
+            .Easing(EasingFunctions.CubicInOut);
         }
     }
 }

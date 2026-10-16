@@ -141,6 +141,7 @@ public class scGameplay : GameScreen
             judgementSystem.StopOrderAndListen(eventParams.beatTime);
             GameplaySoundLibrary.PlaySound("snd_cue_end");
 
+            customerQueue.customer.orderbox.BeginMakingOrder();
             drinkWanted.StartOrder();
         });
 
