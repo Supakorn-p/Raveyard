@@ -21,10 +21,12 @@ namespace Raveyard;
 public class scGameplay : GameScreen
 {
     private string currentFilename;
+    private LEVELS_skinparams levelParameters;
 
-    public scGameplay(Game game, string filenameToLoad) : base(game)
+    public scGameplay(Game game, string filenameToLoad, LEVELS_skinparams _levelParameters) : base(game)
     {
         currentFilename = filenameToLoad;
+        levelParameters = _levelParameters;
     }
     
     private SpriteBatch _spriteBatch;
@@ -194,7 +196,11 @@ public class scGameplay : GameScreen
 
         customerTextures = new TextureCollection(Content);
         customerQueue = new CustomerQueue(customerTextures);
-        customerQueue.InitializeTexture("customer_sprsheet", new Vector2(551, 581));
+        //customerQueue.InitializeTexture("customer_sprsheet", new Vector2(551, 581));
+        foreach (CustomerVariantData customer in levelParameters.customerVariants)
+        {
+            customerQueue.InitializeTexture(customer);
+        }
 
 
         insertEventObjects();
