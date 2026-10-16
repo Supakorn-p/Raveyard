@@ -275,15 +275,9 @@ public class scGameplay : GameScreen
         timeline.Update(recordPlayer.getCurrentBeattime());
         judgementSystem.Update(timeline.beatTimeNeedle);
 
-        foreach (SpriteObject spriteObj in Spritekeeper.spriteObjects.ToArray())
+        foreach (DrawableObject drawObj in Drawablekeeper.getActiveObjs())
         {
-            spriteObj.animatedSprite.Update(gameTime);
-            spriteObj.tweener.Update(gameTime.GetElapsedSeconds());
-        }
-
-        foreach (TextObject textObj in Textkeeper.textObjects.ToArray())
-        {
-            textObj.tweener.Update(gameTime.GetElapsedSeconds());
+            drawObj.Update(gameTime);
         }
 
         foreach (EventObject eventObject in loadedEventObjects) { eventObject.Update(gameTime); }
@@ -304,22 +298,9 @@ public class scGameplay : GameScreen
             sortMode: SpriteSortMode.BackToFront,
             blendState: BlendState.NonPremultiplied);
 
-        foreach (SpriteObject spriteObj in Spritekeeper.getActiveObjs())
+        foreach (DrawableObject drawObj in Drawablekeeper.getActiveObjs())
         {
-            float _rotation = spriteObj.rotation/180f * MathF.PI;
-
-            spriteObj.SetSpriteValues();
-
-            _spriteBatch.Draw(spriteObj.animatedSprite, spriteObj.position, _rotation, spriteObj.scale);
-        }
-
-        foreach (TextObject textObj in Textkeeper.getActiveObjs())
-        {
-            float _rotation = textObj.rotation/180f * MathF.PI;
-            _spriteBatch.DrawString(textObj.font, textObj.text, textObj.position, 
-            new Color(textObj.color.R, textObj.color.G, textObj.color.B, textObj.alpha), 
-            _rotation, textObj.GetRawOrigin(), textObj.scale,
-            SpriteEffects.None, textObj.LayerToDepth());
+            drawObj.Draw(_spriteBatch);
         }
 
         _spriteBatch.End();
@@ -332,7 +313,6 @@ public class scGameplay : GameScreen
         recordPlayer.Dispose();
         customerTextures.UnloadAll();
         sfxlib.UnloadAll();
-        Spritekeeper.FreeAll();
-        Textkeeper.FreeAll();
+        Drawablekeeper.FreeAll();
     }
 }

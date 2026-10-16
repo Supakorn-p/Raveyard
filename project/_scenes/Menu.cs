@@ -98,6 +98,11 @@ public class scMenu : GameScreen
         _camera.Position, 
         currentSelectedMenu.cameraPosition - viewportResolution / 2, deltaTime * 5f);
         currentSelectedMenu.FocusedUpdate(gameTime);
+
+        foreach (DrawableObject drawObj in Drawablekeeper.getActiveObjs())
+        {
+            drawObj.Update(gameTime);
+        }
     }
 
     private void MenuUninit()
@@ -138,21 +143,9 @@ public class scMenu : GameScreen
             samplerState: SamplerState.PointClamp, 
             sortMode: SpriteSortMode.BackToFront);
 
-        foreach (SpriteObject spriteObj in Spritekeeper.getActiveObjs())
+        foreach (DrawableObject drawObj in Drawablekeeper.getActiveObjs())
         {
-            float _rotation = spriteObj.rotation/180f * MathF.PI;
-
-            spriteObj.SetSpriteValues();
-
-            _spriteBatch.Draw(spriteObj.animatedSprite, spriteObj.position, _rotation, spriteObj.scale);
-        }
-
-        foreach (TextObject textObj in Textkeeper.getActiveObjs())
-        {
-            float _rotation = textObj.rotation/180f * MathF.PI;
-            _spriteBatch.DrawString(textObj.font, textObj.text, textObj.position, 
-            new Color(textObj.color, textObj.alpha), _rotation, textObj.GetRawOrigin(), textObj.scale,
-            SpriteEffects.None, textObj.LayerToDepth());
+            drawObj.Draw(_spriteBatch);
         }
 
         _spriteBatch.End();
@@ -161,8 +154,7 @@ public class scMenu : GameScreen
     public override void UnloadContent()
     {
         base.UnloadContent();
-        Spritekeeper.FreeAll();
-        Textkeeper.FreeAll();
+        Drawablekeeper.FreeAll();
         MenuUninit();
     }
 }

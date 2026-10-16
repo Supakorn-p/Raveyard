@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using MonoGame.Extended.Graphics;
 using MonoGame.Extended.Tweening;
 using System;
@@ -8,20 +9,18 @@ using System.Diagnostics;
 
 namespace Raveyard;
 
-public class SpriteObject
+public class SpriteObject : DrawableObject
 {
     private SpriteSheet spriteSheet;
     public AnimatedSprite animatedSprite;
 
-    public string name;
     public Vector2 position;
+    public Vector2 position_offset;
     public Vector2 anchor = new Vector2(0.5f, 0.5f);
     public float rotation;
     public Vector2 scale = new Vector2(1,1);
     public int layer = 0;
     public float alpha = 1.0f;
-
-    public bool active = false;
 
     public readonly Tweener tweener = new Tweener();
 
@@ -33,7 +32,7 @@ public class SpriteObject
 
         Texture2DAtlas texture2Datlas = Texture2DAtlas.Create($"atl/{name}", texture2D, (int) region.X, (int) region.Y);
         createAnimatedSprite(texture2Datlas, startingFrame);
-        Spritekeeper.AddToBag(this);
+        Drawablekeeper.AddToBag(this);
     }
 
     private void createAnimatedSprite(Texture2DAtlas atlas, int startingFrame)
@@ -74,8 +73,16 @@ public class SpriteObject
         animatedSprite.Alpha = alpha;
     }
 
-    public void Free()
+    public override void Update(GameTime gameTime)
     {
-        Spritekeeper.RemoveFromBag(this);
+        animatedSprite.Update(gameTime);
+        tweener.Update(gameTime.GetElapsedSeconds());
+    }
+
+    public override void Draw(SpriteBatch spriteBatch)
+    {
+        float _rotation = rotation/180f * MathF.PI;
+        SetSpriteValues();
+        spriteBatch.Draw(animatedSprite, position, _rotation, scale);
     }
 }
