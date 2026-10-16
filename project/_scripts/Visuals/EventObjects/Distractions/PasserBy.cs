@@ -29,9 +29,9 @@ namespace Raveyard._scripts.Visuals.EventObjects.Distractions
             ghost.active = true;
         }
 
-        private void Move()
+        private void Move(GameTime gameTime)
         {
-            ghost.position.X += 5;
+            ghost.position.X += (float)gameTime.ElapsedGameTime.TotalSeconds * 350;
 
             //if (isMoving == true)
             //{
@@ -55,21 +55,6 @@ namespace Raveyard._scripts.Visuals.EventObjects.Distractions
             goUp = newVal;
             isMoving = true;
         }
-        private void MoveUp()
-        {
-            ghost.tweener.TweenTo(target: ghost, expression: position => position.position, toValue: new Vector2(ghost.position.X, 100f), duration: 1f)
-                .Easing(EasingFunctions.SineInOut)
-                .OnEnd(tween => ChangeValue(false));
-        }
-
-        private void MoveDown()
-        {
-            ghost.tweener.TweenTo(target: ghost, expression: position => position.position, toValue: new Vector2(ghost.position.X, 130f), duration: 1f)
-                .Easing(EasingFunctions.SineInOut)
-                .OnEnd(tween => ChangeValue(true));
-
-        }
-
 
         public override void OnEvent(string[] eventParams)
         {
@@ -82,7 +67,7 @@ namespace Raveyard._scripts.Visuals.EventObjects.Distractions
             base.Update(gameTime);
             if (isMoving == true)
             {
-                Move();
+                Move(gameTime);
                 if (ghost.position.X > 1100)
                 {
                     ghost.Free();

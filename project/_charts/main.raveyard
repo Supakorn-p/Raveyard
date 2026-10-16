@@ -7,27 +7,20 @@ offset:0.151
 //  eventType - name of the event
 //  time - time of the event in beat time (1.5 = one beat and a half)
 
-start_order:0
-press:1
-press:3
-end_order:4
+//start_order:0
+//end_order:4
 
-start_order:8
-press:9
-press:10
-press:11
-end_order:12
+//start_order:8
+//end_order:12
 
 start_order:16
 press:17
-left:18
 press:19
 end_order:20
 
 start_order:24
 press:25
-left:26
-right:27
+left:27
 end_order:28
 
 start_order:32
@@ -44,13 +37,13 @@ end_order:44
 
 start_order:48
 press:49
-left:49.5
+left:50
 press:51
 end_order:52
 
 start_order:56
 left:57
-right:57.5
+left:58
 press:59
 end_order:60
 
@@ -62,28 +55,23 @@ end_order:68
 
 start_order:72
 right:73
-right:73.5
+left:73.5
 press:75
 end_order:76
 
 start_order:80
-left:80.5
 press:81
-left:82
-right:82.5
+left:81.5
 press:83
 end_order:84
 
 start_order:88
-press:88.5
 press:89
-press:90
-left:90.5
+left:89.5
 right:91
 end_order:92
 
 start_order:96
-left:96.5
 press:97
 left:98
 left:98.5
@@ -91,7 +79,6 @@ right:99
 end_order:100
 
 start_order:104
-press:104.5
 left:105
 right:106
 press:106.5
@@ -99,7 +86,6 @@ right:107
 end_order:108
 
 start_order:112
-press:112.5
 left:113
 left:114
 press:114.5
@@ -107,7 +93,6 @@ left:115
 end_order:116
 
 start_order:120
-press:120.5
 left:121
 right:122
 left:122.5
@@ -149,12 +134,12 @@ start_order:168
 press:169
 left:169.5
 right:170
-press:171
+left:171
 end_order:172
 
 start_order:176
-left:177
-right:177.5
+right:177
+left:177.5
 press:178
 press:179
 end_order:180
@@ -171,23 +156,23 @@ left:192.5
 press:193
 press:194
 right:194.5
-press:195
+left:195
 end_order:196
 
 start_order:200
 press:200.5
 left:201
 right:202
-press:202.5
+left:202.5
 press:203
 end_order:204
 
 start_order:208
-left:208.5
+press:208.5
 left:209
 right:210
 right:210.5
-press:211
+left:211
 end_order:212
 
 start_order:216
@@ -195,28 +180,32 @@ press:216.5
 press:217
 left:218
 right:218.5
-press:219
+left:219
 end_order:220
 
 start_order:224
 end_order:228
+left:229
+left:230
+press:231
 
 start_order:232
-left:233
-press:235
 end_order:236
+press:237
+left:238
+left:239
 
 start_order:240
-press:241
-left:243
 end_order:244
+left:245
+left:246
+right:247
 
 start_order:248
-left:249
-right:251
 end_order:252
+press:253
+press:254
+press:255
 
 start_order:256
-press:257
-press:259
 end_order:260

@@ -134,6 +134,8 @@ namespace Raveyard._scripts.Visuals
             foreach (InstructionKey key in instructionkeyList) { key.UpdatePosition(instructionsBoxRect, buttonsPerRow); }
         }
 
+
+
         public void EndOrder()
         {
             order_box.tweener.CancelAll();
@@ -156,7 +158,8 @@ namespace Raveyard._scripts.Visuals
             if (instructionsQueue.Count <= 0) { return true; }
             InstructionKey removedKeySprite = instructionsQueue.Dequeue();
 
-            removedKeySprite.instruction_key.scale *= new Vector2(0.75f, 0.75f);
+            removedKeySprite.KeyRemoved();
+            //removedKeySprite.instruction_key.scale *= new Vector2(0.75f, 0.75f);
             removedKeySprite.instruction_key.alpha = 0.75f;
 
 
@@ -165,6 +168,7 @@ namespace Raveyard._scripts.Visuals
             {
                 removedKeySprite.instruction_key.rotation = 5f;
                 removedKeySprite.instruction_key.position += new Vector2(5, 5);
+                removedKeySprite.instruction_key.animatedSprite.Color = Color.Yellow;
             }
 
             // miss
@@ -173,7 +177,7 @@ namespace Raveyard._scripts.Visuals
                 isPerfect = false;
                 removedKeySprite.instruction_key.rotation = 15f;
                 removedKeySprite.instruction_key.position += new Vector2(0, 10);
-                removedKeySprite.instruction_key.animatedSprite.Color = Color.Green;
+                removedKeySprite.instruction_key.animatedSprite.Color = Color.Red;
             }
 
             if (instructionsQueue.Count == 0)
@@ -189,6 +193,19 @@ namespace Raveyard._scripts.Visuals
             }
 
             return false;
+        }
+
+        public void BeginMakingOrder()
+        {
+            order_box.tweener.TweenTo(target: order_box, expression: player => player.scale, toValue: new Vector2(0.78f, 0.78f), duration: 0.1f)
+              .Easing(EasingFunctions.CubicOut)
+              .OnEnd(tween => order_box.tweener.TweenTo(target: order_box, expression: player => player.scale, toValue: new Vector2(0.75f, 0.75f), duration: 0.35f)
+              .Easing(EasingFunctions.CubicInOut));
+
+            order_box.tweener.TweenTo(target: order_box, expression: player => player.position, toValue: new Vector2(start_pos.X, start_pos.Y - 15), duration: 0.1f)
+             .Easing(EasingFunctions.CubicOut)
+             .OnEnd(tween => order_box.tweener.TweenTo(target: order_box, expression: player => player.position, toValue: start_pos, duration: 0.25f)
+             .Easing(EasingFunctions.CubicInOut));
         }
 
         public void RemoveAllInstructions()
