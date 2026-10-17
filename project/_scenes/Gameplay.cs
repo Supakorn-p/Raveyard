@@ -54,6 +54,8 @@ public class scGameplay : GameScreen
         }
 
         recordPlayer = new RecordPlayer(file.music, file.musicBPM, file.musicOffset);
+        judgementSystem = new OrderJudgement();
+        judgementSystem.SetBPM(file.musicBPM);
     }
 
     // GAME CONTENT GOES HERE VVV
@@ -190,7 +192,6 @@ public class scGameplay : GameScreen
     {
         base.LoadContent();
         loadChart(currentFilename);
-        judgementSystem = new OrderJudgement();
         scoreTracker = new ScoreTracker();
 
         bartender = new Bartender();

@@ -10,9 +10,12 @@ namespace Raveyard;
 
 public class OrderJudgement
 {
-    private const double MISS_BEATTIME = 1; // how many beats before a miss is forced
-    private const double VALID_BEATTIME = 0.5; // how many beats off to count as valid (barely)
-    private const double PERFECT_BEATTIME = 0.2; // how many beats off to count as perfect
+    private double bpm_crotchet = 1;
+    public void SetBPM(double BPM) { bpm_crotchet = 60.0 / BPM; }
+
+    private const double MISS_BEATTIME_SEC = 0.5; // how many beats before a miss is forced
+    private const double VALID_BEATTIME_SEC = 0.3; // how many beats off to count as valid (barely)
+    private const double PERFECT_BEATTIME_SEC = 0.2; // how many beats off to count as perfect
 
     private const int QUEUE_SIZE = 10; // preallocate memory for the inputs
 
@@ -59,9 +62,9 @@ public class OrderJudgement
         if (listOfInputs.Count == 0) { return JudgementResult.none; }
 
         OrderJudgementInput input = listOfInputs.Peek();
-        double difference = beatTime - input.beatTime;
+        double difference = (beatTime - input.beatTime) * bpm_crotchet;
 
-        if (Math.Abs(difference) > VALID_BEATTIME) //|| input.inputType != inputType) 
+        if (Math.Abs(difference) > VALID_BEATTIME_SEC) //|| input.inputType != inputType) 
         { 
             Debug.WriteLine($"didn't hit {input.beatTime} at {beatTime}");
             return JudgementResult.none; 
@@ -73,7 +76,7 @@ public class OrderJudgement
 
         Debug.WriteLine($"hit {input.beatTime} at {beatTime}");
         JudgementResult timingResult = difference >= 0 ? JudgementResult.late : JudgementResult.early;
-        JudgementResult finalResult = Math.Abs(difference) <= PERFECT_BEATTIME ? JudgementResult.perfect : timingResult;
+        JudgementResult finalResult = Math.Abs(difference) <= PERFECT_BEATTIME_SEC ? JudgementResult.perfect : timingResult;
         return finalResult;
     }
 
@@ -87,9 +90,9 @@ public class OrderJudgement
         if (listOfInputs.Count == 0) { return; }
 
         OrderJudgementInput input = listOfInputs.Peek();
-        double difference = beatTime - input.beatTime;
+        double difference = (beatTime - input.beatTime) * bpm_crotchet;
 
-        if (difference > MISS_BEATTIME)
+        if (difference > MISS_BEATTIME_SEC)
         {
             listOfInputs.Dequeue();
             inputResult?.Invoke((JudgementResult.miss, InputType.press));
@@ -99,6 +102,8 @@ public class OrderJudgement
     public void Update(double beatTime)
     {
         KeyboardStateExtended keyboardState = KeyboardExtended.GetState();
+        
+        if (DebugTool.debugOption_autoplay) { debug_Update(beatTime); return; }
 
         if (keyboardState.WasKeyPressed(Keys.Space)) { 
             inputResult?.Invoke(GetResultForInput(beatTime, InputType.press)); 
@@ -112,13 +117,11 @@ public class OrderJudgement
             inputResult?.Invoke(GetResultForInput(beatTime, InputType.right)); 
         }
 
-        debug_Update(beatTime);
         HandleMiss(beatTime);
     }
     
     private void debug_Update(double beatTime)
     {
-        if (!DebugTool.debugOption_autoplay) { return; }
         if (!(listOfInputs.Count > 0)) { return; }
         OrderJudgementInput currentNextInput = listOfInputs.Peek();
 
