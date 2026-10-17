@@ -141,7 +141,10 @@ namespace Raveyard._scripts.Characters
             if (!isPerfect) // early/late
             {
                 SetAnimation("bar_offbeatbrief");
+                // TODO: add unique early/late sound
             }
+
+            if (SETTINGS.AUDIO_FEEDBACK_PURE_MODE == false) { return; }
 
             float soundPitchOffset = isPerfect ? 0.0f : 0.5f;
 

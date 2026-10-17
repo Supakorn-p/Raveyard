@@ -48,6 +48,10 @@ public class scGameplay : GameScreen
         file.loadFile(fileName);
 
         timeline = new Timeline();
+
+        File_Eventbaker baker = new File_Eventbaker();
+        baker.Bake(ref timeline, file.eventList);
+
         foreach (TimelineEvent timelineEvent in file.eventList)
         {
             timeline.addEvent(timelineEvent.eventName, timelineEvent.beatTime, timelineEvent.parameters);
@@ -147,6 +151,12 @@ public class scGameplay : GameScreen
 
             Customer currentCustomer = customerQueue.getLastCustomer();
             currentCustomer.WaitForOrder();
+        });
+
+        timeline.subscribeToEvent("play_sound", (EventParams eventParams) => 
+        { 
+            Debug.WriteLine("received");
+            GameplaySoundLibrary.PlaySound(eventParams.data[0]);
         });
 
         judgementSystem.inputResult += ((JudgementResult result, InputType input) tuple) =>

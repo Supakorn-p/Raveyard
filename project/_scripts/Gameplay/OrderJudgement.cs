@@ -14,8 +14,8 @@ public class OrderJudgement
     public void SetBPM(double BPM) { bpm_crotchet = 60.0 / BPM; }
 
     private const double MISS_BEATTIME_SEC = 0.5; // how many beats before a miss is forced
-    private const double VALID_BEATTIME_SEC = 0.3; // how many beats off to count as valid (barely)
-    private const double PERFECT_BEATTIME_SEC = 0.2; // how many beats off to count as perfect
+    private const double VALID_BEATTIME_SEC = 0.25; // how many beats off to count as valid (barely)
+    private const double PERFECT_BEATTIME_SEC = 0.1; // how many beats off to count as perfect
 
     private const int QUEUE_SIZE = 10; // preallocate memory for the inputs
 
@@ -63,10 +63,10 @@ public class OrderJudgement
 
         OrderJudgementInput input = listOfInputs.Peek();
         double difference = (beatTime - input.beatTime) * bpm_crotchet;
+        difference -= SETTINGS.AUDIO_JUDGEMENT_OFFSET_MS / 1000f;
 
         if (Math.Abs(difference) > VALID_BEATTIME_SEC) //|| input.inputType != inputType) 
         { 
-            Debug.WriteLine($"didn't hit {input.beatTime} at {beatTime}");
             return JudgementResult.none; 
         }
 
@@ -74,7 +74,7 @@ public class OrderJudgement
         listOfInputs.Dequeue();
         if (input.inputType != inputType) { return JudgementResult.miss; } // wrong input button will count as a miss
 
-        Debug.WriteLine($"hit {input.beatTime} at {beatTime}");
+        Debug.WriteLine($"hit! diff: {difference*1000}ms");
         JudgementResult timingResult = difference >= 0 ? JudgementResult.late : JudgementResult.early;
         JudgementResult finalResult = Math.Abs(difference) <= PERFECT_BEATTIME_SEC ? JudgementResult.perfect : timingResult;
         return finalResult;
@@ -91,6 +91,7 @@ public class OrderJudgement
 
         OrderJudgementInput input = listOfInputs.Peek();
         double difference = (beatTime - input.beatTime) * bpm_crotchet;
+        difference -= SETTINGS.AUDIO_JUDGEMENT_OFFSET_MS / 1000f;
 
         if (difference > MISS_BEATTIME_SEC)
         {
