@@ -158,7 +158,7 @@ namespace Raveyard._scripts.Visuals
             if (instructionsQueue.Count <= 0) { return true; }
             InstructionKey removedKeySprite = instructionsQueue.Dequeue();
 
-            removedKeySprite.KeyRemoved();
+            removedKeySprite.KeyRemoved(result);
             //removedKeySprite.instruction_key.scale *= new Vector2(0.75f, 0.75f);
             removedKeySprite.instruction_key.alpha = 0.75f;
 
