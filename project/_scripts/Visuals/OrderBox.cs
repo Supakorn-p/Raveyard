@@ -42,7 +42,7 @@ namespace Raveyard._scripts.Visuals
 
         private static Texture2D orderBoxTexture;
 
-        public DrinkWanted orderedDrink;
+        //public DrinkWanted orderedDrink;
 
         public OrderBox(bool _secondBox)
         {
@@ -158,27 +158,10 @@ namespace Raveyard._scripts.Visuals
             if (instructionsQueue.Count <= 0) { return true; }
             InstructionKey removedKeySprite = instructionsQueue.Dequeue();
 
-            removedKeySprite.KeyRemoved();
+            removedKeySprite.KeyRemoved(result);
             //removedKeySprite.instruction_key.scale *= new Vector2(0.75f, 0.75f);
-            removedKeySprite.instruction_key.alpha = 0.75f;
 
-
-            // skew when early/late
-            if (result == JudgementResult.early || result == JudgementResult.late)
-            {
-                removedKeySprite.instruction_key.rotation = 5f;
-                removedKeySprite.instruction_key.position += new Vector2(5, 5);
-                removedKeySprite.instruction_key.animatedSprite.Color = Color.Yellow;
-            }
-
-            // miss
-            if (result == JudgementResult.miss)
-            {
-                isPerfect = false;
-                removedKeySprite.instruction_key.rotation = 15f;
-                removedKeySprite.instruction_key.position += new Vector2(0, 10);
-                removedKeySprite.instruction_key.animatedSprite.Color = Color.Red;
-            }
+            if (result == JudgementResult.miss) { isPerfect = false; }
 
             if (instructionsQueue.Count == 0)
             {
@@ -188,7 +171,7 @@ namespace Raveyard._scripts.Visuals
                 }
                 instructionkeyList.Clear();
                 EndOrder();
-                orderedDrink.EndOrder();
+                //orderedDrink.EndOrder();
                 return true;
             }
 

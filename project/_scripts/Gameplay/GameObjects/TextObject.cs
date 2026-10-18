@@ -3,11 +3,12 @@ using System.Diagnostics;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using MonoGame.Extended.Tweening;
 
 namespace Raveyard;
 
-public class TextObject
+public class TextObject : DrawableObject
 {
     public SpriteFont font;
     public StringBuilder text;
@@ -15,12 +16,9 @@ public class TextObject
     public Vector2 position;
     public float rotation;
     public Vector2 scale = new Vector2(1,1);
-    public int layer = 0;
     public Color color = Color.White;
     public float alpha = 1f;
     public Vector2 anchor = new Vector2(0.5f, 0.5f);
-
-    public bool active = false;
 
     public readonly Tweener tweener = new Tweener();
 
@@ -28,12 +26,7 @@ public class TextObject
     {
         font = _font;
         text = _string;
-        Textkeeper.AddToBag(this);
-    }
-
-    public void Free()
-    {
-        Textkeeper.RemoveFromBag(this);
+        Drawablekeeper.AddToBag(this);
     }
 
     public Vector2 GetRawOrigin()
@@ -41,10 +34,17 @@ public class TextObject
         return anchor * font.MeasureString(text);
     }
 
-    private const int maxLayers = 20; // this goes both ways (6 = -3 to 3)
-    public float LayerToDepth()
+    public override void Update(GameTime gameTime)
     {
-        float trueLayer = (layer + maxLayers/2f) / maxLayers;
-        return Math.Clamp(1.0f - trueLayer, 0.0f, 1.0f);
+        tweener.Update(gameTime.GetElapsedSeconds());
+    }
+
+    public override void Draw(SpriteBatch spriteBatch)
+    {
+        float _rotation = rotation/180f * MathF.PI;
+
+        spriteBatch.DrawString(font, text, position, 
+        new Color(color, alpha), _rotation, GetRawOrigin(), scale,
+        SpriteEffects.None, LayerToDepth());
     }
 }

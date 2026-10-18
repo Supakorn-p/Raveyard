@@ -48,12 +48,18 @@ public class scGameplay : GameScreen
         file.loadFile(fileName);
 
         timeline = new Timeline();
+
+        File_Eventbaker baker = new File_Eventbaker();
+        baker.Bake(ref timeline, file.eventList);
+
         foreach (TimelineEvent timelineEvent in file.eventList)
         {
             timeline.addEvent(timelineEvent.eventName, timelineEvent.beatTime, timelineEvent.parameters);
         }
 
         recordPlayer = new RecordPlayer(file.music, file.musicBPM, file.musicOffset);
+        judgementSystem = new OrderJudgement();
+        judgementSystem.SetBPM(file.musicBPM);
     }
 
     // GAME CONTENT GOES HERE VVV
@@ -87,7 +93,7 @@ public class scGameplay : GameScreen
         }
     }
 
-    private DrinkWanted drinkWanted;
+    //private DrinkWanted drinkWanted;
     private void subscribeToEvents()
     {
 
@@ -102,10 +108,10 @@ public class scGameplay : GameScreen
             bartender.ActuallyTakingOrder();
 
 
-            drinkWanted = new DrinkWanted();
-            drinkWanted.CreateDrinkSprite();
+            //drinkWanted = new DrinkWanted();
+            //drinkWanted.CreateDrinkSprite();
 
-            customerQueue.customer.orderbox.orderedDrink = drinkWanted;
+            //customerQueue.customer.orderbox.orderedDrink = drinkWanted;
         });
 
         timeline.subscribeToEvent("press", (EventParams eventParams) => 
@@ -143,8 +149,14 @@ public class scGameplay : GameScreen
             judgementSystem.StopOrderAndListen(eventParams.beatTime);
             GameplaySoundLibrary.PlaySound("snd_cue_end");
 
-            customerQueue.customer.orderbox.BeginMakingOrder();
-            drinkWanted.StartOrder();
+            Customer currentCustomer = customerQueue.getLastCustomer();
+            currentCustomer.WaitForOrder();
+        });
+
+        timeline.subscribeToEvent("play_sound", (EventParams eventParams) => 
+        { 
+            Debug.WriteLine("received");
+            GameplaySoundLibrary.PlaySound(eventParams.data[0]);
         });
 
         judgementSystem.inputResult += ((JudgementResult result, InputType input) tuple) =>
@@ -159,7 +171,7 @@ public class scGameplay : GameScreen
             scoreTracker.AddJudgement(tuple.result);
             Debug.WriteLine(Math.Floor(scoreTracker.GetFinalPercentage()));
 
-            drinkWanted.SuccessInput();
+            //drinkWanted.SuccessInput();
         };
     }
 
@@ -190,7 +202,6 @@ public class scGameplay : GameScreen
     {
         base.LoadContent();
         loadChart(currentFilename);
-        judgementSystem = new OrderJudgement();
         scoreTracker = new ScoreTracker();
 
         bartender = new Bartender();
@@ -275,15 +286,9 @@ public class scGameplay : GameScreen
         timeline.Update(recordPlayer.getCurrentBeattime());
         judgementSystem.Update(timeline.beatTimeNeedle);
 
-        foreach (SpriteObject spriteObj in Spritekeeper.spriteObjects.ToArray())
+        foreach (DrawableObject drawObj in Drawablekeeper.getActiveObjs())
         {
-            spriteObj.animatedSprite.Update(gameTime);
-            spriteObj.tweener.Update(gameTime.GetElapsedSeconds());
-        }
-
-        foreach (TextObject textObj in Textkeeper.textObjects.ToArray())
-        {
-            textObj.tweener.Update(gameTime.GetElapsedSeconds());
+            drawObj.Update(gameTime);
         }
 
         foreach (EventObject eventObject in loadedEventObjects) { eventObject.Update(gameTime); }
@@ -304,22 +309,9 @@ public class scGameplay : GameScreen
             sortMode: SpriteSortMode.BackToFront,
             blendState: BlendState.NonPremultiplied);
 
-        foreach (SpriteObject spriteObj in Spritekeeper.getActiveObjs())
+        foreach (DrawableObject drawObj in Drawablekeeper.getActiveObjs())
         {
-            float _rotation = spriteObj.rotation/180f * MathF.PI;
-
-            spriteObj.SetSpriteValues();
-
-            _spriteBatch.Draw(spriteObj.animatedSprite, spriteObj.position, _rotation, spriteObj.scale);
-        }
-
-        foreach (TextObject textObj in Textkeeper.getActiveObjs())
-        {
-            float _rotation = textObj.rotation/180f * MathF.PI;
-            _spriteBatch.DrawString(textObj.font, textObj.text, textObj.position, 
-            new Color(textObj.color.R, textObj.color.G, textObj.color.B, textObj.alpha), 
-            _rotation, textObj.GetRawOrigin(), textObj.scale,
-            SpriteEffects.None, textObj.LayerToDepth());
+            drawObj.Draw(_spriteBatch);
         }
 
         _spriteBatch.End();
@@ -332,7 +324,6 @@ public class scGameplay : GameScreen
         recordPlayer.Dispose();
         customerTextures.UnloadAll();
         sfxlib.UnloadAll();
-        Spritekeeper.FreeAll();
-        Textkeeper.FreeAll();
+        Drawablekeeper.FreeAll();
     }
 }

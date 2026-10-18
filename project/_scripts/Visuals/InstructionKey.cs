@@ -12,7 +12,11 @@ namespace Raveyard._scripts.Visuals
         */
         public SpriteObject instruction_key;
         //public OrderBox box_owner;
-        public Vector2 scale = new Vector2(0.1f, 0.1f);
+        private Vector2 scale = new Vector2(0.1f, 0.1f);
+        private Vector2 scaleBefore = new Vector2(0.09f, 0.09f); // when it appears
+        private Vector2 scaleCleared = new Vector2(0.08f, 0.08f); // what its shrunk to when the input is passed
+        private Vector2 scalePerfect = new Vector2(0.105f, 0.105f); // only when a perfect is hit
+
         public int indexNumber = 0;
 
         /*public void SetDistanceAndScale(InstructionKey inst_to_add)
@@ -69,18 +73,50 @@ namespace Raveyard._scripts.Visuals
         }
 
 
-        public void KeyRemoved()
+        public void KeyRemoved(JudgementResult result)
         {
+            instruction_key.alpha = 0.75f;
             instruction_key.tweener.TweenTo(target: instruction_key, player => player.scale,
-           toValue: instruction_key.scale * new Vector2(0.75f, 0.75f), duration: 0.05f)
-           .Easing(EasingFunctions.CubicIn);
+                toValue: scaleCleared, duration: 0.15f)
+                .Easing(EasingFunctions.CubicIn);
 
+            // pulse if perfect
+            if (result == JudgementResult.perfect)
+            {
+                instruction_key.scale = scalePerfect;
+
+                instruction_key.tweener.TweenTo(target: instruction_key, player => player.position_offset,
+                toValue: new Vector2(0, 5), duration: 0.05f)
+                .Easing(EasingFunctions.CubicInOut).AutoReverse();
+            }
+
+
+            // skew when early/late
+            if (result == JudgementResult.early || result == JudgementResult.late)
+            {
+                instruction_key.rotation = 2f;
+                instruction_key.animatedSprite.Color = Color.Yellow;
+
+                instruction_key.tweener.TweenTo(target: instruction_key, player => player.position_offset,
+                toValue: new Vector2(0, 5), duration: 0.15f)
+                .Easing(EasingFunctions.CubicOut);
+            }
+
+            // miss
+            if (result == JudgementResult.miss)
+            {
+                instruction_key.rotation = 15f;
+                instruction_key.animatedSprite.Color = Color.Red;
+                instruction_key.tweener.TweenTo(target: instruction_key, player => player.position_offset,
+                toValue: new Vector2(5, 10), duration: 0.15f)
+                .Easing(EasingFunctions.CubicOut);
+            }
         }
 
         public void InitializeKey(int n)
         {
             indexNumber = n;
-            instruction_key.scale = new Vector2(0.135f, 0.135f);
+            instruction_key.scale = scaleBefore;
             instruction_key.active = true;
 
             instruction_key.tweener.TweenTo(target: instruction_key, player => player.scale,

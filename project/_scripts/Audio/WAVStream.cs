@@ -12,7 +12,7 @@ public class WAVStream: IDisposable
     // high buffer size = less stutter, more latency
     // low buffer size = more stutter, less latency
     // the balance seems to be at 50-200ms, anything lower than 20ms causes crackling (at least in my pc)
-    private const int bufferSizeMs = 50;
+    private const int bufferSizeMs = 20;
 
     public DynamicSoundEffectInstance soundEffectInstance { get; private set; }
 
@@ -21,6 +21,7 @@ public class WAVStream: IDisposable
     public byte[] byteArray { get; private set; }
 
     private Stopwatch msClock = new Stopwatch(); // higher approximate precision
+    private int audio_channels = 1;
 
     private void bufferNeeded(object sender, EventArgs args)
     {
@@ -64,10 +65,11 @@ public class WAVStream: IDisposable
         int dataSize = reader.ReadInt32();
 
         soundEffectInstance = new DynamicSoundEffectInstance(sampleRate, (AudioChannels)channels);
-        bufferCount = soundEffectInstance.GetSampleSizeInBytes(TimeSpan.FromMilliseconds(bufferSizeMs));
+        bufferCount = soundEffectInstance.GetSampleSizeInBytes(TimeSpan.FromMilliseconds(bufferSizeMs)) * channels;
         byteArray = reader.ReadBytes(dataSize);
 
         soundEffectInstance.BufferNeeded += new EventHandler<EventArgs>(bufferNeeded);
+        audio_channels = channels;
     }
 
     public void PlayMusic()
@@ -87,7 +89,7 @@ public class WAVStream: IDisposable
     {
         if (soundEffectInstance == null) { return 0; }
         int pendingBuffers = (int) MathF.Ceiling(soundEffectInstance.PendingBufferCount / 2.0f);
-        return (bufferPos-bufferCount*pendingBuffers)/bufferCount * (double) bufferSizeMs
+        return (bufferPos-bufferCount*pendingBuffers)/bufferCount * ((double) bufferSizeMs * audio_channels)
         + Math.Min(msClock.ElapsedMilliseconds, bufferSizeMs*pendingBuffers);
     }
 

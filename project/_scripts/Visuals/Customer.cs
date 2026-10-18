@@ -19,13 +19,13 @@ public class Customer
     private static Vector2 endPos = new Vector2(1000, 720/2 + 30);
 
     public OrderBox orderbox = new OrderBox(false);
-    //private DrinkWanted drinkWanted = new DrinkWanted(); 
+    private DrinkWanted drinkWanted = new DrinkWanted(); 
 
     public Customer(Texture2D _texture2D, Vector2 region)
     {
         spriteObj = new SpriteObject("customer", _texture2D, region, startPos);
         spriteObj.anchor = new Vector2(0.5f, 1f);
-        //drinkWanted.CreateDrinkSprite();
+        drinkWanted.CreateDrinkSprite();
         orderbox.CreateOrderBoxSprite();
 
         spriteObj.LoadAnim("cus_talk", [1, 0], TimeSpan.FromMilliseconds(100), false);
@@ -41,7 +41,6 @@ public class Customer
         .Easing(EasingFunctions.CubicInOut);
 
         orderbox.StartOrder();
-       // drinkWanted.StartOrder();
     }
 
     public void AddToOrder(InputType input)
@@ -50,12 +49,17 @@ public class Customer
         orderbox.InstructionAdded(input);
     }
 
+    public void WaitForOrder()
+    {
+        drinkWanted.StartOrder();
+    }
+
     public void ProcessOrder(JudgementResult result)
     {
         bool isEmpty = orderbox.RemoveInstruction(result);
         if (isEmpty) { EndOrder(); }
 
-       // drinkWanted.SuccessInput();
+        drinkWanted.SuccessInput();
     }
 
     private void EndOrder()
@@ -63,12 +67,18 @@ public class Customer
         orderFulfilled?.Invoke();
         orderFulfilled = null;
 
-       // drinkWanted.EndOrder();
+        drinkWanted.EndOrder();
 
         spriteObj.tweener.TweenTo(spriteObj, player => player.position, endPos, 1f)
-        .Easing(EasingFunctions.CubicInOut).OnEnd(_ => spriteObj.Free());
+        .Easing(EasingFunctions.CubicInOut).OnEnd(_ => Free());
 
         spriteObj.animatedSprite.SetAnimation("cus_satisfied");
+    }
+
+    private void Free()
+    {
+        spriteObj.Free();
+        drinkWanted.DestroyWantedDrink();
     }
 
     public void visual_offsetBoxLayer(int n)

@@ -20,12 +20,14 @@ public class DemoPlayer : EventObject
         eventName = "demo_toggle";
 
         SpriteFont font = Content.Load<SpriteFont>("anton_sc");
-        textObj = new TextObject(font, new StringBuilder("DEMO"));
+        textObj = new TextObject(font, new StringBuilder("EXAMPLE"));
 
         textObj.anchor = new Vector2(0f, 1f);
         textObj.position = new Vector2(-1280/2, 720/2) + new Vector2(20, -20);
         textObj.layer = 32;
         textObj.color = Color.DarkGray;
+
+        DebugTool.ForceSet(false);
     }
 
     private double visualTimer = 0;
