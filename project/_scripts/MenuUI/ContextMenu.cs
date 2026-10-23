@@ -27,5 +27,5 @@ public abstract class ContextMenu : IDisposable
     public virtual void OnFocusEnter() {}
     public virtual void OnFocusExit() {}
 
-    protected void Exit() { onExit?.Invoke(); }
+    public void Exit() { onExit?.Invoke(); }
 }
