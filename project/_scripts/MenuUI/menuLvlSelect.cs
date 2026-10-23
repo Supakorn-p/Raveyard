@@ -34,6 +34,7 @@ public class menuLvlSelect : ContextMenu
             SpriteObject newCasetteSprite = new SpriteObject("menubg_lvl", 
             Content.Load<Texture2D>("menu_casette_empty"), new Vector2(76, 375),
             cameraPosition + casetteStartPos + casetteOffsetPos * offsetBy);
+            susie.scale = new Vector2(1.2f, 1.2f);
 
             newCasetteSprite.layer = 1;
 
@@ -95,11 +96,11 @@ public class menuLvlSelect : ContextMenu
     public override void Init(ContentManager Content)
     {
         base.Init(Content);
-        cameraPosition = new Vector2(0, 720);
+        cameraPosition = new Vector2(0, 864);
 
         susie = new SpriteObject("menubg_lvl", 
         Content.Load<Texture2D>("menu_bglvlselect"), new Vector2(1280, 720),
-        new Vector2(0, 720));
+        new Vector2(0, 864));
         susie.active = true;
 
         LoadLevels(Content);

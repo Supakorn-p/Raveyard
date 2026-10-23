@@ -28,6 +28,7 @@ public class menuCenter : ContextMenu
         susie = new SpriteObject("menubg", 
         Content.Load<Texture2D>("menu_bgmain"), new Vector2(1280, 720),
         new Vector2(0, 0));
+        susie.scale = new Vector2(1.2f, 1.2f);
         susie.active = true;
     }
 

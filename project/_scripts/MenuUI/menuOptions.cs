@@ -11,11 +11,12 @@ public class menuOptions : ContextMenu
     public override void Init(ContentManager Content)
     {
         base.Init(Content);
-        cameraPosition = new Vector2(1280, 0);
+        cameraPosition = new Vector2(1536, 0);
 
         susie = new SpriteObject("menubg_opt", 
         Content.Load<Texture2D>("menu_bgopushon"), new Vector2(1280, 720),
-        new Vector2(1280, 0));
+        new Vector2(1536, 0));
+        susie.scale = new Vector2(1.2f, 1.2f);
         susie.active = true;
     }
 

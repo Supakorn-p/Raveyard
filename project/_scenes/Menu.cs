@@ -1,12 +1,13 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
-using MonoGame.Extended.Screens;
+using MonoGame.Extended.Collections;
 using MonoGame.Extended.Graphics;
+using MonoGame.Extended.Input.InputListeners;
+using MonoGame.Extended.Screens;
 using MonoGame.Extended.ViewportAdapters;
 using System;
-using MonoGame.Extended.Input.InputListeners;
-using MonoGame.Extended.Collections;
 using System.Linq;
 
 namespace Raveyard;
@@ -84,6 +85,21 @@ public class scMenu : GameScreen
         menu.onExit += OnMenuExit;
     }
 
+    private void MenuMouseHovering(GameTime gameTime)
+    {
+        float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+        float mouseX = Mouse.GetState().Position.X;
+        float mouseY = Mouse.GetState().Position.Y;
+
+        Vector2 mouseOffset = new Vector2(mouseX, mouseY) - (viewportResolution / 2);
+
+        Vector2 newCameraPos = (currentSelectedMenu.cameraPosition - viewportResolution / 2) + (mouseOffset * 0.15f);
+        //Vector2 viewportCamera = new Vector2(mouseX - viewportHalved.X, mouseY - viewportHalved.Y);
+
+        _camera.Position = Vector2.Lerp(_camera.Position, newCameraPos, delta * 5f);
+    }
+
     public override void Update(GameTime gameTime)
     {
         keyboardListener.Update(gameTime);
@@ -94,10 +110,11 @@ public class scMenu : GameScreen
             contextMenu.Update(gameTime);
         }
 
-        _camera.Position = Vector2.Lerp(
-        _camera.Position, 
-        currentSelectedMenu.cameraPosition - viewportResolution / 2, deltaTime * 5f);
+        //_camera.Position = Vector2.Lerp(
+       // _camera.Position, 
+        //currentSelectedMenu.cameraPosition - viewportResolution / 2, deltaTime * 5f);
         currentSelectedMenu.FocusedUpdate(gameTime);
+        MenuMouseHovering(gameTime);
 
         foreach (DrawableObject drawObj in Drawablekeeper.getActiveObjs())
         {
