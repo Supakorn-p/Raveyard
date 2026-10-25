@@ -13,8 +13,8 @@ public class OrderJudgement
     private double bpm_crotchet = 1;
     public void SetBPM(double BPM) { bpm_crotchet = 60.0 / BPM; }
 
-    private const double MISS_BEATTIME_SEC = 0.5; // how many beats before a miss is forced
-    private const double VALID_BEATTIME_SEC = 0.25; // how many beats off to count as valid (barely)
+    private const double MISS_BEATTIME_SEC = 0.3; // how many beats before a miss is forced
+    private const double VALID_BEATTIME_SEC = 0.3; // how many beats off to count as valid (barely)
     private const double PERFECT_BEATTIME_SEC = 0.1; // how many beats off to count as perfect
 
     private const int QUEUE_SIZE = 10; // preallocate memory for the inputs

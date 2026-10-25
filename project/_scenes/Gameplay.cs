@@ -79,6 +79,11 @@ public class scGameplay : GameScreen
 
         DemoPlayer demoPlayer = new DemoPlayer(); // demo_player
         loadedEventObjects.Add(demoPlayer);
+
+        CustomerSpriteBobber customerSpriteBobber = new CustomerSpriteBobber();
+        customerSpriteBobber.InjectCustomerQueue(customerQueue);
+        customerSpriteBobber.InjectRecordPlayer(recordPlayer);
+        loadedEventObjects.Add(customerSpriteBobber);
     }
 
     private void initializeEventObjects()
@@ -155,7 +160,6 @@ public class scGameplay : GameScreen
 
         timeline.subscribeToEvent("play_sound", (EventParams eventParams) => 
         { 
-            Debug.WriteLine("received");
             GameplaySoundLibrary.PlaySound(eventParams.data[0]);
         });
 

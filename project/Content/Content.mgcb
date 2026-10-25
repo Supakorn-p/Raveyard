@@ -291,6 +291,18 @@
 /processorParam:TextureFormat=Color
 /build:../_textures/Spacebar-Icon.PNG;Spacebar-Icon.PNG
 
+#begin ../_textures/ui_ninepatch_autumn.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../_textures/ui_ninepatch_autumn.png;ui_ninepatch_autumn.png
+
 #begin ../../assets/bartender_eyes_sprsheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
