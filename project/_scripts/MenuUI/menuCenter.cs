@@ -35,6 +35,7 @@ public class menuCenter : ContextMenu
     }
 
     SpriteObject susie;
+    public SpriteObject titleText;
     public override void Init(ContentManager Content)
     {
         base.Init(Content);
@@ -46,6 +47,10 @@ public class menuCenter : ContextMenu
         susie.scale = new Vector2(1.2f, 1.2f);
         susie.active = true;
 
+        titleText = new SpriteObject("title_text",
+        Content.Load<Texture2D>("test_text_parallax"), new Vector2(1000, 600),
+        new Vector2(0, 0));
+        titleText.active = true;
 
         buttonLeft = new SwitchMenu(true, new Vector2(0.25f, 0.25f));
         buttonRight = new SwitchMenu(true, new Vector2(0.25f, 0.25f));

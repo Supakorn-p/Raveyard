@@ -21,7 +21,10 @@ namespace Raveyard._scripts.MenuUI.ButtonTypes
         }
         public override void ButtonPressed()
         {
-            parentMenu.switchOnExit = menuToSwitch;
+            if (menuToSwitch != null)
+            {
+                parentMenu.switchOnExit = menuToSwitch;
+            }
             parentMenu.Exit();
         }
     }
