@@ -109,8 +109,7 @@ public class scMenu : GameScreen
     {
         float delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-        float mouseX = Mouse.GetState().Position.X;
-        float mouseY = Mouse.GetState().Position.Y;
+        Vector2 mousePos = (Vector2)Mouse.GetState().Position;
 
         Vector2 mouseOffset = new Vector2(mouseX, mouseY) - (viewportResolution / 2);
 
