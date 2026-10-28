@@ -16,6 +16,7 @@ public class SpriteObject : DrawableObject
 
     public Vector2 position;
     public Vector2 position_offset;
+    public RectangleF rectangleBounds;
     public Vector2 anchor = new Vector2(0.5f, 0.5f);
     public float rotation;
     public Vector2 scale = new Vector2(1,1);
