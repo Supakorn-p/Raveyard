@@ -13,11 +13,16 @@ dialog_bubble:7|
 dialog_bubble:8|All you have to is press SPACEBAR..
 dialog_bubble:12|..in response to your customer's order.
 
+spotlight:14|FADE|0.5|2
+spotlight:14|TYPE|1
+
 dialog_bubble:14|
 demo_toggle:16|true
+dialog_bubble:16|!INVERT_POS
 dialog_bubble:16|Observe carefully..
 dialog_bubble:22|
 
+spotlight:30|FADE|0|1
 dialog_bubble:30|Now you try!
 demo_toggle:31|false
 dialog_bubble:32|Listen closely..
@@ -25,11 +30,13 @@ dialog_bubble:35|
 dialog_bubble:39|NOW!
 dialog_bubble:40|
 
+dialog_bubble:48|!INVERT_POS
 dialog_bubble:48|Gotten the hang of it?
 dialog_bubble:52|Well, you better be.
 dialog_bubble:56|The next few orders will use LEFT and RIGHT keys!
 
 
+dialog_bubble:62|!INVERT_POS
 dialog_bubble:62|
 dialog_bubble:63|Listen..
 dialog_bubble:67|NOW!
@@ -39,6 +46,7 @@ dialog_bubble:71|Listen..
 dialog_bubble:75|NOW!
 dialog_bubble:76|
 
+dialog_bubble:96|!INVERT_POS
 dialog_bubble:96|That should cover everything you need to know.
 dialog_bubble:103|
 dialog_bubble:104|Now, try to get to the end by yourself.
@@ -46,6 +54,10 @@ dialog_bubble:104|Now, try to get to the end by yourself.
 dialog_bubble:110|Good luck!
 dialog_bubble:112|
 
+spotlight:110|FADE|0.3|2
+spotlight:110|TYPE|1
+
+spotlight:175|FADE|0|1
 dialog_bubble:176|Great job!
 dialog_bubble:178|
 display_score:178|

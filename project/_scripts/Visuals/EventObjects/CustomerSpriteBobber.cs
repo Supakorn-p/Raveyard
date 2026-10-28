@@ -33,9 +33,10 @@ public class CustomerSpriteBobber : EventObject
         SpriteObject customerSpr = currentCustomer.spriteObj;
 
         float offsetY = (float) Math.Sin(recordPlayer.getCurrentBeattime() / beatDuration * Math.PI);
-        float absOffsetY = MathF.Abs(offsetY) * distance;
+        float absOffsetY = MathF.Abs(offsetY);
+        float trueOffsetY = (float) Math.Pow(1.0f - absOffsetY, 2) * distance;
 
-        customerSpr.position_offset = new Vector2(0, absOffsetY);
+        customerSpr.position_offset = new Vector2(0, trueOffsetY);
     }
 
     public override void OnEvent(string[] eventParams)

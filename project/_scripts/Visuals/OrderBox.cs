@@ -16,8 +16,6 @@ namespace Raveyard._scripts.Visuals
         //public scGameplay main_game;
         public static Action<bool> inputsExhausted;
 
-        public bool isSecondBox = false; // self explanatory
-
         public SpriteObject order_box;
         public Vector2 position;
 
@@ -25,10 +23,8 @@ namespace Raveyard._scripts.Visuals
         public Vector2 start_pos = new Vector2(250, 200);
         private Vector2 end_pos = new Vector2(250, 1000);
 
-        // i still have to hard code this lol, positions for if it's a 2nd box
-        private Vector2 resting_pos2 = new Vector2(250, -1000);
-        public Vector2 start_pos2 = new Vector2(250, 500);
-        private Vector2 end_pos2 = new Vector2(250, -1000);
+        private Vector2 twinheadBox_pos_offset = new Vector2(-200, -300);
+        private SpriteObject twinheadOrder_box;
 
         private Rectangle instructionsBoxRect = new Rectangle(
             100, 150, 
@@ -43,20 +39,6 @@ namespace Raveyard._scripts.Visuals
         private static Texture2D orderBoxTexture;
 
         //public DrinkWanted orderedDrink;
-
-        public OrderBox(bool _secondBox)
-        {
-            isSecondBox = _secondBox;
-
-            if (isSecondBox == false) // check whether or not it's the 2nd box
-            {
-                position = resting_pos;
-            }
-            else
-            {
-                position = resting_pos2;
-            }
-        }
 
         public static void InitializeOrderBox(Texture2D _orderBoxTexture, Texture2D _instructionsTexture)
         {
@@ -74,6 +56,26 @@ namespace Raveyard._scripts.Visuals
             order_box.active = true;
         }
 
+        // hack hack hack
+        private bool twinheadMode = false;
+        private int twinheadIndexnum = 99;
+        public void TwinHeadMode()
+        {
+            twinheadOrder_box = new SpriteObject("order_box2", orderBoxTexture, new Vector2(1000, 476), start_pos);
+            twinheadOrder_box.scale = new Vector2(0.7f, 0.7f);
+            twinheadOrder_box.layer = order_box.layer;
+            twinheadOrder_box.alpha = 0.0f;
+            twinheadOrder_box.active = true;
+
+            twinheadOrder_box.tweener.TweenTo(target: twinheadOrder_box, expression: player => player.position, toValue: start_pos + twinheadBox_pos_offset, duration: 0.6f)
+            .Easing(EasingFunctions.CubicInOut);
+            twinheadOrder_box.tweener.TweenTo(target: twinheadOrder_box, expression: player => player.alpha, toValue: 1.0f, duration: 0.2f, delay: 0.3f)
+            .Easing(EasingFunctions.CubicInOut);
+
+            twinheadMode = true;
+            twinheadIndexnum = instructionkeyList.Count;
+        }
+
         /*public void LoadInstructionsTexture(InputType inputType, Texture2D texture)
         {
             instructionsTexture2D.Add(inputType, texture);
@@ -87,24 +89,12 @@ namespace Raveyard._scripts.Visuals
 
             order_box.tweener.CancelAll();
 
-            if (isSecondBox == false)
-            {
-                order_box.position = resting_pos;
-                order_box.alpha = 0f;
-                order_box.tweener.TweenTo(target: order_box, expression: player => player.position, toValue: start_pos, duration: 0.6f)
-                    .Easing(EasingFunctions.CubicInOut);
-                order_box.tweener.TweenTo(target: order_box, expression: player => player.alpha, toValue: 1.0f, duration: 0.2f, delay: 0.3f)
-                .Easing(EasingFunctions.CubicInOut);
-            }
-            else // tweening from a different start_pos
-            {
-                order_box.position = resting_pos;
-                order_box.alpha = 0f;
-                order_box.tweener.TweenTo(target: order_box, expression: player => player.position, toValue: start_pos2, duration: 0.6f)
-                    .Easing(EasingFunctions.CubicInOut);
-                order_box.tweener.TweenTo(target: order_box, expression: player => player.alpha, toValue: 1.0f, duration: 0.2f, delay: 0.3f)
-                .Easing(EasingFunctions.CubicInOut);
-            }
+            order_box.position = resting_pos;
+            order_box.alpha = 0f;
+            order_box.tweener.TweenTo(target: order_box, expression: player => player.position, toValue: start_pos, duration: 0.6f)
+            .Easing(EasingFunctions.CubicInOut);
+            order_box.tweener.TweenTo(target: order_box, expression: player => player.alpha, toValue: 1.0f, duration: 0.2f, delay: 0.3f)
+            .Easing(EasingFunctions.CubicInOut);
         }
 
 
@@ -117,9 +107,11 @@ namespace Raveyard._scripts.Visuals
         };
         public void InstructionAdded(InputType input)
         {
-            order_box.tweener.TweenTo(target: order_box, expression: player => player.scale, toValue: new Vector2(0.77f, 0.77f), duration: 0.15f)
+            SpriteObject _order_box = twinheadMode ? twinheadOrder_box: order_box;
+
+            _order_box.tweener.TweenTo(target: _order_box, expression: player => player.scale, toValue: new Vector2(0.77f, 0.77f), duration: 0.15f)
                .Easing(EasingFunctions.CubicIn)
-               .OnEnd(tween => order_box.tweener.TweenTo(target: order_box, expression: player => player.scale, toValue: new Vector2(0.75f, 0.75f), duration: 0.15f)
+               .OnEnd(tween => _order_box.tweener.TweenTo(target: _order_box, expression: player => player.scale, toValue: new Vector2(0.75f, 0.75f), duration: 0.15f)
                .Easing(EasingFunctions.CubicOut));
             
             InstructionKey instruction = new InstructionKey();
@@ -131,7 +123,7 @@ namespace Raveyard._scripts.Visuals
             instructionsQueue.Enqueue(instruction);
             
             instructionkeyList.Add(instruction);
-            foreach (InstructionKey key in instructionkeyList) { key.UpdatePosition(instructionsBoxRect, buttonsPerRow); }
+            foreach (InstructionKey key in instructionkeyList) { key.UpdatePosition(instructionsBoxRect, buttonsPerRow, twinheadIndexnum); }
         }
 
 
@@ -142,6 +134,14 @@ namespace Raveyard._scripts.Visuals
             order_box.tweener.TweenTo(target: order_box, expression: player => player.position, toValue: end_pos, duration: 1)
             .Easing(EasingFunctions.CubicInOut)
             .OnEnd(tween => DestroyBox());
+
+            if (twinheadOrder_box != null)
+            {
+                twinheadOrder_box.tweener.CancelAll();
+                twinheadOrder_box.tweener.TweenTo(target: twinheadOrder_box, expression: player => player.position, toValue: end_pos + twinheadBox_pos_offset, duration: 1)
+                .Easing(EasingFunctions.CubicInOut)
+                .OnEnd(tween => twinheadOrder_box.Free());
+            }
 
 
             inputsExhausted?.Invoke(isPerfect);

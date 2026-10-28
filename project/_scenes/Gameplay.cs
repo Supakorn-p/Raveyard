@@ -80,10 +80,23 @@ public class scGameplay : GameScreen
         DemoPlayer demoPlayer = new DemoPlayer(); // demo_player
         loadedEventObjects.Add(demoPlayer);
 
-        CustomerSpriteBobber customerSpriteBobber = new CustomerSpriteBobber();
+        CustomerSpriteBobber customerSpriteBobber = new CustomerSpriteBobber(); // customer_bobbing
         customerSpriteBobber.InjectCustomerQueue(customerQueue);
         customerSpriteBobber.InjectRecordPlayer(recordPlayer);
         loadedEventObjects.Add(customerSpriteBobber);
+
+        SpotlightHandler spotlightHandler = new SpotlightHandler(); // spotlight
+        spotlightHandler.InjectSpotlightObj(spotlightEffect);
+        spotlightHandler.InjectBPM(recordPlayer.bpm);
+        loadedEventObjects.Add(spotlightHandler);
+
+        Twinhead twinhead = new Twinhead(); // dst_twin
+        twinhead.InjectCustomerQueue(customerQueue);
+        loadedEventObjects.Add(twinhead);
+
+        CustomerVariantSetter customerSet = new CustomerVariantSetter(); // set_customer
+        customerSet.InjectCustomerQueue(customerQueue);
+        loadedEventObjects.Add(customerSet);
     }
 
     private void initializeEventObjects()
@@ -108,7 +121,7 @@ public class scGameplay : GameScreen
             GameplaySoundLibrary.PlaySound("snd_cue_start");
 
             //order_box.StartOrder();
-            Customer currentCustomer = customerQueue.AddCustomerToLine(0);
+            Customer currentCustomer = customerQueue.AddCustomerToLine();
             currentCustomer.StartOrder();
             bartender.ActuallyTakingOrder();
 
@@ -199,8 +212,9 @@ public class scGameplay : GameScreen
     // Game Object Managers
     private CustomerQueue customerQueue;
 
-    // text
-    private SpriteFont font_antonSc;
+    // spotlight effect
+    private SpriteObject spotlightEffect;
+    private Effect spotlightEffectShader;
 
     public override void LoadContent()
     {
@@ -217,13 +231,6 @@ public class scGameplay : GameScreen
         {
             customerQueue.InitializeTexture(customer);
         }
-
-
-        insertEventObjects();
-        initializeEventObjects();
-        subscribeToEvents();
-
-        recordPlayer.Play();
 
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -245,7 +252,12 @@ public class scGameplay : GameScreen
         
         sfxlib.LoadSound("snd_result_cashregister");
 
-        font_antonSc = Content.Load<SpriteFont>("anton_sc");
+        spotlightEffect = new SpriteObject("distraction_spotlight", 
+        Content.Load<Texture2D>("distraction_spotlight"), new Vector2(640, 360), Vector2.Zero);
+        spotlightEffect.scale = new Vector2(2f, 2f);
+        spotlightEffect.alpha = 0.0f;
+        // DO NOT SET TO ACTIVE
+        spotlightEffectShader = Content.Load<Effect>("_greenValueIsAlpha");
         
 
         // SECRET SUSIE ADDITION NO ONE WILL EVER KNOW
@@ -283,6 +295,12 @@ public class scGameplay : GameScreen
         susie.active = true;
         background.active = true;
         bar_counter.active = true;
+
+
+        insertEventObjects();
+        initializeEventObjects();
+        subscribeToEvents();
+        recordPlayer.Play();
     }
 
     public override void Update(GameTime gameTime)
@@ -318,6 +336,17 @@ public class scGameplay : GameScreen
             drawObj.Draw(_spriteBatch);
         }
 
+        _spriteBatch.End();
+
+        // spotlight effect
+        _spriteBatch.Begin(
+            transformMatrix: _camera.GetViewMatrix(), 
+            samplerState: SamplerState.PointClamp,
+            blendState: BlendState.NonPremultiplied,
+            effect: spotlightEffectShader);
+
+        spotlightEffectShader.Parameters["SpotlightAlpha"].SetValue(spotlightEffect.alpha);
+        spotlightEffect.Draw(_spriteBatch);
         _spriteBatch.End();
     }
 

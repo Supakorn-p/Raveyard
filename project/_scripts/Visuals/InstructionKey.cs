@@ -19,6 +19,9 @@ namespace Raveyard._scripts.Visuals
 
         public int indexNumber = 0;
 
+        // not pretty but you gotta do what you gotta
+        private Vector2 twinheadOffset = new Vector2(-200, -300);
+
         /*public void SetDistanceAndScale(InstructionKey inst_to_add)
         {
             int add_pos = 0;
@@ -52,14 +55,23 @@ namespace Raveyard._scripts.Visuals
                 //key.instruction_key.scale.Y = 0.5f / box_owner.keyList.Count;
             }
         }*/
-        public void UpdatePosition(Rectangle boundaries, int _instPerRow)
+        public void UpdatePosition(Rectangle boundaries, int _instPerRow, int _twinheadStartpos = 99)
         {
             int instPerRow = _instPerRow - 1;
             float yCenter = boundaries.Y + boundaries.Height/2f;
             float xCenter = boundaries.X + boundaries.Width/2f;
 
-            float xOffset = (indexNumber - instPerRow/2f)/(instPerRow/2f);
+            // to restart position when exceeding the twinhead's startpos
+            int true_indexNumber = indexNumber >= _twinheadStartpos ? indexNumber - _twinheadStartpos : indexNumber;
+
+            float xOffset = (true_indexNumber - instPerRow/2f)/(instPerRow/2f);
+
             instruction_key.position = new Vector2(xCenter + xOffset * boundaries.Width/2f, yCenter);
+
+            if (indexNumber >= _twinheadStartpos)
+            {
+                instruction_key.position += twinheadOffset;
+            }
         }
 
         public void TweenDown()

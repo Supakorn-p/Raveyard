@@ -20,15 +20,16 @@ public class NinepatchSpriteObject : DrawableObject
     public float alpha = 1f;
 
     public Vector2 box_size = new Vector2(32, 32);
-    public float box_border_size = 32;
+    public float box_border_size = 64;
 
     public readonly Tweener tweener = new Tweener();
 
-    public NinepatchSpriteObject(string _name, Texture2D texture2D, Vector2 _position)
+    public NinepatchSpriteObject(string _name, Texture2D texture2D, Vector2 _box_size, Vector2 _position)
     {
         //texture = texture2D;
         position = _position;
         name = _name;
+        box_size = _box_size;
         ninePatchTexture = texture2D;
         Drawablekeeper.AddToBag(this);
     }

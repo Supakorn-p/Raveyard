@@ -8,6 +8,14 @@ public struct CustomerVariantData
 {
     public string asset_name;
     public Vector2 texture_region;
+
+    public int[] frames_idle = [0];
+    public int[] frames_talk = [0];
+    public int[] frames_satisfied = [0];
+    public int[] frames_fail = [0];
+    public int[] frames_extra = [0];
+
+    public CustomerVariantData() {}
 }
 
 public class CustomerQueue
@@ -42,13 +50,13 @@ public class CustomerQueue
     }
 
     public Customer customer;
-    public Customer AddCustomerToLine(int variant)
+    public int currentVariant = 0;
+    public Customer AddCustomerToLine()
     {
-        CustomerVariantData customerVariant = customerVariants[variant];
+        CustomerVariantData customerVariant = customerVariants[currentVariant];
         customer = new Customer(
             customerTextures.GetTexture(customerVariant.asset_name), 
-            customerVariant.texture_region
-
+            customerVariant
         );
         customerQueue.AddToBack(customer);
 

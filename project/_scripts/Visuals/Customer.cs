@@ -16,20 +16,23 @@ public class Customer
     // positions will be hardcoded for now
     private static Vector2 startPos = new Vector2(-1000, 720/2 + 30);
     private static Vector2 presentPos = new Vector2(-200, 720/2 + 30);
-    private static Vector2 endPos = new Vector2(1000, 720/2 + 30);
+    private static Vector2 endPos = new Vector2(3000, 720/2 + 30);
 
-    public OrderBox orderbox = new OrderBox(false);
+    public OrderBox orderbox = new OrderBox();
     private DrinkWanted drinkWanted = new DrinkWanted(); 
 
-    public Customer(Texture2D _texture2D, Vector2 region)
+    public Customer(Texture2D _texture2D, CustomerVariantData customerVariant)
     {
-        spriteObj = new SpriteObject("customer", _texture2D, region, startPos);
+        spriteObj = new SpriteObject("customer", _texture2D, customerVariant.texture_region, startPos);
         spriteObj.anchor = new Vector2(0.5f, 1f);
+        spriteObj.layer = 1;
         drinkWanted.CreateDrinkSprite();
         orderbox.CreateOrderBoxSprite();
 
-        spriteObj.LoadAnim("cus_talk", [1, 0], TimeSpan.FromMilliseconds(100), false);
-        spriteObj.LoadAnim("cus_satisfied", [2], TimeSpan.FromMilliseconds(100), false);
+        spriteObj.LoadAnim("cus_talk", customerVariant.frames_talk, TimeSpan.FromMilliseconds(100), false);
+        spriteObj.LoadAnim("cus_satisfied", customerVariant.frames_satisfied, TimeSpan.FromMilliseconds(100), false);
+        spriteObj.LoadAnim("cus_fail", customerVariant.frames_fail, TimeSpan.FromMilliseconds(100), false);
+        spriteObj.LoadAnim("cus_extra", customerVariant.frames_extra, TimeSpan.FromMilliseconds(100), false);
     }
 
     public void StartOrder()
@@ -62,6 +65,8 @@ public class Customer
         drinkWanted.SuccessInput();
     }
 
+    public void TwinheadifyOrder() { orderbox.TwinHeadMode(); }
+
     private void EndOrder()
     {
         orderFulfilled?.Invoke();
@@ -70,7 +75,7 @@ public class Customer
         drinkWanted.EndOrder();
 
         spriteObj.tweener.TweenTo(spriteObj, player => player.position, endPos, 1f)
-        .Easing(EasingFunctions.CubicInOut).OnEnd(_ => Free());
+        .Easing(EasingFunctions.CubicIn).OnEnd(_ => Free());
 
         spriteObj.animatedSprite.SetAnimation("cus_satisfied");
     }
