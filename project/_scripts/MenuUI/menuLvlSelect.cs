@@ -96,11 +96,11 @@ public class menuLvlSelect : ContextMenu
     public override void Init(ContentManager Content)
     {
         base.Init(Content);
-        cameraPosition = new Vector2(0, 864);
+        cameraPosition = new Vector2(0, 792);
 
         susie = new SpriteObject("menubg_lvl", 
-        Content.Load<Texture2D>("menu_bglvlselect"), new Vector2(1280, 720),
-        new Vector2(0, 864));
+        Content.Load<Texture2D>("menu_screen_2"), new Vector2(1280, 720),
+        new Vector2(0, 792));
         susie.active = true;
 
         LoadLevels(Content);

@@ -42,22 +42,22 @@ public class menuCenter : ContextMenu
         cameraPosition = new Vector2(0, 0);
 
         susie = new SpriteObject("menubg", 
-        Content.Load<Texture2D>("menu_bgmain"), new Vector2(1280, 720),
+        Content.Load<Texture2D>("menu_center"), new Vector2(1280, 720),
         new Vector2(0, 0));
-        susie.scale = new Vector2(1.2f, 1.2f);
+        susie.scale = new Vector2(1.15f, 1.15f);
         susie.active = true;
 
         titleText = new SpriteObject("title_text",
-        Content.Load<Texture2D>("test_text_parallax"), new Vector2(1000, 600),
+        Content.Load<Texture2D>("raveyard_text_menu"), new Vector2(1280, 720),
         new Vector2(0, 0));
         titleText.active = true;
 
-        buttonLeft = new SwitchMenu(true, new Vector2(0.25f, 0.25f));
-        buttonRight = new SwitchMenu(true, new Vector2(0.25f, 0.25f));
-        buttonDown = new SwitchMenu(true, new Vector2(0.25f, 0.25f));
+        buttonLeft = new SwitchMenu(true, new Vector2(0.5f, 0.5f));
+        buttonRight = new SwitchMenu(true, new Vector2(0.5f, 0.5f));
+        buttonDown = new SwitchMenu(true, new Vector2(0.5f, 0.5f));
 
-        buttonList.Add(buttonLeft);
         buttonList.Add(buttonRight);
+        buttonList.Add(buttonLeft);
         buttonList.Add(buttonDown);
 
         InitAllButtons(Content);
@@ -69,21 +69,21 @@ public class menuCenter : ContextMenu
         int i = 0;
         buttonLeft.position = new Vector2(this.cameraPosition.X - 550, this.cameraPosition.Y);
         buttonRight.position = new Vector2(this.cameraPosition.X + 550, this.cameraPosition.Y);
-        buttonDown.position = new Vector2(this.cameraPosition.X, this.cameraPosition.Y + 250);
+        buttonDown.position = new Vector2(this.cameraPosition.X, this.cameraPosition.Y + 300);
 
         foreach (SwitchMenu button in buttonList)
         {
             button.parentMenu = this;
             button.buttonSprite = new SpriteObject("testbutton",
-            Content.Load<Texture2D>("test_button"), new Vector2(500, 500),
-            button.position);
+            Content.Load<Texture2D>("menu_buttons_sprsheet"), new Vector2(600, 600),
+            button.position, i);
 
             button.buttonBounds = new RectangleF(button.position.X + 600, button.position.Y + 300, 500 * button.scale.X, 500 * button.scale.Y);
 
             button.buttonSprite.active = true;
 
-            if (i == 0) { button.menuToSwitch = leftMenu; }
-            if (i == 1) { button.menuToSwitch = rightMenu; }
+            if (i == 0) { button.menuToSwitch = rightMenu; }
+            if (i == 1) { button.menuToSwitch = leftMenu; }
             if (i == 2) { button.menuToSwitch = downMenu; }
 
             button.ButtonInit();

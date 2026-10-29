@@ -20,6 +20,8 @@ public class scMenu : GameScreen
     private OrthographicCamera _camera;
     private Vector2 viewportResolution = new Vector2(1280, 720);
 
+    
+
     private ContextMenu currentSelectedMenu;
     private ContextMenu[] contextMenus;
 
@@ -99,7 +101,7 @@ public class scMenu : GameScreen
 
         Vector2 mouseOffset = new Vector2(mouseX, mouseY) - (viewportResolution / 2);
 
-        Vector2 newCameraPos = (currentSelectedMenu.cameraPosition - viewportResolution / 2) + (mouseOffset * 0.15f);
+        Vector2 newCameraPos = (currentSelectedMenu.cameraPosition - viewportResolution / 2) + (mouseOffset * 0.025f);
         //Vector2 viewportCamera = new Vector2(mouseX - viewportHalved.X, mouseY - viewportHalved.Y);
 
         _camera.Position = Vector2.Lerp(_camera.Position, newCameraPos, delta * 5f);
@@ -121,7 +123,7 @@ public class scMenu : GameScreen
 
     private void ParallaxAllObjects(GameTime gameTime)
     {
-        ParallaxObject(gameTime, mainMenu.titleText, mainMenu, 0.05f);
+        ParallaxObject(gameTime, mainMenu.titleText, mainMenu, 0.02f);
     }
 
     public override void Update(GameTime gameTime)

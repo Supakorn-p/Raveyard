@@ -14,9 +14,9 @@ public class menuCredits : ContextMenu
         cameraPosition = new Vector2(-1536, 0);
 
         susie = new SpriteObject("menubg_cred", 
-        Content.Load<Texture2D>("menu_bgcredits"), new Vector2(1280, 720),
-        new Vector2(-1536, 0));
-        susie.scale = new Vector2(1.2f, 1.2f);
+        Content.Load<Texture2D>("menu_credits"), new Vector2(1280, 720),
+        new Vector2(-1472, 0));
+        susie.scale = new Vector2(1.15f, 1.15f);
         susie.active = true;
     }
 
