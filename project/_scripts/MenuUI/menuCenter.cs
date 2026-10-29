@@ -10,6 +10,7 @@ using Raveyard._scripts.MenuUI.ButtonTypes;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 
 namespace Raveyard;
 
@@ -79,14 +80,15 @@ public class menuCenter : ContextMenu
             button.position, i);
 
             button.buttonBounds = new RectangleF(button.position.X + 600, button.position.Y + 300, 500 * button.scale.X, 500 * button.scale.Y);
-
+            button.buttonSprite.layer = 5;
             button.buttonSprite.active = true;
 
-            if (i == 0) { button.menuToSwitch = rightMenu; }
-            if (i == 1) { button.menuToSwitch = leftMenu; }
-            if (i == 2) { button.menuToSwitch = downMenu; }
+            button.ButtonInit(Content);
 
-            button.ButtonInit();
+            if (i == 0) { button.menuToSwitch = rightMenu; button.buttonLabel.SetText("OPTIONS"); }
+            if (i == 1) { button.menuToSwitch = leftMenu; button.buttonLabel.SetText("CREDITS"); }
+            if (i == 2) { button.menuToSwitch = downMenu; button.buttonLabel.SetText("PLAY"); button.buttonLabel.position = new Vector2(button.position.X, button.position.Y - 65); }
+
             i++;
         }
     }

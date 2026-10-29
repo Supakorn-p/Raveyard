@@ -48,7 +48,7 @@ public class menuOptions : ContextMenu
 
         centerButton.buttonSprite.active = true;
 
-        centerButton.ButtonInit();
+        centerButton.ButtonInit(Content);
     }
 
     public override void FocusedUpdate(GameTime gameTime)

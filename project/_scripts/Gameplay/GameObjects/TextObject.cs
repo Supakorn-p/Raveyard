@@ -47,4 +47,9 @@ public class TextObject : DrawableObject
         new Color(color, alpha), _rotation, GetRawOrigin(), scale,
         SpriteEffects.None, LayerToDepth());
     }
+
+    public void SetText(string _text)
+    {
+        text = new StringBuilder(_text);
+    }
 }

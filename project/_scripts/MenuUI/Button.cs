@@ -8,6 +8,7 @@ using MonoGame.Extended.Input;
 using MonoGame.Extended.Tweening;
 using Raveyard._scripts.Visuals;
 using System.Diagnostics;
+using System.Text;
 
 
 namespace Raveyard._scripts.MenuUI
@@ -21,13 +22,25 @@ namespace Raveyard._scripts.MenuUI
 
         public ContextMenu parentMenu;
 
+        public TextObject buttonLabel;
+
         public bool isActive = false;
         private bool isHovered = false;
 
-        public void ButtonInit()
+        public void ButtonInit(ContentManager Content)
         {
             buttonSprite.rectangleBounds = buttonBounds;
             buttonSprite.scale = scale;
+
+            SpriteFont font = Content.Load<SpriteFont>("anton_sc");
+            buttonLabel = new TextObject(font, new StringBuilder(""));
+
+
+            buttonLabel.position = new Vector2(position.X, position.Y - 100);
+            buttonLabel.scale = new Vector2(0.5f, 0.5f);
+            buttonLabel.layer = 11;
+            buttonLabel.color = Color.White;
+            buttonLabel.active = true;
         }
 
         public void Update(GameTime gameTime)

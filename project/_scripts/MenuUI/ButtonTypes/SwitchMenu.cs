@@ -14,6 +14,7 @@ namespace Raveyard._scripts.MenuUI.ButtonTypes
     internal class SwitchMenu : Button
     {
         public ContextMenu menuToSwitch;
+
         public SwitchMenu(bool _isActive, Vector2 _scale)
         {
             isActive = _isActive;
@@ -25,6 +26,7 @@ namespace Raveyard._scripts.MenuUI.ButtonTypes
             {
                 parentMenu.switchOnExit = menuToSwitch;
             }
+
             parentMenu.Exit();
         }
     }
