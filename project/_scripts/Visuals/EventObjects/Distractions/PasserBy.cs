@@ -16,6 +16,7 @@ namespace Raveyard._scripts.Visuals.EventObjects.Distractions
         public Vector2 position = new Vector2(-1100, 100);
 
         private static Texture2D ghostTexture;
+        private RecordPlayer recordPlayer;
 
         public override void Init(ContentManager Content)
         {
@@ -29,9 +30,14 @@ namespace Raveyard._scripts.Visuals.EventObjects.Distractions
             ghost.active = true;
         }
 
+        public void InjectRecordPlayer(RecordPlayer _recordPlayer) {recordPlayer = _recordPlayer;}
+
         private void Move(GameTime gameTime)
         {
             ghost.position.X += (float)gameTime.ElapsedGameTime.TotalSeconds * 350;
+
+            float offsetY = (float) Math.Sin(recordPlayer.getCurrentBeattime() / 2 * Math.PI);
+            ghost.position_offset = new Vector2(0, offsetY * 32 + 32);
 
             //if (isMoving == true)
             //{

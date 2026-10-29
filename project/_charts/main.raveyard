@@ -48,6 +48,8 @@ left:57
 press:58
 end_order:59
 
+// CUSTOMER SWITCH
+set_customer:62|1
 start_order:63
 press:64
 press:66
@@ -62,18 +64,24 @@ press:83.5
 press:85.5
 end_order:87
 
+// CUSTOMER SWITCH
+set_customer:94|0
 start_order:95
 press:96.5
 press:97.5
 left:98.5
 end_order:99
 
+// CUSTOMER SWITCH
+set_customer:102|1
 start_order:103
 press:104.5
 press:105.5
 right:106.5
 end_order:107
 
+// CUSTOMER SWITCH
+set_customer:111|0
 start_order:111.5
 press:112.5
 press:113.5
@@ -81,12 +89,17 @@ left:114.5
 press:115
 end_order:115.5
 
+// CUSTOMER SWITCH
+set_customer:119|1
 start_order:120
 right:121
 left:122
 right:123
 end_order:124
 
+// CUSTOMER SWITCH
+set_customer:130|0
+dst_passerby:130
 start_order:131
 press:132
 press:133
@@ -105,6 +118,8 @@ left:153
 press:154
 end_order:155
 
+// CUSTOMER SWITCH
+set_customer:158|2
 start_order:159
 press:160
 left:162
@@ -118,6 +133,8 @@ right:170.5
 right:171.5
 end_order:175
 
+// CUSTOMER SWITCH
+set_customer:191|1
 start_order:191.5
 left:192.5
 press:193
@@ -126,6 +143,8 @@ right:194.5
 left:195
 end_order:195.5
 
+// CUSTOMER SWITCH
+set_customer:199|0
 start_order:199.5
 press:200.5
 left:201
@@ -134,6 +153,8 @@ left:202.5
 press:203
 end_order:203.5
 
+// CUSTOMER SWITCH
+set_customer:207|1
 start_order:207.5
 press:208.5
 left:209
@@ -142,6 +163,8 @@ right:210.5
 left:211
 end_order:211.5
 
+// CUSTOMER SWITCH
+set_customer:215|0
 start_order:215.5
 press:216.5
 press:217
@@ -168,6 +191,8 @@ press:235.5
 end_order:236.5
 spotlight:236.5|TYPE|1
 
+// CUSTOMER SWITCH
+set_customer:239|1
 spotlight:240|TYPE|0
 start_order:240
 press:241

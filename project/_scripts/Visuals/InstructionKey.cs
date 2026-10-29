@@ -20,7 +20,7 @@ namespace Raveyard._scripts.Visuals
         public int indexNumber = 0;
 
         // not pretty but you gotta do what you gotta
-        private Vector2 twinheadOffset = new Vector2(-200, -300);
+        private Vector2 twinheadOffset = new Vector2(-50, -100);
 
         /*public void SetDistanceAndScale(InstructionKey inst_to_add)
         {

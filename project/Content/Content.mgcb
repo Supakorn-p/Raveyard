@@ -123,6 +123,18 @@
 /processorParam:TextureFormat=Color
 /build:../_textures/Bar-counter.PNG;Bar-counter.PNG
 
+#begin ../_textures/bartender_sprsheet_2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../_textures/bartender_sprsheet_2.png;bartender_sprsheet_2.png
+
 #begin ../_textures/BG.PNG
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -170,6 +182,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../_textures/customer_sprsheet_thewind.png;customer_sprsheet_thewind.png
+
+#begin ../_textures/customer_sprsheet_twinhead.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../_textures/customer_sprsheet_twinhead.png;customer_sprsheet_twinhead.png
+
+#begin ../_textures/customer_sprsheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../_textures/customer_sprsheet.png;customer_sprsheet.png
 
 #begin ../_textures/dialogbox_placeholder.PNG
 /importer:TextureImporter
@@ -363,30 +399,6 @@
 /processorParam:TextureFormat=Color
 /build:../../assets/bartender_eyes_sprsheet.png;bartender_eyes_sprsheet.png
 
-#begin ../../assets/bartender_sprsheet_1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../assets/bartender_sprsheet_1.png;bartender_sprsheet_1.png
-
-#begin ../../assets/bartender_sprsheet_2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../assets/bartender_sprsheet_2.png;bartender_sprsheet_2.png
-
 #begin ../../assets/bg_halloween .png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -422,18 +434,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../../assets/counter_halloween.png;counter_halloween.png
-
-#begin ../../assets/customer_sprsheet.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:../../assets/customer_sprsheet.png;customer_sprsheet.png
 
 #begin ../../assets/drinks_sprsheet.png
 /importer:TextureImporter

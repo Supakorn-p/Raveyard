@@ -23,7 +23,7 @@ namespace Raveyard._scripts.Visuals
         public Vector2 start_pos = new Vector2(250, 200);
         private Vector2 end_pos = new Vector2(250, 1000);
 
-        private Vector2 twinheadBox_pos_offset = new Vector2(-200, -300);
+        private Vector2 twinheadBox_pos_offset = new Vector2(-50, -100);
         private SpriteObject twinheadOrder_box;
 
         private Rectangle instructionsBoxRect = new Rectangle(
@@ -63,7 +63,7 @@ namespace Raveyard._scripts.Visuals
         {
             twinheadOrder_box = new SpriteObject("order_box2", orderBoxTexture, new Vector2(1000, 476), start_pos);
             twinheadOrder_box.scale = new Vector2(0.7f, 0.7f);
-            twinheadOrder_box.layer = order_box.layer;
+            twinheadOrder_box.layer = order_box.layer + 1;
             twinheadOrder_box.alpha = 0.0f;
             twinheadOrder_box.active = true;
 
@@ -118,6 +118,7 @@ namespace Raveyard._scripts.Visuals
             instruction.instruction_key = new SpriteObject("instruction", instructionsTexture,
             new Vector2(913, 537), Vector2.Zero, inputTypeToSprFrame[input]);
             instruction.instruction_key.layer = order_box.layer + 1;
+            if (twinheadMode) { instruction.instruction_key.layer += 1; }
 
             instruction.InitializeKey(instructionsQueue.Count);
             instructionsQueue.Enqueue(instruction);

@@ -11,9 +11,10 @@ public struct CustomerVariantData
 
     public int[] frames_idle = [0];
     public int[] frames_talk = [0];
+    public int[] frames_talk_alt = [0];
     public int[] frames_satisfied = [0];
+    public int[] frames_satisfied_alt = [0];
     public int[] frames_fail = [0];
-    public int[] frames_extra = [0];
 
     public CustomerVariantData() {}
 }

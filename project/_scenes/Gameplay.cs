@@ -75,6 +75,7 @@ public class scGameplay : GameScreen
         loadedEventObjects.Add(resultsBubble);
 
         PasserBy passerBy = new PasserBy(); // dst_passerby
+        passerBy.InjectRecordPlayer(recordPlayer);
         loadedEventObjects.Add(passerBy);
 
         DemoPlayer demoPlayer = new DemoPlayer(); // demo_player
