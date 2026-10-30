@@ -1,211 +1,213 @@
 // METADATA
 bpm:120
-offset:0.151
+offset:0
 
 // EVENTS
 // *format: eventType:time
 //  eventType - name of the event
 //  time - time of the event in beat time (1.5 = one beat and a half)
 
-//start_order:0
-//end_order:4
+spotlight:16|FADE|0.5|14
+spotlight:16|TYPE|2
 
-//start_order:8
-//end_order:12
+start_order:15
+press:16
+press:18
+end_order:19
 
-start_order:16
-press:17
-press:19
-end_order:20
+start_order:23
+press:24
+left:26
+end_order:27
 
-start_order:24
-press:25
-left:27
-end_order:28
+spotlight:30|FADE|0.1|2
+spotlight:30|TYPE|2
 
-start_order:32
+customer_bobbing:31|10
+start_order:31
+press:32
 left:33
-left:34
-right:35
-end_order:36
+press:34
+end_order:35
 
-start_order:40
-left:41
-left:42
-left:43
-end_order:44
+start_order:39
+press:40
+press:41
+press:42
+end_order:43
 
-start_order:48
-press:49
-left:50
-press:51
-end_order:52
+start_order:47
+press:48
+left:49
+press:50
+end_order:51
 
-start_order:56
+start_order:55
+left:56
 left:57
-left:58
-press:59
-end_order:60
+press:58
+end_order:59
 
-start_order:64
-press:65
-left:65.5
-right:67
-end_order:68
+// CUSTOMER SWITCH
+set_customer:62|1
+start_order:63
+press:64
+press:66
+left:67.5
+right:69.5
+end_order:71
 
-start_order:72
-right:73
-left:73.5
-press:75
-end_order:76
+start_order:79
+press:80
+left:82
+press:83.5
+press:85.5
+end_order:87
 
-start_order:80
-press:81
-left:81.5
-press:83
-end_order:84
-
-start_order:88
-press:89
-left:89.5
-right:91
-end_order:92
-
-start_order:96
-press:97
-left:98
+// CUSTOMER SWITCH
+set_customer:94|0
+start_order:95
+press:96.5
+press:97.5
 left:98.5
-right:99
-end_order:100
+end_order:99
 
-start_order:104
-left:105
-right:106
-press:106.5
-right:107
-end_order:108
+// CUSTOMER SWITCH
+set_customer:102|1
+start_order:103
+press:104.5
+press:105.5
+right:106.5
+end_order:107
 
-start_order:112
-left:113
-left:114
-press:114.5
-left:115
-end_order:116
+// CUSTOMER SWITCH
+set_customer:111|0
+start_order:111.5
+press:112.5
+press:113.5
+left:114.5
+press:115
+end_order:115.5
 
+// CUSTOMER SWITCH
+set_customer:119|1
 start_order:120
-left:121
-right:122
-left:122.5
+right:121
+left:122
 right:123
 end_order:124
 
-start_order:128
-press:129
-left:130
-left:131
-end_order:132
+// CUSTOMER SWITCH
+set_customer:130|0
+dst_passerby:130
+start_order:131
+press:132
+press:133
+left:134
+end_order:135
 
-start_order:136
-right:137
-right:138
-left:139
-end_order:140
-
-start_order:144
+start_order:143
+press:144
 press:145
-press:146
-left:147
-end_order:148
+right:146
+end_order:147
 
-start_order:152
-press:153
-left:154
-press:155
-end_order:156
+start_order:151
+press:152
+left:153
+press:154
+end_order:155
 
-start_order:160
-press:161
-left:161.5
-press:162
-press:163
-end_order:164
+// CUSTOMER SWITCH
+set_customer:158|2
+start_order:159
+press:160
+left:162
+left:163.5
+left:165.5
 
-start_order:168
-press:169
-left:169.5
-right:170
-left:171
-end_order:172
+dst_twin:167
 
-start_order:176
-right:177
-left:177.5
-press:178
-press:179
-end_order:180
+right:168
+right:170.5
+right:171.5
+end_order:175
 
-start_order:184
-press:185
-left:185.5
-left:186
-right:187
-end_order:188
-
-start_order:192
+// CUSTOMER SWITCH
+set_customer:191|1
+start_order:191.5
 left:192.5
 press:193
 press:194
 right:194.5
 left:195
-end_order:196
+end_order:195.5
 
-start_order:200
+// CUSTOMER SWITCH
+set_customer:199|0
+start_order:199.5
 press:200.5
 left:201
 right:202
 left:202.5
 press:203
-end_order:204
+end_order:203.5
 
-start_order:208
+// CUSTOMER SWITCH
+set_customer:207|1
+start_order:207.5
 press:208.5
 left:209
 right:210
 right:210.5
 left:211
-end_order:212
+end_order:211.5
 
-start_order:216
+// CUSTOMER SWITCH
+set_customer:215|0
+start_order:215.5
 press:216.5
 press:217
 left:218
 right:218.5
 left:219
-end_order:220
+end_order:219.5
 
-start_order:224
-end_order:228
-left:229
-left:230
-press:231
+spotlight:224|FADE|1.0|3
+spotlight:224|TYPE|3
 
-start_order:232
-end_order:236
-press:237
-left:238
-left:239
+start_order:227
+press:228
+end_order:231
 
+spotlight:231|FADE|0.95|0
+spotlight:231|TYPE|1
+
+spotlight:232.5|TYPE|0
+start_order:232.5
+press:233.5
+press:234.5
+press:235.5
+end_order:236.5
+spotlight:236.5|TYPE|1
+
+// CUSTOMER SWITCH
+set_customer:239|1
+spotlight:240|TYPE|0
 start_order:240
+press:241
+right:242
+left:242.5
+press:243
 end_order:244
-left:245
-left:246
-right:247
+spotlight:244|TYPE|1
 
+spotlight:248|TYPE|0
 start_order:248
+press:249
+right:250
+left:250.5
+right:251
+left:251.5
 end_order:252
-press:253
-press:254
-press:255
-
-start_order:256
-end_order:260
+spotlight:252|TYPE|1

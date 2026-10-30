@@ -10,8 +10,8 @@ namespace Raveyard;
 public class RecordPlayer : IDisposable
 {
     private WAVStream wavStream;
-    private double bpm;
-    private double offset;
+    public double bpm {get; private set;}
+    public double offset {get; private set;}
 
     public RecordPlayer(WAVStream _soundEffect, double _bpm, double _offset)
     {

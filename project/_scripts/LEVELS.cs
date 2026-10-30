@@ -21,7 +21,37 @@ public struct LEVELS_skinparams
     {
         customerVariants =
         [
-            new CustomerVariantData(){ asset_name = "customer_sprsheet", texture_region = new Vector2(551, 581)}
+            // skeleton
+            new CustomerVariantData()
+            { 
+                asset_name = "customer_sprsheet", texture_region = new Vector2(551, 581),
+                frames_talk = [1, 0], 
+                frames_satisfied = [2],
+                frames_satisfied_alt = [3],
+                frames_fail = [4, 5],
+            },
+
+            // drac
+            new CustomerVariantData()
+            { 
+                asset_name = "customer_sprsheet_dracula", texture_region = new Vector2(596, 563),
+                frames_idle = [1],
+                frames_talk = [0, 1], 
+                frames_satisfied = [2],
+                frames_satisfied_alt = [3],
+                frames_fail = [4, 5],
+            },
+
+            // twin
+            new CustomerVariantData()
+            { 
+                asset_name = "customer_sprsheet_twinhead", texture_region = new Vector2(596, 563),
+                frames_talk = [1, 0],
+                frames_talk_alt = [3, 2], 
+                frames_satisfied = [4],
+                frames_satisfied_alt = [5],
+                frames_fail = [6, 7],
+            },
         ];
     }
 }

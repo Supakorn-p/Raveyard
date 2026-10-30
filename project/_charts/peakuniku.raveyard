@@ -13,6 +13,11 @@ dialog_bubble:2|three
 dialog_bubble:3|four
 dialog_bubble:4|
 
+spotlight:0|FADE|0.2|4
+spotlight:0|TYPE|2
+
+customer_bobbing:0|15
+
 display_score:133|
 
 start_order:3

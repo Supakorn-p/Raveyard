@@ -28,14 +28,17 @@ namespace Raveyard._scripts.Characters
             eyes.anchor = new Vector2(0.5f, 1f);
             bartender.LoadAnim("bar_idle", [0], TimeSpan.FromMilliseconds(240), true); // Idle
             bartender.LoadAnim("bar_takingorder", [1, 2], TimeSpan.FromMilliseconds(240), true);
-            bartender.LoadAnim("bar_shake", [3, 4, 3, 4], TimeSpan.FromMilliseconds(120), false);
-            bartender.LoadAnim("bar_shakeafter", [3, 4], TimeSpan.FromMilliseconds(240), true);
-            bartender.LoadAnim("bar_finish", [5, 6, 5, 6, 5, 6], TimeSpan.FromMilliseconds(240), false);
-            bartender.LoadAnim("bar_offbeat", [7, 8], TimeSpan.FromMilliseconds(240), true);
-            bartender.LoadAnim("bar_offbeatbrief", [7, 8], TimeSpan.FromMilliseconds(100), false);
-            bartender.LoadAnim("bar_fuckup", [9, 10, 9, 10, 9, 10], TimeSpan.FromMilliseconds(100), false); 
+            bartender.LoadAnim("bar_cube", [3, 3, 3, 4, 4, 5], TimeSpan.FromMilliseconds(60), false);
+            bartender.LoadAnim("bar_shake", [6, 7, 6, 7], TimeSpan.FromMilliseconds(120), false);
+            bartender.LoadAnim("bar_shakeafter", [6, 7], TimeSpan.FromMilliseconds(240), true);
+            bartender.LoadAnim("bar_finish", [8, 9, 8, 9, 8, 9], TimeSpan.FromMilliseconds(240), false);
+            bartender.LoadAnim("bar_offbeat", [10, 11], TimeSpan.FromMilliseconds(240), true);
+            bartender.LoadAnim("bar_offbeatbrief", [10, 11], TimeSpan.FromMilliseconds(100), false);
+            bartender.LoadAnim("bar_offbeatbriefcube", [14], TimeSpan.FromMilliseconds(100), false);
+            bartender.LoadAnim("bar_fuckup", [12, 13, 12, 13, 12, 13], TimeSpan.FromMilliseconds(100), false); 
 
             eyes.LoadAnim("eye_idle", [1, 1, 1, 2], TimeSpan.FromMilliseconds(240), true);
+            eyes.LoadAnim("eye_cube", [1], TimeSpan.FromMilliseconds(240), true);
             eyes.LoadAnim("eye_shake", [2], TimeSpan.FromMilliseconds(240), true);
             eyes.LoadAnim("eye_takingorder", [0, 0, 0, 2], TimeSpan.FromMilliseconds(240), true);
             eyes.LoadAnim("eye_perfect", [2], TimeSpan.FromMilliseconds(240), true);
@@ -48,6 +51,7 @@ namespace Raveyard._scripts.Characters
             animationFinishExitStates.Add("bar_finish", () => TakingOrder());
             animationFinishExitStates.Add("bar_shake", () => SetAnimation("bar_shakeafter"));
             animationFinishExitStates.Add("bar_offbeatbrief", () => SetAnimation("bar_shakeafter"));
+            animationFinishExitStates.Add("bar_offbeatbriefcube", () => SetAnimation("bar_cube"));
         }
 
         private Dictionary<string, Action> animationFinishExitStates = new Dictionary<string, Action>();
@@ -118,6 +122,7 @@ namespace Raveyard._scripts.Characters
         }
 
 
+        private string mistimedInputExitAnim;
         public void OnInputResult(JudgementResult result, InputType input)
         {
             // bounce regardless of input result
@@ -134,14 +139,22 @@ namespace Raveyard._scripts.Characters
             }
 
             // successful inputs
-            SetAnimation("bar_shake");
-            SetEyeAnimation("eye_shake");
+            if (input == InputType.press)
+            {
+                SetAnimation("bar_cube");
+                SetEyeAnimation("eye_cube");
+            }
+            else
+            {
+                SetAnimation("bar_shake");
+                SetEyeAnimation("eye_shake");
+            }
 
             bool isPerfect = result == JudgementResult.perfect;
             if (!isPerfect) // early/late
             {
-                SetAnimation("bar_offbeatbrief");
                 // TODO: add unique early/late sound
+                SetAnimation(input == InputType.press ? "bar_offbeatbriefcube" : "bar_offbeatbrief");
             }
 
             if (SETTINGS.AUDIO_FEEDBACK_PURE_MODE == false) { return; }
