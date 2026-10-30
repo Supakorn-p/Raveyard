@@ -14,6 +14,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ../_charts/main_menu_temp.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_charts/main_menu_temp.wav;main_menu_temp.wav
+
 #begin ../_fonts/anton_sc.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -44,6 +50,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:../_sounds/inputsuccess.wav;inputsuccess.wav
+
+#begin ../_sounds/snd_click_menu_button.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/snd_click_menu_button.wav;snd_click_menu_button.wav
 
 #begin ../_sounds/snd_cue_end.wav
 /importer:WavImporter
@@ -80,6 +92,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:../_sounds/snd_dialog_tutorial.wav;snd_dialog_tutorial.wav
+
+#begin ../_sounds/snd_hover_menu_button.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/snd_hover_menu_button.wav;snd_hover_menu_button.wav
 
 #begin ../_sounds/snd_input_glassclink.wav
 /importer:WavImporter
@@ -435,6 +453,18 @@
 /processorParam:TextureFormat=Color
 /build:../../assets/counter_halloween.png;counter_halloween.png
 
+#begin ../../assets/credits.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../assets/credits.png;credits.png
+
 #begin ../../assets/drinks_sprsheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -470,6 +500,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../../assets/inskeys_sprsheet.png;inskeys_sprsheet.png
+
+#begin ../../assets/karn_ credits.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../assets/karn_ credits.png;karn_ credits.png
 
 #begin ../../assets/menu_buttons_sprsheet.png
 /importer:TextureImporter
@@ -543,6 +585,30 @@
 /processorParam:TextureFormat=Color
 /build:../../assets/miscsymb_sprsheet.png;miscsymb_sprsheet.png
 
+#begin ../../assets/opec_credits.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../assets/opec_credits.png;opec_credits.png
+
+#begin ../../assets/p_credits.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../assets/p_credits.png;p_credits.png
+
 #begin ../../assets/rave_bg_sprsheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -566,6 +632,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../../assets/raveyard_text_menu.png;raveyard_text_menu.png
+
+#begin ../../assets/sebas_credits.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../assets/sebas_credits.png;sebas_credits.png
 
 #begin ../../assets/test_button.png
 /importer:TextureImporter
@@ -602,4 +680,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../../assets/th_sprsheet.png;th_sprsheet.png
+
+#begin ../../assets/tokyo_credits.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../assets/tokyo_credits.png;tokyo_credits.png
 

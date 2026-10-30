@@ -83,7 +83,15 @@ public class menuCenter : ContextMenu
             button.buttonSprite.layer = 5;
             button.buttonSprite.active = true;
 
-            button.ButtonInit(Content);
+            if (i == 0)
+            {
+                button.ButtonInit(Content, false);
+            }
+            else
+            {
+                button.ButtonInit(Content);
+            }
+
 
             if (i == 0) { button.menuToSwitch = rightMenu; button.buttonLabel.SetText("OPTIONS"); }
             if (i == 1) { button.menuToSwitch = leftMenu; button.buttonLabel.SetText("CREDITS"); }

@@ -28,6 +28,7 @@ namespace Raveyard._scripts.MenuUI.ButtonTypes
             }
 
             parentMenu.Exit();
+            GameplaySoundLibrary.PlaySound(click);
         }
     }
 }

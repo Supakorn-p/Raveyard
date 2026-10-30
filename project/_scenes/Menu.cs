@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended;
 using MonoGame.Extended.Collections;
 using MonoGame.Extended.Graphics;
@@ -20,7 +21,7 @@ public class scMenu : GameScreen
     private OrthographicCamera _camera;
     private Vector2 viewportResolution = new Vector2(1280, 720);
 
-    
+    Song bgm;
 
     private ContextMenu currentSelectedMenu;
     private ContextMenu[] contextMenus;

@@ -36,19 +36,22 @@ public class menuOptions : ContextMenu
 
     private void InitButton(ContentManager Content)
     {
-        centerButton = new SwitchMenu(true, new Vector2(0.25f, 0.25f));
+        centerButton = new SwitchMenu(true, new Vector2(0.5f, 0.5f));
         centerButton.parentMenu = this;
-        centerButton.position = new Vector2(cameraPosition.X - 600, cameraPosition.Y);
+        centerButton.position = new Vector2(cameraPosition.X - 550, cameraPosition.Y);
         centerButton.buttonBounds = new MonoGame.Extended.RectangleF(cameraPosition.X - 500, cameraPosition.Y + 300, 
         500 * centerButton.scale.X, 500 * centerButton.scale.Y);
 
         centerButton.buttonSprite = new SpriteObject("testbutton",
-           Content.Load<Texture2D>("test_button"), new Vector2(500, 500),
-           centerButton.position);
+           Content.Load<Texture2D>("menu_buttons_sprsheet"), new Vector2(600, 600),
+           centerButton.position, 1);
 
         centerButton.buttonSprite.active = true;
+        centerButton.buttonSprite.layer = 5;
 
         centerButton.ButtonInit(Content);
+
+        centerButton.buttonLabel.SetText("BACK");
     }
 
     public override void FocusedUpdate(GameTime gameTime)
