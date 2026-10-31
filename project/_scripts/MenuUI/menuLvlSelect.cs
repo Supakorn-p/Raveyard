@@ -18,8 +18,8 @@ public class menuLvlSelect : ContextMenu
     private Bag<SpriteObject> lvlCasetteSprites = new Bag<SpriteObject>(10);
     private Bag<TextObject> lvlCasetteTexts = new Bag<TextObject>(10);
 
-    private Vector2 casetteStartPos = new Vector2(-470, 65);
-    private Vector2 casetteOffsetPos = new Vector2(80, 0);
+    private Vector2 casetteStartPos = new Vector2(-500, 65);
+    private Vector2 casetteOffsetPos = new Vector2(100, 0);
 
     private void LoadLevels(ContentManager Content)
     {
@@ -32,7 +32,7 @@ public class menuLvlSelect : ContextMenu
             int offsetBy = lvlCasetteSprites.Count;
 
             SpriteObject newCasetteSprite = new SpriteObject("menubg_lvl", 
-            Content.Load<Texture2D>("menu_casette_empty"), new Vector2(76, 375),
+            Content.Load<Texture2D>("cassette_tape_sprsheet"), new Vector2(251, 456),
             cameraPosition + casetteStartPos + casetteOffsetPos * offsetBy);
             susie.scale = new Vector2(1.2f, 1.2f);
 
@@ -71,6 +71,7 @@ public class menuLvlSelect : ContextMenu
             if (spr_txt > lvlCasetteTexts.Count - 1) { break; }
 
             sprite.alpha = spr_txt == index ? 1f : 0.8f;
+            sprite.position = spr_txt == index ? new Vector2(sprite.position.X, cameraPosition.Y + casetteStartPos.Y - 50) : new Vector2(sprite.position.X, cameraPosition.Y + casetteStartPos.Y);
             spr_txt++;
         }
     }

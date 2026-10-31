@@ -57,6 +57,12 @@
 /processorParam:Quality=Best
 /build:../_sounds/snd_click_menu_button.wav;snd_click_menu_button.wav
 
+#begin ../_sounds/snd_credits_flash.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/snd_credits_flash.wav;snd_credits_flash.wav
+
 #begin ../_sounds/snd_cue_end.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -440,6 +446,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../../assets/box_halloween.png;box_halloween.png
+
+#begin ../../assets/cassette_tape_sprsheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../../assets/cassette_tape_sprsheet.png;cassette_tape_sprsheet.png
 
 #begin ../../assets/counter_halloween.png
 /importer:TextureImporter
