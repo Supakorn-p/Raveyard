@@ -21,6 +21,7 @@ namespace Raveyard._scripts.MenuUI.Decorations
         public Credit cred_p;
         public Credit cred_o;
         public Credit cred_sebas;
+        public Credit cred_vunique;
 
         public static string flash_sound = "snd_credits_flash";
 
@@ -39,6 +40,7 @@ namespace Raveyard._scripts.MenuUI.Decorations
             cred_p = new Credit();
             cred_o = new Credit();
             cred_sebas = new Credit();
+            cred_vunique = new Credit();
         }
 
         int i = 0;
@@ -51,6 +53,7 @@ namespace Raveyard._scripts.MenuUI.Decorations
             all_creds.Add(cred_p);
             all_creds.Add(cred_o);
             all_creds.Add(cred_sebas);
+            all_creds.Add(cred_vunique);
 
 
             new GameplaySoundLibrary(Content).LoadSound(flash_sound);
@@ -58,11 +61,12 @@ namespace Raveyard._scripts.MenuUI.Decorations
             Dictionary<int, List<string>> allSprites = new Dictionary<int, List<string>>
             {
                 {0, ["credits", ""] },
-                {1, ["tokyo_credits", ":Lead Programmer, Music, Sound Designer, Designer"] },
+                {1, ["tokyo_credits", ":Lead Programmer, Composer, \nSound Designer, Designer"] },
                 {2, ["karn_ credits", ":Lead Artist, Art Director"] },
                 {3, ["sebas_credits", ":Director, Designer, Programmer, \n Additional Sounds"] },
                 {4, ["p_credits", "QA Tester, \n Feedback Collector:"] },
-                {5, ["opec_credits", ":Charting, Level Designer"] }
+                {5, ["opec_credits", ":Charting, Level Designer"] },
+                {6, ["vunique_logo", ""] }
             };
 
             Dictionary<int, Color> textColors = new Dictionary<int, Color>()
@@ -73,6 +77,7 @@ namespace Raveyard._scripts.MenuUI.Decorations
                 {3,  new Color(216, 242, 203) },
                 {4,  new Color(247, 229, 192) },
                 {5,  new Color(214, 246, 255) },
+                {6,  new Color() },
             };
 
             Dictionary<int, List<Vector2>> positions = new Dictionary<int, List<Vector2>>()
@@ -80,26 +85,31 @@ namespace Raveyard._scripts.MenuUI.Decorations
                 {0, [new Vector2(parentMenu.cameraPosition.X - 400, parentMenu.cameraPosition.Y - 305), 
                     new Vector2()] },
 
-                {1, [new Vector2(parentMenu.cameraPosition.X - 370, parentMenu.cameraPosition.Y - 175),
-                new Vector2(parentMenu.cameraPosition.X - 290, parentMenu.cameraPosition.Y - 90)] },
+                {1, [new Vector2(parentMenu.cameraPosition.X - 400, parentMenu.cameraPosition.Y - 175),
+                new Vector2(parentMenu.cameraPosition.X - 400, parentMenu.cameraPosition.Y - 80)] },
 
-                {2, [new Vector2(parentMenu.cameraPosition.X - 350, parentMenu.cameraPosition.Y),
-                new Vector2(parentMenu.cameraPosition.X - 325, parentMenu.cameraPosition.Y + 70)] },
+                {2, [new Vector2(parentMenu.cameraPosition.X - 350, parentMenu.cameraPosition.Y + 20),
+                new Vector2(parentMenu.cameraPosition.X - 325, parentMenu.cameraPosition.Y + 80)] },
 
                 {3, [new Vector2(parentMenu.cameraPosition.X, parentMenu.cameraPosition.Y - 275),
                 new Vector2(parentMenu.cameraPosition.X + 290, parentMenu.cameraPosition.Y - 275)] },
 
                 {4, [new Vector2(parentMenu.cameraPosition.X + 380, parentMenu.cameraPosition.Y - 100),
-                new Vector2(parentMenu.cameraPosition.X + 180, parentMenu.cameraPosition.Y - 100)] },
+                new Vector2(parentMenu.cameraPosition.X + 220, parentMenu.cameraPosition.Y - 100)] },
 
-                {5, [new Vector2(parentMenu.cameraPosition.X + 100, parentMenu.cameraPosition.Y + 50),
-                new Vector2(parentMenu.cameraPosition.X + 100, parentMenu.cameraPosition.Y + 125)] },
+                {5, [new Vector2(parentMenu.cameraPosition.X + 125, parentMenu.cameraPosition.Y + 50),
+                new Vector2(parentMenu.cameraPosition.X + 125, parentMenu.cameraPosition.Y + 125)] },
+
+                {6, [new Vector2(parentMenu.cameraPosition.X - 60, parentMenu.cameraPosition.Y - 90),
+                new Vector2()] },
 
             };
 
             foreach (Credit _credit in all_creds)
             {
-                _credit.InitCred(Content, allSprites[i][0], textColors[i], positions[i][0], allSprites[i][1]);
+                if (i == 6) { _credit.InitCred(Content, allSprites[i][0], textColors[i], positions[i][0], allSprites[i][1], 1280, 720); }
+                else { _credit.InitCred(Content, allSprites[i][0], textColors[i], positions[i][0], allSprites[i][1]); }
+
                 _credit.roles.position = positions[i][1];
 
                 i++;
@@ -107,19 +117,20 @@ namespace Raveyard._scripts.MenuUI.Decorations
                 _credit.creditSprite.layer = 5;
                 _credit.creditSprite.active = true;
                 if (_credit != cred) { _credit.creditSprite.scale = new Vector2(0.75f, 0.75f); }
+                if (_credit == cred_vunique) { _credit.creditSprite.scale = new Vector2(0.35f, 0.35f); }
 
 
-                //if (i <= 3)
-                //{
-                //    _credit.creditSprite.position = new Vector2(parentMenu.cameraPosition.X - 400, parentMenu.cameraPosition.Y + ((i * 170) - 475));
-                //}
-                //else if (i > 3)
-                //{
-                //    _credit.creditSprite.position = new Vector2(parentMenu.cameraPosition.X + 300, parentMenu.cameraPosition.Y + ((i - 3) * 170) - 465);
-                //}
+                    //if (i <= 3)
+                    //{
+                    //    _credit.creditSprite.position = new Vector2(parentMenu.cameraPosition.X - 400, parentMenu.cameraPosition.Y + ((i * 170) - 475));
+                    //}
+                    //else if (i > 3)
+                    //{
+                    //    _credit.creditSprite.position = new Vector2(parentMenu.cameraPosition.X + 300, parentMenu.cameraPosition.Y + ((i - 3) * 170) - 465);
+                    //}
 
-                //_credit.roles.position = new Vector2(_credit.creditSprite.position.X, _credit.creditSprite.position.Y + 75);
-                _credit.roles.layer = 5;
+                    //_credit.roles.position = new Vector2(_credit.creditSprite.position.X, _credit.creditSprite.position.Y + 75);
+                    _credit.roles.layer = 5;
                 _credit.roles.scale = new Vector2(0.27f, 0.27f);
                 _credit.roles.active = true;
             }

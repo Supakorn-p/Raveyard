@@ -89,7 +89,7 @@ public class menuCenter : ContextMenu
             Content.Load<Texture2D>("menu_buttons_sprsheet"), new Vector2(600, 600),
             button.position, i);
 
-            button.buttonBounds = new RectangleF(button.position.X + 600, button.position.Y + 300, 500 * button.scale.X, 500 * button.scale.Y);
+           // button.buttonBounds = new RectangleF(button.position.X + 600, button.position.Y + 300, 500 * button.scale.X, 500 * button.scale.Y);
             button.buttonSprite.layer = 5;
             button.buttonSprite.active = true;
 

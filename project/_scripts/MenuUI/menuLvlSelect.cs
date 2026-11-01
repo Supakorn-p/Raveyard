@@ -161,8 +161,8 @@ public class menuLvlSelect : ContextMenu
         centerButton = new SwitchMenu(true, new Vector2(0.5f, 0.5f));
         centerButton.parentMenu = this;
         centerButton.position = new Vector2(cameraPosition.X, cameraPosition.Y - 275);
-        centerButton.buttonBounds = new MonoGame.Extended.RectangleF(cameraPosition.X + 500, cameraPosition.Y + 300,
-        500 * centerButton.scale.X, 500 * centerButton.scale.Y);
+        //centerButton.buttonBounds = new MonoGame.Extended.RectangleF(cameraPosition.X + 500, cameraPosition.Y + 300,
+        //500 * centerButton.scale.X, 500 * centerButton.scale.Y);
 
         centerButton.buttonSprite = new SpriteObject("testbutton",
            Content.Load<Texture2D>("menu_buttons_sprsheet"), new Vector2(600, 600),
