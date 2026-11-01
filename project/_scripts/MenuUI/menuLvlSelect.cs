@@ -4,7 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using MonoGame.Extended.Collections;
+using MonoGame.Extended.Graphics;
 using MonoGame.Extended.Screens;
+using MonoGame.Extended.Tweening;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -17,6 +19,8 @@ public class menuLvlSelect : ContextMenu
 
     private Bag<SpriteObject> lvlCasetteSprites = new Bag<SpriteObject>(10);
     private Bag<TextObject> lvlCasetteTexts = new Bag<TextObject>(10);
+
+    private const string casetteSelectSnd = "snd_cassette_select";
 
     private Vector2 casetteStartPos = new Vector2(-500, 65);
     private Vector2 casetteOffsetPos = new Vector2(100, 0);
@@ -60,8 +64,8 @@ public class menuLvlSelect : ContextMenu
     private int selector;
     private void SelectTape(int index)
     {
-        if (index >= lvlCasetteSprites.Count) {index = 0;}
-        if (index < 0) {index = lvlCasetteSprites.Count - 1;}
+        if (index >= lvlCasetteSprites.Count) { index = 0; }
+        if (index < 0) { index = lvlCasetteSprites.Count - 1; }
         selector = index;
 
         // highlight
@@ -71,7 +75,32 @@ public class menuLvlSelect : ContextMenu
             if (spr_txt > lvlCasetteTexts.Count - 1) { break; }
 
             sprite.alpha = spr_txt == index ? 1f : 0.8f;
-            sprite.position = spr_txt == index ? new Vector2(sprite.position.X, cameraPosition.Y + casetteStartPos.Y - 50) : new Vector2(sprite.position.X, cameraPosition.Y + casetteStartPos.Y);
+            //sprite.position = spr_txt == index ? new Vector2(sprite.position.X, cameraPosition.Y + casetteStartPos.Y - 50) 
+            //: new Vector2(sprite.position.X, cameraPosition.Y + casetteStartPos.Y); 
+
+            if (spr_txt == index)
+            {
+                GameplaySoundLibrary.PlaySound(casetteSelectSnd);
+                sprite.tweener.TweenTo(target: sprite, player => player.position,
+                   toValue: new Vector2(sprite.position.X, cameraPosition.Y + casetteStartPos.Y - 50), duration: 0.15f)
+                   .Easing(EasingFunctions.CubicOut);
+
+
+                lvlCasetteTexts[spr_txt].tweener.TweenTo(target: lvlCasetteTexts[spr_txt], player => player.position,
+                   toValue: new Vector2(lvlCasetteTexts[spr_txt].position.X, cameraPosition.Y + casetteStartPos.Y + 100), duration: 0.15f)
+                   .Easing(EasingFunctions.CubicOut);
+            }
+            else
+            {
+                sprite.tweener.TweenTo(target: sprite, player => player.position,
+                   toValue: new Vector2(sprite.position.X, cameraPosition.Y + casetteStartPos.Y), duration: 0.25f)
+                   .Easing(EasingFunctions.BounceOut);
+
+                lvlCasetteTexts[spr_txt].tweener.TweenTo(target: lvlCasetteTexts[spr_txt], player => player.position,
+                   toValue: new Vector2(lvlCasetteTexts[spr_txt].position.X, cameraPosition.Y + casetteStartPos.Y + 150), duration: 0.25f)
+                   .Easing(EasingFunctions.BounceOut);
+            }
+
             spr_txt++;
         }
     }
@@ -103,6 +132,8 @@ public class menuLvlSelect : ContextMenu
         Content.Load<Texture2D>("menu_screen_2"), new Vector2(1280, 720),
         new Vector2(0, 792));
         susie.active = true;
+
+        new GameplaySoundLibrary(Content).LoadSound(casetteSelectSnd);
 
         LoadLevels(Content);
     }

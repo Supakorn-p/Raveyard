@@ -51,6 +51,12 @@
 /processorParam:Quality=Best
 /build:../_sounds/inputsuccess.wav;inputsuccess.wav
 
+#begin ../_sounds/snd_cassette_select.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/snd_cassette_select.wav;snd_cassette_select.wav
+
 #begin ../_sounds/snd_click_menu_button.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
