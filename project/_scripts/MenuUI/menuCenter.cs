@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended;
 using MonoGame.Extended.Graphics;
 using MonoGame.Extended.Input;
@@ -22,6 +23,8 @@ public class menuCenter : ContextMenu
 
     private SwitchMenu buttonTest;
 
+    public Song bgm;
+
     private SwitchMenu buttonLeft;
     private SwitchMenu buttonRight;
     private SwitchMenu buttonDown;
@@ -40,6 +43,11 @@ public class menuCenter : ContextMenu
     public override void Init(ContentManager Content)
     {
         base.Init(Content);
+
+        bgm = Content.Load<Song>("main_menu_temp");
+        MediaPlayer.Play(bgm);
+        MediaPlayer.Volume = 0.75f;
+
         cameraPosition = new Vector2(0, 0);
 
         susie = new SpriteObject("menubg", 

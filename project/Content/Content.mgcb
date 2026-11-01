@@ -14,12 +14,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ../_charts/main_menu_temp.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:../_charts/main_menu_temp.wav;main_menu_temp.wav
-
 #begin ../_fonts/anton_sc.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -50,6 +44,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:../_sounds/inputsuccess.wav;inputsuccess.wav
+
+#begin ../_sounds/main_menu_temp.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:../_sounds/main_menu_temp.mp3;main_menu_temp.mp3
+
+#begin ../_sounds/main_menu_temp.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:../_sounds/main_menu_temp.mp3;main_menu_temp.mp3
 
 #begin ../_sounds/snd_cassette_select.wav
 /importer:WavImporter

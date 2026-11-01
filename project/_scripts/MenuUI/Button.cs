@@ -45,7 +45,7 @@ namespace Raveyard._scripts.MenuUI
                 new GameplaySoundLibrary(Content).LoadSound(hover);
             }
 
-            buttonLabel.position = new Vector2(position.X, position.Y - 100);
+            buttonLabel.position = new Vector2(position.X, position.Y + 100);
             buttonLabel.scale = new Vector2(0.5f, 0.5f);
             buttonLabel.layer = 11;
             buttonLabel.color = Color.White;

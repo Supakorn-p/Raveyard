@@ -61,6 +61,11 @@ public class scMenu : GameScreen
         foreach (ContextMenu contextMenu in contextMenus)
         {
             contextMenu.Init(Content);
+
+            if (contextMenu == mainMenu)
+            {
+                bgm = mainMenu.bgm;
+            }
             // keyboardListener.KeyPressed += (_, args) =>
             // {
             //     if (currentSelectedMenu == contextMenu) { contextMenu.OnInputPressed(args.Key); }
@@ -135,6 +140,11 @@ public class scMenu : GameScreen
         foreach (ContextMenu contextMenu in contextMenus)
         {
             contextMenu.Update(gameTime);
+        }
+
+        if (MediaPlayer.State == MediaState.Stopped && levelSelectMenu.inGame == false)
+        {
+            MediaPlayer.Play(bgm);
         }
 
         //_camera.Position = Vector2.Lerp(

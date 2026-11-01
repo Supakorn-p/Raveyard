@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended;
 using MonoGame.Extended.Collections;
 using MonoGame.Extended.Graphics;
@@ -10,9 +11,11 @@ using MonoGame.Extended.Tweening;
 using Raveyard._scripts.MenuUI;
 using Raveyard._scripts.MenuUI.ButtonTypes;
 using System.Diagnostics;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System;
 
 namespace Raveyard;
 
@@ -28,6 +31,13 @@ public class menuLvlSelect : ContextMenu
     private Vector2 casetteOffsetPos = new Vector2(100, 0);
 
     SwitchMenu centerButton;
+    public bool inGame = false;
+
+    DecorativeButton leftButton;
+    DecorativeButton rightButton;
+    DecorativeButton playButton;
+
+    List<DecorativeButton> decorButtons = new List<DecorativeButton> { };
 
     private void LoadLevels(ContentManager Content)
     {
@@ -117,6 +127,9 @@ public class menuLvlSelect : ContextMenu
     {
         if (selector >= LEVELS.List.Count()) { return; }
 
+        MediaPlayer.Stop();
+        inGame = true;
+
         LEVELS_metadata selectedLevel = LEVELS.List[selector];
 
         // return if the level's .wav file doesn't exist in _charts
@@ -162,6 +175,40 @@ public class menuLvlSelect : ContextMenu
 
         centerButton.buttonLabel.position = new Vector2(centerButton.position.X, centerButton.position.Y + 100);
         centerButton.buttonLabel.SetText("BACK");
+
+
+        leftButton = new DecorativeButton(true, new Vector2(0.35f, 0.35f));
+        rightButton = new DecorativeButton(true, new Vector2(0.35f, 0.35f));
+        playButton = new DecorativeButton(true, new Vector2(0.35f, 0.35f));
+
+        leftButton.position = new Vector2(cameraPosition.X - 500, cameraPosition.Y + 300);
+        rightButton.position = new Vector2(cameraPosition.X - 300, cameraPosition.Y + 300);
+        playButton.position = new Vector2(cameraPosition.X, cameraPosition.Y + 300);
+
+
+        decorButtons.Add(rightButton);
+        decorButtons.Add(leftButton);
+        decorButtons.Add(playButton);
+        
+        int i = 0;
+        foreach (DecorativeButton button in decorButtons)
+        {
+            button.buttonSprite = new SpriteObject("testbutton",
+           Content.Load<Texture2D>("menu_buttons_sprsheet"), new Vector2(600, 600),
+           button.position, i);
+
+            button.buttonSprite.layer = 5;
+            button.buttonSprite.active = true;
+
+            button.ButtonInit(Content);
+
+            button.buttonLabel.scale = new Vector2(0.35f, 0.35f);
+
+            if (i == 0) { button.buttonLabel.SetText("SELECT"); button.buttonLabel.position = new Vector2(button.position.X - 100, button.position.Y); }
+            if (i == 2) { button.buttonLabel.SetText("PLAY"); button.buttonLabel.position = new Vector2(button.position.X, button.position.Y - 40); }
+
+            i++;
+        }
     }
 
     public override void FocusedUpdate(GameTime gameTime)
@@ -173,8 +220,8 @@ public class menuLvlSelect : ContextMenu
     {
         if (key == SETTINGS.keybind_back) { centerButton.ButtonPressed("snd_hover_menu_button"); GameplaySoundLibrary.PlaySound("snd_menu_woosh"); }
 
-        if (key == Keys.Left) { SelectTape(selector - 1); }
-        if (key == Keys.Right) { SelectTape(selector + 1); }
+        if (key == Keys.Left) { SelectTape(selector - 1); leftButton.ButtonPressed("snd_hover_menu_button"); }
+        if (key == Keys.Right) { SelectTape(selector + 1); rightButton.ButtonPressed("snd_hover_menu_button"); }
 
         if (key == Keys.Space) { PlayLevel(); }
     }

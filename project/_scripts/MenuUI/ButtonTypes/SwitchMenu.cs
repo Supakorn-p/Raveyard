@@ -29,10 +29,10 @@ namespace Raveyard._scripts.MenuUI.ButtonTypes
 
             buttonSprite.tweener.TweenTo(target: buttonSprite, player => player.scale,
                    toValue: scale * 0.5f, duration: 0.1f)
-                   .Easing(EasingFunctions.CubicOut)
+                   .Easing(EasingFunctions.CubicIn)
                    .OnEnd(tweener => buttonSprite.tweener.TweenTo(target: buttonSprite, player => player.scale,
                    toValue: scale, duration: 0.2f)
-                   .Easing(EasingFunctions.CubicInOut));
+                   .Easing(EasingFunctions.CubicOut));
 
             parentMenu.Exit();
             GameplaySoundLibrary.PlaySound(_sfx);
