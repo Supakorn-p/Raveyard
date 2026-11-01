@@ -24,14 +24,14 @@ namespace Raveyard._scripts.MenuUI.Decorations
         float flashCooldown = 1;
         int i;
 
-        public void InitCred(ContentManager Content, string _spriteName, Color _textColor, string _roles = "")
+        public void InitCred(ContentManager Content, string _spriteName, Color _textColor, Vector2 _position, string _roles = "")
         {
             SpriteFont font = Content.Load<SpriteFont>("anton_sc");
             roles = new TextObject(font, new StringBuilder(_roles));
 
             creditSprite = new SpriteObject("cred",
             Content.Load<Texture2D>(_spriteName), new Vector2(660, 322),
-            new Vector2(0, 0));
+            _position);
 
             designatedColor = _textColor;
             roles.color = _textColor;

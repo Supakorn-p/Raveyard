@@ -177,8 +177,8 @@ public class menuLvlSelect : ContextMenu
         centerButton.buttonLabel.SetText("BACK");
 
 
-        leftButton = new DecorativeButton(true, new Vector2(0.35f, 0.35f));
-        rightButton = new DecorativeButton(true, new Vector2(0.35f, 0.35f));
+        leftButton = new DecorativeButton(true, new Vector2(0.25f, 0.25f));
+        rightButton = new DecorativeButton(true, new Vector2(0.25f, 0.25f));
         playButton = new DecorativeButton(true, new Vector2(0.35f, 0.35f));
 
         leftButton.position = new Vector2(cameraPosition.X - 500, cameraPosition.Y + 300);
@@ -205,7 +205,7 @@ public class menuLvlSelect : ContextMenu
             button.buttonLabel.scale = new Vector2(0.35f, 0.35f);
 
             if (i == 0) { button.buttonLabel.SetText("SELECT"); button.buttonLabel.position = new Vector2(button.position.X - 100, button.position.Y); }
-            if (i == 2) { button.buttonLabel.SetText("PLAY"); button.buttonLabel.position = new Vector2(button.position.X, button.position.Y - 40); }
+            if (i == 2) { button.buttonLabel.SetText("PLAY"); button.buttonLabel.position = new Vector2(button.position.X + 125, button.position.Y); }
 
             i++;
         }
