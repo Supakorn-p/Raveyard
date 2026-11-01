@@ -105,6 +105,6 @@ namespace Raveyard._scripts.MenuUI
 
         }
 
-        public virtual void ButtonPressed() { }
+        public virtual void ButtonPressed(string _sfx = "snd_click_menu_button") { }
     }
 }

@@ -53,6 +53,8 @@ public class menuCenter : ContextMenu
         new Vector2(0, 0));
         titleText.active = true;
 
+        new GameplaySoundLibrary(Content).LoadSound("snd_menu_woosh");
+
         buttonLeft = new SwitchMenu(true, new Vector2(0.5f, 0.5f));
         buttonRight = new SwitchMenu(true, new Vector2(0.5f, 0.5f));
         buttonDown = new SwitchMenu(true, new Vector2(0.5f, 0.5f));
@@ -114,19 +116,28 @@ public class menuCenter : ContextMenu
     public override void OnInputPressed(Keys key)
     {
         if (key == Keys.Right) 
-        { 
-            switchOnExit = rightMenu;
-            Exit(); 
+        {
+            GameplaySoundLibrary.PlaySound("snd_menu_woosh");
+            buttonRight.ButtonPressed();
+            //switchOnExit = rightMenu;
+            //GameplaySoundLibrary.PlaySound("snd_click_menu_button");
+            //Exit(); 
         }
         if (key == Keys.Left) 
-        { 
-            switchOnExit = leftMenu;
-            Exit(); 
+        {
+            GameplaySoundLibrary.PlaySound("snd_menu_woosh");
+            buttonLeft.ButtonPressed();
+            //switchOnExit = leftMenu;
+            //GameplaySoundLibrary.PlaySound("snd_click_menu_button");
+            // Exit(); 
         }
         if (key == Keys.Space) 
-        { 
-            switchOnExit = downMenu;
-            Exit(); 
+        {
+            GameplaySoundLibrary.PlaySound("snd_menu_woosh");
+            buttonDown.ButtonPressed();
+            //switchOnExit = downMenu;
+            //GameplaySoundLibrary.PlaySound("snd_click_menu_button");
+            //Exit(); 
         }
     }
 }

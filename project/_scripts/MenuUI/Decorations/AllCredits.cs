@@ -62,7 +62,7 @@ namespace Raveyard._scripts.MenuUI.Decorations
                 {2, ["karn_ credits", "Lead Artist, Art Director"] },
                 {3, ["opec_credits", "Charting, Level Designer"] },
                 {4, ["p_credits", "QA Tester"] },
-                {5, ["sebas_credits", "Programmer, Director, Additional Sounds"] }
+                {5, ["sebas_credits", "Director, Designer, Programmer, Additional Sounds"] }
             };
 
             Dictionary<int, Color> textColors = new Dictionary<int, Color>()

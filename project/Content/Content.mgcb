@@ -129,6 +129,12 @@
 /processorParam:Quality=Best
 /build:../_sounds/snd_input_shakeright.wav;snd_input_shakeright.wav
 
+#begin ../_sounds/snd_menu_woosh.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/snd_menu_woosh.wav;snd_menu_woosh.wav
+
 #begin ../_sounds/snd_result_cashregister.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

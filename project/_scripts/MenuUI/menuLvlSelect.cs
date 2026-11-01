@@ -7,6 +7,8 @@ using MonoGame.Extended.Collections;
 using MonoGame.Extended.Graphics;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Tweening;
+using Raveyard._scripts.MenuUI;
+using Raveyard._scripts.MenuUI.ButtonTypes;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -24,6 +26,8 @@ public class menuLvlSelect : ContextMenu
 
     private Vector2 casetteStartPos = new Vector2(-500, 65);
     private Vector2 casetteOffsetPos = new Vector2(100, 0);
+
+    SwitchMenu centerButton;
 
     private void LoadLevels(ContentManager Content)
     {
@@ -135,7 +139,29 @@ public class menuLvlSelect : ContextMenu
 
         new GameplaySoundLibrary(Content).LoadSound(casetteSelectSnd);
 
+        InitButton(Content);
         LoadLevels(Content);
+    }
+
+    private void InitButton(ContentManager Content)
+    {
+        centerButton = new SwitchMenu(true, new Vector2(0.5f, 0.5f));
+        centerButton.parentMenu = this;
+        centerButton.position = new Vector2(cameraPosition.X, cameraPosition.Y - 275);
+        centerButton.buttonBounds = new MonoGame.Extended.RectangleF(cameraPosition.X + 500, cameraPosition.Y + 300,
+        500 * centerButton.scale.X, 500 * centerButton.scale.Y);
+
+        centerButton.buttonSprite = new SpriteObject("testbutton",
+           Content.Load<Texture2D>("menu_buttons_sprsheet"), new Vector2(600, 600),
+           centerButton.position, 3);
+
+        centerButton.buttonSprite.active = true;
+        centerButton.buttonSprite.layer = 5;
+
+        centerButton.ButtonInit(Content);
+
+        centerButton.buttonLabel.position = new Vector2(centerButton.position.X, centerButton.position.Y + 100);
+        centerButton.buttonLabel.SetText("BACK");
     }
 
     public override void FocusedUpdate(GameTime gameTime)
@@ -145,7 +171,7 @@ public class menuLvlSelect : ContextMenu
 
     public override void OnInputPressed(Keys key)
     {
-        if (key == SETTINGS.keybind_back) { Exit(); }
+        if (key == SETTINGS.keybind_back) { centerButton.ButtonPressed("snd_hover_menu_button"); GameplaySoundLibrary.PlaySound("snd_menu_woosh"); }
 
         if (key == Keys.Left) { SelectTape(selector - 1); }
         if (key == Keys.Right) { SelectTape(selector + 1); }

@@ -20,15 +20,22 @@ namespace Raveyard._scripts.MenuUI.ButtonTypes
             isActive = _isActive;
             scale = _scale;
         }
-        public override void ButtonPressed()
+        public override void ButtonPressed(string _sfx = "snd_click_menu_button")
         {
             if (menuToSwitch != null)
             {
                 parentMenu.switchOnExit = menuToSwitch;
             }
 
+            buttonSprite.tweener.TweenTo(target: buttonSprite, player => player.scale,
+                   toValue: scale * 0.5f, duration: 0.1f)
+                   .Easing(EasingFunctions.CubicOut)
+                   .OnEnd(tweener => buttonSprite.tweener.TweenTo(target: buttonSprite, player => player.scale,
+                   toValue: scale, duration: 0.2f)
+                   .Easing(EasingFunctions.CubicInOut));
+
             parentMenu.Exit();
-            GameplaySoundLibrary.PlaySound(click);
+            GameplaySoundLibrary.PlaySound(_sfx);
         }
     }
 }

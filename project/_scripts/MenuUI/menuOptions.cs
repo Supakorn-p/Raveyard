@@ -44,7 +44,7 @@ public class menuOptions : ContextMenu
 
         centerButton.buttonSprite = new SpriteObject("testbutton",
            Content.Load<Texture2D>("menu_buttons_sprsheet"), new Vector2(600, 600),
-           centerButton.position, 1);
+           centerButton.position, 3);
 
         centerButton.buttonSprite.active = true;
         centerButton.buttonSprite.layer = 5;
@@ -61,6 +61,6 @@ public class menuOptions : ContextMenu
 
     public override void OnInputPressed(Keys key)
     {
-        if (key == SETTINGS.keybind_back) { Exit(); }
+        if (key == SETTINGS.keybind_back) { centerButton.ButtonPressed("snd_hover_menu_button"); GameplaySoundLibrary.PlaySound("snd_menu_woosh"); }
     }
 }
