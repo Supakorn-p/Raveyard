@@ -23,7 +23,7 @@ public class GameplaySoundLibrary
     public static void PlaySound(string asset_name, float volume = 1.0f, float pan = 0.0f, float pitch = 0.0f)
     {
         if (!sfxs.ContainsKey(asset_name)) { throw new System.Exception($"[SNDLIB] {asset_name} isn't loaded!"); }
-        sfxs[asset_name].Play(volume, pitch, pan);
+        sfxs[asset_name].Play(volume * (SETTINGS.AUDIO_SFX_MULT / 100f), pitch, pan);
     }
 
     public void UnloadAll()
