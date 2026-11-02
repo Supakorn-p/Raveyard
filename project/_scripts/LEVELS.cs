@@ -84,7 +84,7 @@ public static class LEVELS
 
         new LEVELS_metadata() {
             fileName = "main",
-            displayName = "-----",
+            displayName = "Dracula's Night Rave",
         },
 
         // new LEVELS_metadata() {
@@ -92,10 +92,10 @@ public static class LEVELS
         //     displayName = "Pikuniku OST",
         // },
 
-        new LEVELS_metadata() {
-            fileName = "prototype",
-            displayName = "test",
-        },
+        // new LEVELS_metadata() {
+        //     fileName = "prototype",
+        //     displayName = "test",
+        // },
 
     ];
 
