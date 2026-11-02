@@ -7,9 +7,10 @@ using MonoGame.Extended.Graphics;
 using MonoGame.Extended.Input;
 using MonoGame.Extended.Tweening;
 using Raveyard._scripts.Visuals;
+using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Text;
-using System.Collections.Generic;
 
 namespace Raveyard._scripts.MenuUI.Decorations
 {
@@ -22,6 +23,8 @@ namespace Raveyard._scripts.MenuUI.Decorations
         public Credit cred_o;
         public Credit cred_sebas;
         public Credit cred_vunique;
+
+        TextObject addCreds;
 
         public static string flash_sound = "snd_credits_flash";
 
@@ -46,6 +49,15 @@ namespace Raveyard._scripts.MenuUI.Decorations
         int i = 0;
         public void InitAllCreds(ContentManager Content)
         {
+
+            SpriteFont font = Content.Load<SpriteFont>("anton_sc");
+            addCreds = new TextObject(font, new StringBuilder("Additional Credits: Johnny 123 (Vocals), Pizza Tower (Menu Soundtrack)"));
+
+            addCreds.position = new Vector2(parentMenu.cameraPosition.X - 75, parentMenu.cameraPosition.Y + 325);
+            addCreds.layer = 5;
+            addCreds.scale = new Vector2(0.3f, 0.3f);
+            addCreds.color = Color.Gray;
+            addCreds.active = true;
 
             all_creds.Add(cred);
             all_creds.Add(cred_tokyo);

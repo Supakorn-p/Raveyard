@@ -141,6 +141,72 @@
 /processorParam:Quality=Best
 /build:../_sounds/snd_result_cashregister.wav;snd_result_cashregister.wav
 
+#begin ../_sounds/voice_skel_approve_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/voice_skel_approve_1.wav;voice_skel_approve_1.wav
+
+#begin ../_sounds/voice_skel_approve_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/voice_skel_approve_2.wav;voice_skel_approve_2.wav
+
+#begin ../_sounds/voice_skel_neg_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/voice_skel_neg_1.wav;voice_skel_neg_1.wav
+
+#begin ../_sounds/voice_skel_neg_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/voice_skel_neg_2.wav;voice_skel_neg_2.wav
+
+#begin ../_sounds/voice_twin_approve_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/voice_twin_approve_1.wav;voice_twin_approve_1.wav
+
+#begin ../_sounds/voice_twin_approve_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/voice_twin_approve_2.wav;voice_twin_approve_2.wav
+
+#begin ../_sounds/voice_twin_neg.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/voice_twin_neg.wav;voice_twin_neg.wav
+
+#begin ../_sounds/voice_vamp_approve_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/voice_vamp_approve_1.wav;voice_vamp_approve_1.wav
+
+#begin ../_sounds/voice_vamp_approve_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/voice_vamp_approve_2.wav;voice_vamp_approve_2.wav
+
+#begin ../_sounds/voice_vamp_neg_1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/voice_vamp_neg_1.wav;voice_vamp_neg_1.wav
+
+#begin ../_sounds/voice_vamp_neg_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/voice_vamp_neg_2.wav;voice_vamp_neg_2.wav
+
 #begin ../_textures/_greenValueIsAlpha.fx
 /importer:EffectImporter
 /processor:EffectProcessor
