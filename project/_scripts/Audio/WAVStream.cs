@@ -74,6 +74,7 @@ public class WAVStream: IDisposable
         audio_channels = channels;
 
         wavfileStream.Close();
+        soundEffectInstance.Volume = SETTINGS.AUDIO_MUSIC_MULT / 100f;
     }
 
     public void PlayMusic()
