@@ -141,6 +141,12 @@
 /processorParam:Quality=Best
 /build:../_sounds/snd_result_cashregister.wav;snd_result_cashregister.wav
 
+#begin ../_sounds/snd_result_spill.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/snd_result_spill.wav;snd_result_spill.wav
+
 #begin ../_sounds/voice_skel_approve_1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

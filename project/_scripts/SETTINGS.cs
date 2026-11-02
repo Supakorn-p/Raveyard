@@ -10,5 +10,10 @@ public static class SETTINGS
     // so to prevent it from sounding off, it assumes you did it perfectly
     public static bool AUDIO_FEEDBACK_PURE_MODE = true; 
     public static int AUDIO_JUDGEMENT_OFFSET_MS = 0; // only works if above option is false
-}
 
+    public static float AUDIO_MUSIC_MULT = 1.0f;
+    public static float AUDIO_SFX_MULT = 1.0f;
+
+    public static bool GRAPHICS_VSYNC = false;
+    public static bool GRAPHICS_FULLSCREEN = false;
+}

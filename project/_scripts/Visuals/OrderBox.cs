@@ -131,14 +131,14 @@ namespace Raveyard._scripts.Visuals
 
         public void EndOrder()
         {
-            order_box.tweener.CancelAll();
+            //order_box.tweener.CancelAll();
             order_box.tweener.TweenTo(target: order_box, expression: player => player.position, toValue: end_pos, duration: 1)
             .Easing(EasingFunctions.CubicInOut)
             .OnEnd(tween => DestroyBox());
 
             if (twinheadOrder_box != null)
             {
-                twinheadOrder_box.tweener.CancelAll();
+                //twinheadOrder_box.tweener.CancelAll();
                 twinheadOrder_box.tweener.TweenTo(target: twinheadOrder_box, expression: player => player.position, toValue: end_pos + twinheadBox_pos_offset, duration: 1)
                 .Easing(EasingFunctions.CubicInOut)
                 .OnEnd(tween => twinheadOrder_box.Free());
@@ -146,7 +146,9 @@ namespace Raveyard._scripts.Visuals
 
 
             inputsExhausted?.Invoke(isPerfect);
-            if (isPerfect) {GameplaySoundLibrary.PlaySound("snd_result_cashregister");}
+            GameplaySoundLibrary.PlaySound(
+                isPerfect ? "snd_result_cashregister" : "snd_result_spill"
+            );
         }
 
         public void DestroyBox()
@@ -163,6 +165,12 @@ namespace Raveyard._scripts.Visuals
             //removedKeySprite.instruction_key.scale *= new Vector2(0.75f, 0.75f);
 
             if (result == JudgementResult.miss) { isPerfect = false; }
+            if (result != JudgementResult.perfect)
+            {
+                SpriteObject _order_box = twinheadMode ? twinheadOrder_box: order_box;
+                _order_box.tweener.TweenTo(target: _order_box, expression: player => player.rotation, toValue: 2f, duration: 0.05f)
+                .Easing(EasingFunctions.QuadraticOut).AutoReverse();
+            }
 
             if (instructionsQueue.Count == 0)
             {

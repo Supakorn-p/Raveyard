@@ -1,5 +1,6 @@
  using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
@@ -23,9 +24,11 @@ public class Customer
     private DrinkWanted drinkWanted = new DrinkWanted(); 
 
     private bool altDrink = false;
+    private CustomerVariantData customerVariant;
 
-    public Customer(Texture2D _texture2D, CustomerVariantData customerVariant)
+    public Customer(Texture2D _texture2D, CustomerVariantData _customerVariant)
     {
+        customerVariant = _customerVariant;
         spriteObj = new SpriteObject("customer", _texture2D, customerVariant.texture_region, startPos);
         spriteObj.anchor = new Vector2(0.5f, 1f);
         spriteObj.layer = 1;
@@ -66,12 +69,14 @@ public class Customer
     private bool isPerfect = true;
     public void ProcessOrder(JudgementResult result)
     {
+        // wacky way to make sure EndOrder knows if the overall result isn't perfect
+        if (result == JudgementResult.miss) { isPerfect = false; }
+
         bool isEmpty = orderbox.RemoveInstruction(result);
         if (isEmpty) { EndOrder(); }
 
         if (result == JudgementResult.miss)
         {
-            isPerfect = false;
             spriteObj.animatedSprite.SetAnimation("cus_fail");
             drinkWanted.MessUp();
             return;
@@ -81,6 +86,15 @@ public class Customer
 
     private bool twinHeadMode = false;
     public void TwinheadifyOrder() { orderbox.TwinHeadMode(); twinHeadMode = true; }
+
+    private void PlaySoundFromArray(string[] sfx_array)
+    {
+        if (sfx_array.Count() <= 0) { return; }
+        string chosenSound = sfx_array[Random.Shared.Next() % sfx_array.Count()];
+
+        float pitchVar = (Random.Shared.Next() % 10 - 5) / 5f;
+        GameplaySoundLibrary.PlaySound(chosenSound, 0.6f, -0.25f, pitchVar * 0.1f);
+    }
 
     private void EndOrder()
     {
@@ -96,6 +110,7 @@ public class Customer
         {
             spriteObj.animatedSprite.SetAnimation(altDrink ? "cus_satisfied_alt" : "cus_satisfied");
         }
+        PlaySoundFromArray(isPerfect ? customerVariant.perfect_sfx : customerVariant.miss_sfx);
     }
 
     private void Free()

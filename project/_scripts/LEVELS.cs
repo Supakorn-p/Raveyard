@@ -29,6 +29,9 @@ public struct LEVELS_skinparams
                 frames_satisfied = [2],
                 frames_satisfied_alt = [3],
                 frames_fail = [4, 5],
+
+                perfect_sfx = ["voice_skel_approve_1", "voice_skel_approve_2"],
+                miss_sfx = ["voice_skel_neg_1", "voice_skel_neg_2"],
             },
 
             // drac
@@ -40,6 +43,9 @@ public struct LEVELS_skinparams
                 frames_satisfied = [2],
                 frames_satisfied_alt = [3],
                 frames_fail = [4, 5],
+
+                perfect_sfx = ["voice_vamp_approve_1", "voice_vamp_approve_2"],
+                miss_sfx = ["voice_vamp_neg_1", "voice_vamp_neg_2"],
             },
 
             // twin
@@ -51,6 +57,9 @@ public struct LEVELS_skinparams
                 frames_satisfied = [4],
                 frames_satisfied_alt = [5],
                 frames_fail = [6, 7],
+
+                perfect_sfx = ["voice_twin_approve_1", "voice_twin_approve_2"],
+                miss_sfx = ["voice_twin_neg"],
             },
         ];
     }
@@ -78,10 +87,10 @@ public static class LEVELS
             displayName = "-----",
         },
 
-        new LEVELS_metadata() {
-            fileName = "peakuniku",
-            displayName = "Pikuniku OST",
-        },
+        // new LEVELS_metadata() {
+        //     fileName = "peakuniku",
+        //     displayName = "Pikuniku OST",
+        // },
 
         new LEVELS_metadata() {
             fileName = "prototype",

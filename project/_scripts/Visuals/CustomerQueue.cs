@@ -16,6 +16,9 @@ public struct CustomerVariantData
     public int[] frames_satisfied_alt = [0];
     public int[] frames_fail = [0];
 
+    public string[] perfect_sfx = [];
+    public string[] miss_sfx = [];
+
     public CustomerVariantData() {}
 }
 

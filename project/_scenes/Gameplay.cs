@@ -252,6 +252,13 @@ public class scGameplay : GameScreen
         sfxlib.LoadSound("snd_cue_end");
         
         sfxlib.LoadSound("snd_result_cashregister");
+        sfxlib.LoadSound("snd_result_spill");
+
+        foreach (CustomerVariantData customerVariantData in levelParameters.customerVariants)
+        {
+            foreach (string sfx_name in customerVariantData.miss_sfx) { sfxlib.LoadSound(sfx_name); }
+            foreach (string sfx_name in customerVariantData.perfect_sfx) { sfxlib.LoadSound(sfx_name); }
+        }
 
         spotlightEffect = new SpriteObject("distraction_spotlight", 
         Content.Load<Texture2D>("distraction_spotlight"), new Vector2(640, 360), Vector2.Zero);
