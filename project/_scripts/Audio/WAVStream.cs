@@ -55,6 +55,8 @@ public class WAVStream: IDisposable
         int fmtBlockAlign = reader.ReadInt16();
         int bitDepth = reader.ReadInt16();
 
+        channels = 2;
+
         if (fmtSize == 18)
         {
             int fmtExtraSize = reader.ReadInt16();
@@ -70,6 +72,8 @@ public class WAVStream: IDisposable
 
         soundEffectInstance.BufferNeeded += new EventHandler<EventArgs>(bufferNeeded);
         audio_channels = channels;
+
+        wavfileStream.Close();
     }
 
     public void PlayMusic()
