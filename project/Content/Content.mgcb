@@ -141,6 +141,12 @@
 /processorParam:Quality=Best
 /build:../_sounds/snd_result_cashregister.wav;snd_result_cashregister.wav
 
+#begin ../_sounds/snd_result_menu.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:../_sounds/snd_result_menu.wav;snd_result_menu.wav
+
 #begin ../_sounds/snd_result_spill.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -494,6 +500,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:../_textures/ui_ninepatch_autumn.png;ui_ninepatch_autumn.png
+
+#begin ../_textures/ui_ninepatch_dark.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:../_textures/ui_ninepatch_dark.png;ui_ninepatch_dark.png
 
 #begin ../../assets/bartender_eyes_sprsheet.png
 /importer:TextureImporter

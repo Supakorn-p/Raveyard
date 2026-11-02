@@ -211,3 +211,7 @@ right:251
 left:251.5
 end_order:252
 spotlight:252|TYPE|1
+
+spotlight:259|FADE|0|0
+spotlight:259|TYPE|3
+display_score:259

@@ -6,6 +6,7 @@ using MonoGame.Extended.Collections;
 using MonoGame.Extended.Graphics;
 using MonoGame.Extended.Input;
 using MonoGame.Extended.Screens;
+using MonoGame.Extended.Screens.Transitions;
 using MonoGame.Extended.ViewportAdapters;
 using Raveyard._scripts.Characters;
 using Raveyard._scripts.Visuals;
@@ -254,6 +255,8 @@ public class scGameplay : GameScreen
         sfxlib.LoadSound("snd_result_cashregister");
         sfxlib.LoadSound("snd_result_spill");
 
+        sfxlib.LoadSound("snd_result_menu");
+
         foreach (CustomerVariantData customerVariantData in levelParameters.customerVariants)
         {
             foreach (string sfx_name in customerVariantData.miss_sfx) { sfxlib.LoadSound(sfx_name); }
@@ -326,7 +329,8 @@ public class scGameplay : GameScreen
         // bleh
         if (KeyboardExtended.GetState().WasKeyPressed(SETTINGS.keybind_back))
         {
-            ScreenManager.ReplaceScreen(new scMenu(Game));
+            FadeTransition fadeTransition = new FadeTransition(GraphicsDevice, Color.Black, 0.25f);
+            ScreenManager.ReplaceScreen(new scMenu(Game), fadeTransition);
         }
     }
     public override void Draw(GameTime gameTime)

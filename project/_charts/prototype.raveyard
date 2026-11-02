@@ -19,6 +19,8 @@ left:6
 right:6.5
 end_order:7
 
+display_score:11
+
 set_customer:15|1
 start_order:15
 press:16

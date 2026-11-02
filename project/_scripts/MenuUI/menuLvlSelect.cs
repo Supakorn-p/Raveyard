@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System;
+using MonoGame.Extended.Screens.Transitions;
 
 namespace Raveyard;
 
@@ -136,7 +137,8 @@ public class menuLvlSelect : ContextMenu
         string audioPath = Path.ChangeExtension(LEVELS.GetLevelPathByName(selectedLevel.fileName), "wav");
         if (!Path.Exists(audioPath)) { return; }
 
-        _screenManager.ReplaceScreen(new scGameplay(_game, selectedLevel.fileName, selectedLevel.levelParameters));
+        FadeTransition fadeTransition = new FadeTransition(_game.GraphicsDevice, Color.Black, 1f);
+        _screenManager.ReplaceScreen(new scGameplay(_game, selectedLevel.fileName, selectedLevel.levelParameters), fadeTransition);
     }
 
     SpriteObject susie;

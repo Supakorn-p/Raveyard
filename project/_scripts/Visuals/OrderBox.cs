@@ -117,7 +117,7 @@ namespace Raveyard._scripts.Visuals
             InstructionKey instruction = new InstructionKey();
             instruction.instruction_key = new SpriteObject("instruction", instructionsTexture,
             new Vector2(913, 537), Vector2.Zero, inputTypeToSprFrame[input]);
-            instruction.instruction_key.layer = order_box.layer + 1;
+            instruction.instruction_key.layer = _order_box.layer + 1;
             if (twinheadMode) { instruction.instruction_key.layer += 1; }
 
             instruction.InitializeKey(instructionsQueue.Count);
