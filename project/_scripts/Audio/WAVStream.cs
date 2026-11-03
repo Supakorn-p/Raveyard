@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using Microsoft.Xna.Framework.Audio;
+using NAudio.Wave;
 
 namespace Raveyard;
 
@@ -40,40 +41,19 @@ public class WAVStream: IDisposable
 
     public void loadFile(string filePath)
     {
-        Stream wavfileStream = File.OpenRead(filePath);
-        BinaryReader reader = new BinaryReader(wavfileStream);
+        using WaveFileReader reader = new WaveFileReader(filePath);
+        WaveFormat wavInfo = reader.WaveFormat;
 
-        int chunkID = reader.ReadInt32();
-        int fileSize = reader.ReadInt32();
-        int riffType = reader.ReadInt32();
-        int fmtID = reader.ReadInt32();
-        int fmtSize = reader.ReadInt32();
-        int fmtCode = reader.ReadInt16();
-        int channels = reader.ReadInt16();
-        int sampleRate = reader.ReadInt32();
-        int fmtAvgBPS = reader.ReadInt32();
-        int fmtBlockAlign = reader.ReadInt16();
-        int bitDepth = reader.ReadInt16();
+        soundEffectInstance = new DynamicSoundEffectInstance(wavInfo.SampleRate, (AudioChannels)wavInfo.Channels);
+        bufferCount = soundEffectInstance.GetSampleSizeInBytes(TimeSpan.FromMilliseconds(bufferSizeMs)) * wavInfo.Channels;
 
-        channels = 2;
-
-        if (fmtSize == 18)
-        {
-            int fmtExtraSize = reader.ReadInt16();
-            reader.ReadBytes(fmtExtraSize);
-        }
-
-        int dataID = reader.ReadInt32();
-        int dataSize = reader.ReadInt32();
-
-        soundEffectInstance = new DynamicSoundEffectInstance(sampleRate, (AudioChannels)channels);
-        bufferCount = soundEffectInstance.GetSampleSizeInBytes(TimeSpan.FromMilliseconds(bufferSizeMs)) * channels;
-        byteArray = reader.ReadBytes(dataSize);
+        MemoryStream memoryStream = new MemoryStream();
+        reader.CopyTo(memoryStream);
+        byteArray = memoryStream.ToArray();
 
         soundEffectInstance.BufferNeeded += new EventHandler<EventArgs>(bufferNeeded);
-        audio_channels = channels;
+        audio_channels = wavInfo.Channels;
 
-        wavfileStream.Close();
         soundEffectInstance.Volume = SETTINGS.AUDIO_MUSIC_MULT / 100f;
     }
 
