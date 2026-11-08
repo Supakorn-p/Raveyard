@@ -44,9 +44,9 @@ public class menuCenter : ContextMenu
     {
         base.Init(Content);
 
-        bgm = Content.Load<Song>("main_menu_temp");
+        bgm = Content.Load<Song>("main_menu");
         MediaPlayer.Play(bgm);
-        MediaPlayer.Volume = SETTINGS.AUDIO_MUSIC_MULT / 100f;
+        MediaPlayer.Volume = SETTINGS.AUDIO_MUSIC_MULT / 100f * 0.5f;
 
         cameraPosition = new Vector2(0, 0);
 

@@ -26,7 +26,7 @@ public class menuOptions : ContextMenu
         ["AUDIO_MUSIC"] = (int direction) =>
         {
             SETTINGS.AUDIO_MUSIC_MULT = Math.Clamp(SETTINGS.AUDIO_MUSIC_MULT + 10 * direction, 0, 100);
-            MediaPlayer.Volume = SETTINGS.AUDIO_MUSIC_MULT / 100f;
+            MediaPlayer.Volume = SETTINGS.AUDIO_MUSIC_MULT / 100f * 0.5f;
         },
         ["AUDIO_SFX"] = (int direction) =>
         {

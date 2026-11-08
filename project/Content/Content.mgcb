@@ -45,11 +45,11 @@
 /processorParam:Quality=Best
 /build:../_sounds/inputsuccess.wav;inputsuccess.wav
 
-#begin ../_sounds/main_menu_temp.mp3
-/importer:Mp3Importer
+#begin ../_sounds/main_menu.ogg
+/importer:OggImporter
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:../_sounds/main_menu_temp.mp3;main_menu_temp.mp3
+/build:../_sounds/main_menu.ogg;main_menu.ogg
 
 #begin ../_sounds/snd_cassette_select.wav
 /importer:WavImporter

@@ -12,7 +12,7 @@ public static class SETTINGS
     public static bool AUDIO_FEEDBACK_PURE_MODE = true; 
     public static int AUDIO_JUDGEMENT_OFFSET_MS = 0; // only works if above option is false
 
-    public static int AUDIO_MUSIC_MULT = 100;
+    public static int AUDIO_MUSIC_MULT = 70;
     public static int AUDIO_SFX_MULT = 100;
 
     public static bool GRAPHICS_VSYNC = false;
