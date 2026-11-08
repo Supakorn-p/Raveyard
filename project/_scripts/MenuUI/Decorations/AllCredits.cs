@@ -51,7 +51,7 @@ namespace Raveyard._scripts.MenuUI.Decorations
         {
 
             SpriteFont font = Content.Load<SpriteFont>("anton_sc");
-            addCreds = new TextObject(font, new StringBuilder("Additional Credits: Johnny 123 (Vocals), Pizza Tower (Menu Soundtrack)"));
+            addCreds = new TextObject(font, new StringBuilder("Additional Credits: Johnny 123 (Vocals)"));
 
             addCreds.position = new Vector2(parentMenu.cameraPosition.X - 75, parentMenu.cameraPosition.Y + 325);
             addCreds.layer = 5;
